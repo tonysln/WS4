@@ -1,5 +1,5 @@
 CC=g++
-CFLAGS=-c -Wall -std=c++11 
+CFLAGS=-c -Wall -std=c++17 
 LDFLAGS=
 LIBFLAGS=-lsfml-graphics -lsfml-window -lsfml-system
 SOURCES=WS4.cpp
@@ -18,10 +18,3 @@ $(EXECUTABLE): $(OBJECTS)
 
 clean:
 	rm *.o $(EXECUTABLE)
-
-# install:
-# 	#install -s $(EXECUTABLE) $(BINDIR)
-# 	sudo cp -u $(EXECUTABLE) $(BINDIR)
-
-# uninstall:
-# 	sudo rm $(BINDIR)/$(EXECUTABLE)
