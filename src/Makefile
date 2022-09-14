@@ -1,7 +1,7 @@
 CC=g++
 CFLAGS=-c -Wall -std=c++17 
 LDFLAGS=
-LIBFLAGS=-lsfml-graphics -lsfml-window -lsfml-system
+LIBFLAGS=-L /usr/local/lib -lsfml-graphics -lsfml-window -lsfml-system
 SOURCES=WS4.cpp
 OBJECTS=$(SOURCES:.cpp=.o)
 EXECUTABLE=WS4
