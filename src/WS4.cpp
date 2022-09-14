@@ -2,21 +2,36 @@
 #include <vector>
 #include <array>
 
-
-
-std::array<sf::Vertex, 4> buildQuad(int x, int y, int w, int h, sf::Color col1, sf::Color col2)
+namespace ws4 
 {
-    std::array<sf::Vertex, 4> quad = 
+    std::array<sf::Vertex, 4> buildQuad(int x, int y, int w, int h, sf::Color col1, sf::Color col2)
     {
-        sf::Vertex(sf::Vector2f(x+w, y), col1),
-        sf::Vertex(sf::Vector2f(x, y), col1),
-        sf::Vertex(sf::Vector2f(x+w, y+h), col2),
-        sf::Vertex(sf::Vector2f(x, y+h), col2)
-    };
-    return quad;
+        std::array<sf::Vertex, 4> quad = 
+        {
+            sf::Vertex(sf::Vector2f(x+w, y), col1),
+            sf::Vertex(sf::Vector2f(x, y), col1),
+            sf::Vertex(sf::Vector2f(x+w, y+h), col2),
+            sf::Vertex(sf::Vector2f(x, y+h), col2)
+        };
+        return quad;
+    }
+
+    std::array<sf::Vertex, 4> buildQuad(int x1, int y1, int x2, int y2, 
+                                            int x3, int y3, int x4, int y4, sf::Color col)
+    {
+        std::array<sf::Vertex, 4> quad = 
+        {
+            sf::Vertex(sf::Vector2f(x4, y4), col),
+            sf::Vertex(sf::Vector2f(x1, y1), col),
+            sf::Vertex(sf::Vector2f(x3, y3), col),
+            sf::Vertex(sf::Vector2f(x2, y2), col)
+        };
+        return quad;
+    }
 }
 
 
+using namespace ws4;
 
 int main()
 {
@@ -26,14 +41,15 @@ int main()
     const char  TITLE[] = "WS4 v22.9.14";
     const short FPS = 30;
 
-    const float SCALE = 1.5f;
+    const float SCALE = 1.0f;
     const short WIN_WIDTH = 640;
     const short WIN_HEIGHT = 480;
 
     const sf::Color cBlack1(14, 14, 14);
     const sf::Color cBlack2(20, 20, 20);
     const sf::Color cWhite(215, 215, 215);
-    const sf::Color cGray(175, 175, 175);
+    const sf::Color cGray1(175, 175, 175);
+    const sf::Color cGray2(61, 61, 61);
     const sf::Color cViolet1(130, 138, 245);
     const sf::Color cViolet2(153, 153, 153);
 
@@ -71,7 +87,7 @@ int main()
     const sf::Color cOrange6(105, 46, 46);
     const sf::Color cOrange7(89, 42, 62);
     const sf::Color cOrange8(71, 34, 64);
-    const sf::Color cRed(112, 35, 35);
+    const sf::Color cRed(135, 35, 15);
 
 
     /*
@@ -87,8 +103,8 @@ int main()
 
     window.setFramerateLimit(FPS);
     sf::VideoMode desktop = sf::VideoMode::getDesktopMode();
-    window.setPosition(sf::Vector2i(desktop.size.x/2 - WIN_WIDTH/2, 
-                                    desktop.size.y/2 - WIN_HEIGHT/2));
+    window.setPosition(sf::Vector2i(desktop.size.x/4 - WIN_WIDTH*SCALE/2, 
+                                    desktop.size.y/4 - WIN_HEIGHT*SCALE/2));
 
     sf::View view;
     view.setSize(sf::Vector2f(window.getSize().x/SCALE, window.getSize().y/SCALE));
@@ -110,10 +126,9 @@ int main()
     // extend for every scene
     
     std::vector< std::array<sf::Vertex, 4> > quadObjects = {
-        buildQuad(0, 90, WIN_WIDTH, 308, cGPurple, cGOrange),                  // Main Gradient
-        buildQuad(0, 399, WIN_WIDTH, 81, cBlack1, cBlack1),                    // Bottom bar Black BG
-        buildQuad(0, 401, WIN_WIDTH, 79, cGray, cGray),                        // Bottom bar Silver BG
-        buildQuad(0, 403, WIN_WIDTH, 77, cDkBlue2, cDkBlue2),                  // Bottom bar Blue BG
+        // Current Conditions
+        buildQuad(0, 90, WIN_WIDTH, 308, cGPurple, cGOrange),
+        
         // Center window layers
         buildQuad(52, 90, 531, 308, cFgBlue1, cFgBlue1),
         buildQuad(55, 94, 527, 302, cFgBlue2, cFgBlue2),
@@ -123,18 +138,44 @@ int main()
         buildQuad(63, 102, 511, 286, cFgBlue6, cFgBlue6),
         buildQuad(65, 104, 507, 282, cFgBlue7, cFgBlue7),
         buildQuad(66, 105, 506, 281, cFgBlue8, cFgBlue8),
-        buildQuad(67, 106, 505, 280, cFgBlue9, cFgBlue9),                   // TODO possibly double-check
-        // Top bar orange -- TODO fix ends (add triangle)
-        buildQuad(0, 29, 499, 7, cOrange1, cOrange1),
-        buildQuad(0, 36, 494, 8, cOrange2, cOrange2),
-        buildQuad(0, 44, 494, 9, cOrange3, cOrange3),
-        buildQuad(0, 53, 482, 7, cOrange4, cOrange4), //!
-        buildQuad(0, 60, 475, 10, cOrange5, cOrange5), //!
-        buildQuad(0, 70, 466, 6, cOrange6, cOrange6),
-        buildQuad(0, 76, 459, 8, cOrange7, cOrange7), //!
-        buildQuad(0, 84, 455, 5, cOrange8, cOrange8)  //!
-    };
+        buildQuad(67, 106, 505, 280, cFgBlue9, cFgBlue9),
+        
+        // Almanac
+        // buildQuad(0, 90, WIN_WIDTH, 191, cGPurple, cGOrange), // TODO colors and make gradient uneven
+        // buildQuad(0, 192, WIN_WIDTH, 206, cGray2, cGray2),
 
+        // Extended Forecast
+        // Block 1
+        // buildQuad(0, 90, WIN_WIDTH, 308, cGPurple, cGOrange),
+        // buildQuad(56, 110, 180, 280, cBlack1, cBlack1),
+        // buildQuad(58, 112, 176, 276, cViolet1, cViolet1),
+        // buildQuad(63, 117, 166, 266, cBlack1, cBlack1),
+        // buildQuad(65, 119, 162, 46, cLtBlue1, cLtBlue1),
+        // buildQuad(65, 165, 162, 54, cLtBlue2, cLtBlue2),
+        // buildQuad(65, 219, 162, 54, cLtBlue3, cLtBlue3),
+        // buildQuad(65, 271, 162, 52, cLtBlue4, cLtBlue4),
+        // buildQuad(65, 165, 162, 54, cLtBlue5, cLtBlue5),
+        // buildQuad(65, 165, 162, 54, cLtBlue6, cLtBlue6),
+        // buildQuad(65, 165, 162, 54, cLtBlue7, cLtBlue7),
+        // buildQuad(65, 165, 162, 54, cLtBlue8, cLtBlue8),
+
+
+        // Top orange bar
+        buildQuad(0, 29, 499, 29, 494, 37, 0, 37, cOrange1),
+        buildQuad(0, 37, 494, 37, 488, 45, 0, 45, cOrange2),
+        buildQuad(0, 45, 488, 45, 482, 54, 0, 54, cOrange3),
+        buildQuad(0, 54, 482, 54, 477, 61, 0, 61, cOrange4),
+        buildQuad(0, 61, 477, 61, 470, 71, 0, 71, cOrange5),
+        buildQuad(0, 71, 470, 71, 465, 77, 0, 77, cOrange6),
+        buildQuad(0, 77, 465, 77, 459, 85, 0, 85, cOrange7),
+        buildQuad(0, 85, 459, 85, 455, 90, 0, 90, cOrange8),
+
+        // Bottom bar
+        buildQuad(0, 399, WIN_WIDTH, 81, cBlack1, cBlack1), 
+        buildQuad(0, 401, WIN_WIDTH, 79, cGray1, cGray1),
+        buildQuad(0, 403, WIN_WIDTH, 77, cDkBlue2, cDkBlue2),
+        //buildQuad(0, 403, WIN_WIDTH, 77, cRed, cRed),   
+    };
 
 
 
@@ -145,17 +186,19 @@ int main()
 
     fStar4000.setSmooth(false);
 
-    // IMPORTANT! Feed in data
+    // NB! Feed in data
 
     std::vector< sf::Text > textShadows;
     std::vector< sf::Text > textObjects;
 
     sf::String textValues[] = { "Current", "Conditions", "Tartu", "Humidity:", "Dewpoint:", "Ceiling:", 
-                                "Visibility:", "Pressure:", "Wind:", "Gusts to" };
-    short textSizes[] = { 26, 26, 24, 25, 25, 25, 25, 25, 25, 25 }; // size in px
-    sf::Color textColors[] = { cYellow, cYellow, cYellow, cWhite, cWhite, cWhite, cWhite, cWhite, cWhite, cWhite };
-    short textPosX[] = { 167, 167, 316, 340, 340, 340, 340, 340, 83, 83 };
-    short textPosY[] = { 30, 57, 98, 141, 181, 225, 267, 308, 308, 351 };
+                                "Visibility:", "Pressure:", "Wind:", "Gusts to",
+                                "Conditions at Tartu" };
+    // TODO origins
+    short textSizes[] = { 32, 32, 30, 28, 28, 28, 28, 28, 28, 28, 30 }; // size in px
+    sf::Color textColors[] = { cYellow, cYellow, cYellow, cWhite, cWhite, cWhite, cWhite, cWhite, cWhite, cWhite, cWhite };
+    short textPosX[] = { 167, 167, 330, 348, 348, 348, 348, 348, 83, 83, 64 };
+    short textPosY[] = { 22, 51, 98, 141, 181, 225, 267, 308, 308, 346, 400 };
 
     for (u_long i = 0; i < std::size(textValues); i++) {
         textShadows.push_back(sf::Text(textValues[i], fStar4000, textSizes[i]));
