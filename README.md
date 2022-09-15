@@ -1,7 +1,14 @@
 # WS4
 
-C++ >= 17
+C++ 17
+
 libsfml-dev >= 2.6.0
+
+gcc 11+
+
+cmake 3+
+
+OpenGL ?
 
 ### Build
 

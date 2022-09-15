@@ -1,36 +1,46 @@
 [Bottom-Bar-Blue]
-0,    399,    640,    81,    cBlack1,    cBlack2,           4
-0,    400,    640,    80,    cGray1,     cGray1,            4
-0,    402,    640,    78,    cDkBlue2,   cDkBlue2,          4
+0,    399,    640,    81,    cBlack1,    cBlack2
+0,    400,    640,    80,    cGray1,     cGray1
+0,    402,    640,    78,    cDkBlue2,   cDkBlue2
 
 [Bottom-Bar-Red]
-0,    399,    640,    81,    cBlack1,    cBlack2,           4
-0,    400,    640,    80,    cGray1,     cGray1,            4
-0,    402,    640,    78,    cRed,       cRed,              4
+0,    399,    640,    81,    cBlack1,    cBlack2
+0,    400,    640,    80,    cGray1,     cGray1
+0,    402,    640,    78,    cRed,       cRed
 
 [Top-Bar-Orange]
-0,   29,   499,   29,   494,   37,   0,   37,   cOrange1,   4
-0,   37,   494,   37,   489,   45,   0,   45,   cOrange2,   4
-0,   45,   489,   45,   483,   54,   0,   54,   cOrange3,   4
-0,   54,   483,   54,   478,   61,   0,   61,   cOrange4,   4
-0,   61,   478,   61,   471,   71,   0,   71,   cOrange5,   4
-0,   71,   471,   71,   467,   77,   0,   77,   cOrange6,   4
-0,   77,   467,   77,   461,   85,   0,   85,   cOrange7,   4
-0,   85,   461,   85,   457,   90,   0,   90,   cOrange8,   4
+0,   29,   499,   29,   494,   37,   0,   37,   cOrange1
+0,   37,   494,   37,   489,   45,   0,   45,   cOrange2
+0,   45,   489,   45,   483,   54,   0,   54,   cOrange3
+0,   54,   483,   54,   478,   61,   0,   61,   cOrange4
+0,   61,   478,   61,   471,   71,   0,   71,   cOrange5
+0,   71,   471,   71,   467,   77,   0,   77,   cOrange6
+0,   77,   467,   77,   461,   85,   0,   85,   cOrange7
+0,   85,   461,   85,   457,   90,   0,   90,   cOrange8
 
 [Center-Box-Blue]
-52,    90,     531,    308,   cFgBlue1,    cFgBlue1,        4
-55,    94,     527,    302,   cFgBlue2,    cFgBlue2,        4
-57,    96,     523,    298,   cFgBlue3,    cFgBlue3,        4
-59,    98,     519,    294,   cFgBlue4,    cFgBlue4,        4
-61,    100,    515,    290,   cFgBlue5,    cFgBlue5,        4
-63,    102,    511,    286,   cFgBlue6,    cFgBlue6,        4   
-65,    104,    507,    282,   cFgBlue7,    cFgBlue7,        4
-66,    105,    506,    281,   cFgBlue8,    cFgBlue8,        4
-67,    106,    505,    280,   cFgBlue9,    cFgBlue9,        4
+52,    90,     531,    308,   cFgBlue1,    cFgBlue1
+55,    94,     527,    302,   cFgBlue2,    cFgBlue2
+57,    96,     523,    298,   cFgBlue3,    cFgBlue3
+59,    98,     519,    294,   cFgBlue4,    cFgBlue4
+61,    100,    515,    290,   cFgBlue5,    cFgBlue5
+63,    102,    511,    286,   cFgBlue6,    cFgBlue6   
+65,    104,    507,    282,   cFgBlue7,    cFgBlue7
+66,    105,    506,    281,   cFgBlue8,    cFgBlue8
+67,    106,    505,    280,   cFgBlue9,    cFgBlue9
 
 [Forecast-Pane-Left]
-
+0,     0,      100,    300,   cBlack1,     cBlack1
+0,     0,      100,    300,   cViolet1,    cViolet1
+0,     0,      100,    300,   cBlack1,     cBlack1
+0,     0,      100,    300,   cLtBlue1,    cLtBlue1
+0,     0,      100,    300,   cLtBlue2,    cLtBlue2
+0,     0,      100,    300,   cLtBlue3,    cLtBlue3
+0,     0,      100,    300,   cLtBlue4,    cLtBlue4
+0,     0,      100,    300,   cLtBlue5,    cLtBlue5
+0,     0,      100,    300,   cLtBlue6,    cLtBlue6
+0,     0,      100,    300,   cLtBlue7,    cLtBlue7
+0,     0,      100,    300,   cLtBlue8,    cLtBlue8
 
 [Forecast-Pane-Center]
 
@@ -44,35 +54,35 @@
 
 
 [Current-Conditions]
-0,     90,     640,    308,   cGPurple,    cGOrange,        4
+0,     90,     640,    308,   cGPurple,    cGOrange
 %Center-Box-Blue%
 %Top-Bar-Orange%
 %Bottom-Bar-Blue%
 
 
 [Latest-Observations]
-0,     90,     640,    308,   cGPurple,    cGOrange,        4
+0,     90,     640,    308,   cGPurple,    cGOrange
 %Center-Box-Blue%
 %Top-Bar-Orange%
 %Bottom-Bar-Blue%
 
 
 [Local-Forecast]
-0,     90,     640,    308,   cGPurple,    cGOrange,        4
+0,     90,     640,    308,   cGPurple,    cGOrange
 %Center-Box-Blue%
 %Top-Bar-Orange%
 %Bottom-Bar-Blue%
 
 
 [Outlook]
-0,     90,     640,    308,   cGPurple,    cGOrange,        4
+0,     90,     640,    308,   cGPurple,    cGOrange
 %Center-Box-Blue%
 %Top-Bar-Orange%
 %Bottom-Bar-Blue%
 
 
 [Extended-Forecast]
-0,     90,     640,    308,   cGPurple,    cGOrange,        4
+0,     90,     640,    308,   cGPurple,    cGOrange
 %Top-Bar-Orange%
 %Forecast-Pane-Left%
 %Forecast-Pane-Center%
@@ -81,8 +91,8 @@
 
 
 [Almanac]
-0,     90,     640,    191,   cGPurple,    cGOrange,        4
-0,     192,    640,    206,   cGray2,      cGray2,          4
+0,     90,     640,    191,   cGPurple,    cGOrange
+0,     192,    640,    206,   cGray2,      cGray2
 %Top-Bar-Orange%
 %Bottom-Bar-Blue%
 
@@ -98,7 +108,7 @@
 
 
 [Air-Quality]
-0,     90,     640,    308,   cGPurple,    cGOrange,        4
+0,     90,     640,    308,   cGPurple,    cGOrange
 %Top-Bar-Orange%
 %Quality-Index-Scale%
 %Bottom-Bar-Blue%
@@ -119,7 +129,7 @@
 
 
 [Tides]
-0,     90,     640,    308,   cGPurple,    cGOrange,        4
+0,     90,     640,    308,   cGPurple,    cGOrange
 %Center-Box-Blue%
 %Top-Bar-Orange%
 %Bottom-Bar-Blue%
