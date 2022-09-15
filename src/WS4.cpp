@@ -249,19 +249,21 @@ int main()
     float textLS[] = { 1, 1, 0.55, 0.55, 0.55, 0.55, 0.55, 0.55, 1, 1, 1, 1, 1, 1, 1 };
  
     for (u_long i = 0; i < std::size(textValues); i++) {
-        textShadows.push_back(sf::Text(textValues[i], textFonts[i], textSizes[i]));
+        textShadows.push_back(sf::Text(textValues[i], textFonts[i], textSizes[i]*0.67));
         textShadows[i].setFillColor(cBlack2);
         textShadows[i].setPosition(sf::Vector2f(textPosX[i]+3, textPosY[i]+3));
         textShadows[i].setOutlineColor(cBlack2);
-        textShadows[i].setOutlineThickness(1); // in px
+        textShadows[i].setOutlineThickness(0); // in px
         textShadows[i].setLetterSpacing(textLS[i]);
+        textShadows[i].setScale(sf::Vector2f(1.5f,1.5f));
 
-        textObjects.push_back(sf::Text(textValues[i], textFonts[i], textSizes[i]));
+        textObjects.push_back(sf::Text(textValues[i], textFonts[i], textSizes[i]*0.67));
         textObjects[i].setFillColor(textColors[i]);
         textObjects[i].setPosition(sf::Vector2f(textPosX[i], textPosY[i]));
         textObjects[i].setOutlineColor(cBlack1);
         textObjects[i].setOutlineThickness(1); // in px
         textObjects[i].setLetterSpacing(textLS[i]);
+        textObjects[i].setScale(sf::Vector2f(1.5f,1.5f));
     }
 
     
