@@ -1,4 +1,6 @@
 #include <SFML/Graphics.hpp>
+#include "WS4.h"
+#include "gfx_init.h"
 #include <vector>
 #include <array>
 
@@ -30,15 +32,32 @@ namespace ws4
     }
 }
 
+#include <iostream>
+
 
 using namespace ws4;
 
 int main()
 {
+
+    #ifdef __clang__
+    std::cout << "Clang Version: ";
+    std::cout << __clang__ << std::end;
+    std::cout << "LLVM Version: ";
+    std::cout << __llvm__ << std::endl;
+    #else
+    std::cout << "GCC Version: ";
+    std::cout << __VERSION__ << std::endl;
+    #endif
+
+    initColors();
+    initVertices();
+    initText();
+
     /*
      * VARIABLES & CONSTS
      */
-    const char  TITLE[] = "WS4 v22.9.14";
+    const char  TITLE[] = "WS4 Build " __DATE__;
     const short FPS = 30;
 
     const float SCALE = 1.0f;
@@ -88,6 +107,9 @@ int main()
     const sf::Color cOrange7(89, 42, 62);
     const sf::Color cOrange8(71, 34, 64);
     const sf::Color cRed(135, 35, 15);
+
+    // air quality thingies
+    // local radar bg and colors
 
 
     /*
@@ -162,19 +184,18 @@ int main()
 
         // Top orange bar
         buildQuad(0, 29, 499, 29, 494, 37, 0, 37, cOrange1),
-        buildQuad(0, 37, 494, 37, 488, 45, 0, 45, cOrange2),
-        buildQuad(0, 45, 488, 45, 482, 54, 0, 54, cOrange3),
-        buildQuad(0, 54, 482, 54, 477, 61, 0, 61, cOrange4),
-        buildQuad(0, 61, 477, 61, 470, 71, 0, 71, cOrange5),
-        buildQuad(0, 71, 470, 71, 465, 77, 0, 77, cOrange6),
-        buildQuad(0, 77, 465, 77, 459, 85, 0, 85, cOrange7),
-        buildQuad(0, 85, 459, 85, 455, 90, 0, 90, cOrange8),
+        buildQuad(0, 37, 494, 37, 489, 45, 0, 45, cOrange2),
+        buildQuad(0, 45, 489, 45, 483, 54, 0, 54, cOrange3),
+        buildQuad(0, 54, 483, 54, 478, 61, 0, 61, cOrange4),
+        buildQuad(0, 61, 478, 61, 471, 71, 0, 71, cOrange5),
+        buildQuad(0, 71, 471, 71, 467, 77, 0, 77, cOrange6),
+        buildQuad(0, 77, 467, 77, 461, 85, 0, 85, cOrange7),
+        buildQuad(0, 85, 461, 85, 457, 90, 0, 90, cOrange8),
 
         // Bottom bar
         buildQuad(0, 399, WIN_WIDTH, 81, cBlack1, cBlack1), 
-        buildQuad(0, 401, WIN_WIDTH, 79, cGray1, cGray1),
-        buildQuad(0, 403, WIN_WIDTH, 77, cDkBlue2, cDkBlue2),
-        //buildQuad(0, 403, WIN_WIDTH, 77, cRed, cRed),   
+        buildQuad(0, 400, WIN_WIDTH, 80, cGray1, cGray1),
+        buildQuad(0, 402, WIN_WIDTH, 78, cDkBlue2, cDkBlue2) 
     };
 
 
@@ -183,35 +204,64 @@ int main()
     sf::Font fStar4000;
     if (!fStar4000.loadFromFile("../fonts/Star4000.ttf"))
         return 2;
-
     fStar4000.setSmooth(false);
 
-    // NB! Feed in data
+    sf::Font fStar4000Ext;
+    if (!fStar4000Ext.loadFromFile("../fonts/Star4000-Extended.ttf"))
+        return 2;
+    fStar4000Ext.setSmooth(false);
 
+    sf::Font fStar4000Lg;
+    if (!fStar4000Lg.loadFromFile("../fonts/Star4000-Large.ttf"))
+        return 2;
+    fStar4000Lg.setSmooth(false);
+
+    sf::Font fStar4000LgC;
+    if (!fStar4000LgC.loadFromFile("../fonts/Star4000-Large-Compressed.ttf"))
+        return 2;
+    fStar4000LgC.setSmooth(false);
+
+    sf::Font fStar4000Sm;
+    if (!fStar4000Sm.loadFromFile("../fonts/Star4000-Small.ttf"))
+        return 2;
+    fStar4000Sm.setSmooth(false);
+
+
+
+
+    // TEXT
     std::vector< sf::Text > textShadows;
     std::vector< sf::Text > textObjects;
 
-    sf::String textValues[] = { "Current", "Conditions", "Tartu", "Humidity:", "Dewpoint:", "Ceiling:", 
-                                "Visibility:", "Pressure:", "Wind:", "Gusts to",
-                                "Conditions at Tartu" };
-    // TODO origins
-    short textSizes[] = { 32, 32, 30, 28, 28, 28, 28, 28, 28, 28, 30 }; // size in px
-    sf::Color textColors[] = { cYellow, cYellow, cYellow, cWhite, cWhite, cWhite, cWhite, cWhite, cWhite, cWhite, cWhite };
-    short textPosX[] = { 167, 167, 330, 348, 348, 348, 348, 348, 83, 83, 64 };
-    short textPosY[] = { 22, 51, 98, 141, 181, 225, 267, 308, 308, 346, 400 };
-
+    sf::String textValues[] = { "Current", "Conditions", "Moline", "Humidity:", "Dewpoint:", "Ceiling:", 
+                                "Visibility:", "Pressure:", "Wind:  WNW  38", "Gusts to  77",
+                                "Conditions at Moline", "1:57:14 PM", "MON AUG 10", "68°", "T'Storm" };
+    
+    short textOrigins[] = {  };
+    short textSizes[] = { 34, 34, 34, 33, 33, 33, 33, 33, 30, 30, 30, 31, 31, 39, 37 }; // size in px
+    sf::Color textColors[] = { cYellow, cYellow, cYellow, cWhite, cWhite, cWhite, cWhite, cWhite, 
+                                cWhite, cWhite, cWhite, cWhite, cWhite, cWhite, cWhite };
+    sf::Font textFonts[] = { fStar4000, fStar4000, fStar4000, fStar4000, fStar4000, 
+                                fStar4000, fStar4000, fStar4000, fStar4000Ext, fStar4000Ext, 
+                                fStar4000, fStar4000Sm, fStar4000Sm, fStar4000Lg, fStar4000Ext };
+    short textPosX[] = { 167, 167, 320, 348, 348, 348, 348, 348, 83, 83, 62, 428, 428, 167, 124 };
+    short textPosY[] = { 21, 50, 92, 141, 181, 225, 267, 308, 308, 346, 398, 33, 53, 104, 148 };
+    float textLS[] = { 1, 1, 0.55, 0.55, 0.55, 0.55, 0.55, 0.55, 1, 1, 1, 1, 1, 1, 1 };
+ 
     for (u_long i = 0; i < std::size(textValues); i++) {
-        textShadows.push_back(sf::Text(textValues[i], fStar4000, textSizes[i]));
+        textShadows.push_back(sf::Text(textValues[i], textFonts[i], textSizes[i]));
         textShadows[i].setFillColor(cBlack2);
-        textShadows[i].setPosition(sf::Vector2f(textPosX[i]+2, textPosY[i]+2));
+        textShadows[i].setPosition(sf::Vector2f(textPosX[i]+3, textPosY[i]+3));
         textShadows[i].setOutlineColor(cBlack2);
         textShadows[i].setOutlineThickness(1); // in px
+        textShadows[i].setLetterSpacing(textLS[i]);
 
-        textObjects.push_back(sf::Text(textValues[i], fStar4000, textSizes[i]));
+        textObjects.push_back(sf::Text(textValues[i], textFonts[i], textSizes[i]));
         textObjects[i].setFillColor(textColors[i]);
         textObjects[i].setPosition(sf::Vector2f(textPosX[i], textPosY[i]));
         textObjects[i].setOutlineColor(cBlack1);
         textObjects[i].setOutlineThickness(1); // in px
+        textObjects[i].setLetterSpacing(textLS[i]);
     }
 
     

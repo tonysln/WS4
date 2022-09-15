@@ -1,0 +1,43 @@
+! Comment lines start with "!"
+! [Screen]
+! Text value,     Size, Color,      Font,         x,     y,   LS,   Origin
+
+
+[Current-Conditions]
+Current,            34, cYellow,    fStar4000,    167,   21,     1,
+Conditions,         34, cYellow,    fStar4000,    167,   50,     1,
+Moline,             34, cYellow,    fStar4000,    320,   92,  0.55,
+Humidity:,          33, cWhite,     fStar4000,    348,  141,  0.55,
+Dewpoint:,          33, cWhite,     fStar4000,    348,  181,  0.55,
+Ceiling:,           33, cWhite,     fStar4000,    348,  225,  0.55,
+Visibility:,        33, cWhite,     fStar4000,    348,  267,  0.55,
+Pressure:,          33, cWhite,     fStar4000,    348,  308,  0.55,
+Wind:  WNW  38,     30, cWhite,     fStar4000Ext,  83,  308,     1,
+Gusts to  77,       30, cWhite,     fStar4000Ext,  83,  346,     1,
+Conditions at..,    30, cWhite,     fStar4000,     62,  398,     1,
+1:57:14 PM,         31, cWhite,     fStar4000Sm,  428,   33,     1,
+MON AUG 10,         31, cWhite,     fStar4000Sm,  428,   53,     1,
+68°,                39, cWhite,     fStar4000Lg,  167,  104,     1,
+T'Storm,            37, cWhite,     fStar4000Ext, 124,  148,     1,
+87%,                33, cWhite,     fStar4000,    400,  141,  0.55,
+64°,                33, cWhite,     fStar4000,    400,  181,  0.55,
+3300 ft.,           33, cWhite,     fStar4000,    400,  225,  0.55,
+0.8 mi.,            33, cWhite,     fStar4000,    400,  267,  0.55,
+29.93,              33, cWhite,     fStar4000,    400,  308,  0.55,
+
+
+[Latest-Observations]
+Latest Observations,34, cYellow,    fStar4000,    167,   21,     1,
+N/A,                33, cWhite,     fStar4000,    300,  300,     1,
+
+
+[Extended-Forecast]
+Extended,           34, cYellow,    fStar4000,    167,   21,     1,
+Forecast,           34, cYellow,    fStar4000,    167,   50,     1,
+N/A,                33, cWhite,     fStar4000,    300,  300,     1,
+
+
+[Almanac]
+Almanac,            34, cYellow,    fStar4000,    167,   21,     1,
+N/A,                33, cWhite,     fStar4000,    300,  300,     1,
+
