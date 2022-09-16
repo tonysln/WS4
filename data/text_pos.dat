@@ -3,8 +3,9 @@
 
 
 [Current-Conditions]
-,                   31, cWhite,     fStar4000Sm,  572,   33,   0.8,   r
+,                   31, cWhite,     fStar4000Sm,  574,   33,   0.8,   r
 ,                   31, cWhite,     fStar4000Sm,  572,   53,   0.8,   r
+,                   31, cWhite,     fStar4000Sm,  572,   33,   0.8,   r
 Current,            34, cYellow,    fStar4000,    163,   21,     1,   l
 Conditions,         34, cYellow,    fStar4000,    163,   50,     1,   l
 %city,              34, cYellow,    fStar4000,    320,   92,  0.55,   l
@@ -13,11 +14,11 @@ Dewpoint:,          33, cWhite,     fStar4000,    330,  181,  0.55,   l
 Ceiling:,           33, cWhite,     fStar4000,    330,  225,  0.55,   l
 Visibility:,        33, cWhite,     fStar4000,    330,  267,  0.55,   l
 Pressure:,          33, cWhite,     fStar4000,    330,  308,  0.55,   l
-%wind,              30, cWhite,     fStar4000Ext,  80,  308,     1,   l
-%gusts,             30, cWhite,     fStar4000Ext,  80,  346,     1,   l
+%wind,              30, cWhite,     fStar4000Ext,  75,  308,     1,   l
+%gusts,             30, cWhite,     fStar4000Ext,  75,  346,     1,   l
 %scroller,          30, cWhite,     fStar4000,     62,  398,     1,   l
 %temp,              39, cWhite,     fStar4000Lg,  190,  104,     1,   c
-%cond,              37, cWhite,     fStar4000Ext, 176,  142,     1,   c
+%cond,              37, cWhite,     fStar4000Ext, 176,  136,     1,   c
 %humidity,          33, cWhite,     fStar4000,    565,  141,  0.45,   r
 %dewpoint,          33, cWhite,     fStar4000,    565,  181,  0.45,   r
 %visib,             33, cWhite,     fStar4000,    565,  225,  0.45,   r
@@ -26,22 +27,51 @@ Pressure:,          33, cWhite,     fStar4000,    330,  308,  0.55,   l
 
 
 [Latest-Observations]
-,                   31, cWhite,     fStar4000Sm,  572,   33,   0.8,   r
+,                   31, cWhite,     fStar4000Sm,  574,   33,   0.8,   r
 ,                   31, cWhite,     fStar4000Sm,  572,   53,   0.8,   r
-Latest Observations,34, cYellow,    fStar4000,    163,   35,   0.6,   l
+,                   31, cWhite,     fStar4000Sm,  572,   33,   0.8,   r
+Latest Observations,34, cYellow,    fStar4000,    163,   35,   0.5,   l
+N/A,                33, cWhite,     fStar4000,    300,  300,     1,   l
+
+
+[Local-Forecast]
+,                   31, cWhite,     fStar4000Sm,  574,   33,   0.8,   r
+,                   31, cWhite,     fStar4000Sm,  572,   53,   0.8,   r
+,                   31, cWhite,     fStar4000Sm,  572,   33,   0.8,   r
+Local Forecast,     34, cYellow,    fStar4000,    163,   35,   0.5,   l
 N/A,                33, cWhite,     fStar4000,    300,  300,     1,   l
 
 
 [Extended-Forecast]
-,                   31, cWhite,     fStar4000Sm,  572,   33,   0.8,   r
+,                   31, cWhite,     fStar4000Sm,  574,   33,   0.8,   r
 ,                   31, cWhite,     fStar4000Sm,  572,   53,   0.8,   r
-Extended,           34, cYellow,    fStar4000,    163,   21,     1,   l
-Forecast,           34, cYellow,    fStar4000,    163,   50,     1,   l
+,                   31, cWhite,     fStar4000Sm,  572,   33,   0.8,   r
+%city,              34, cWhite,     fStar4000,    163,   21,   0.6,   l
+Extended Forecast,  34, cYellow,    fStar4000,    163,   50,   0.6,   l
 N/A,                33, cWhite,     fStar4000,    300,  300,     1,   l
 
 
 [Almanac]
-,                   31, cWhite,     fStar4000Sm,  572,   33,   0.8,   r
+,                   31, cWhite,     fStar4000Sm,  574,   33,   0.8,   r
 ,                   31, cWhite,     fStar4000Sm,  572,   53,   0.8,   r
+,                   31, cWhite,     fStar4000Sm,  572,   33,   0.8,   r
 Almanac,            34, cYellow,    fStar4000,    163,   35,     1,   l
+N/A,                33, cWhite,     fStar4000,    300,  300,     1,   l
+
+
+[Forecast-For]
+,                   31, cWhite,     fStar4000Sm,  574,   33,   0.8,   r
+,                   31, cWhite,     fStar4000Sm,  572,   53,   0.8,   r
+,                   31, cWhite,     fStar4000Sm,  572,   33,   0.8,   r
+Forecast For,       34, cYellow,    fStar4000,    163,   21,   0.6,   l
+%forecast-day,      34, cYellow,    fStar4000,    163,   50,   0.6,   l
+N/A,                33, cWhite,     fStar4000,    300,  300,     1,   l
+
+
+[Air-Quality]
+,                   31, cWhite,     fStar4000Sm,  574,   33,   0.8,   r
+,                   31, cWhite,     fStar4000Sm,  572,   53,   0.8,   r
+,                   31, cWhite,     fStar4000Sm,  572,   33,   0.8,   r
+Air Quality,        34, cYellow,    fStar4000,    163,   21,   0.7,   l
+%airq-day,          34, cYellow,    fStar4000,    163,   50,   0.7,   l
 N/A,                33, cWhite,     fStar4000,    300,  300,     1,   l

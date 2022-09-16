@@ -1,4 +1,5 @@
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include "WS4.h"
 #include "gfx_init.h"
 #include "data_proc.h"
@@ -35,7 +36,7 @@ int main()
      */
     const char  TITLE[] = "WS4 Build " __DATE__;
     const short FPS = 23;
-    const float SCALE = 1.2f;
+    const float SCALE = 1.0f;
     const short WIN_WIDTH = 640;
     const short WIN_HEIGHT = 480;
 
@@ -71,21 +72,20 @@ int main()
     sf::Time currentTime;
     std::time_t epoch;
     char timeStr[12];
+    char timeAPStr[6];
     char dateStr[12];
 
 
-    // Extended Forecast TEMP TODO
-    // buildQuad(56, 110, 180, 280, cBlack1, cBlack1),
-    // buildQuad(58, 112, 176, 276, cViolet1, cViolet1),
-    // buildQuad(63, 117, 166, 266, cBlack1, cBlack1),
-    // buildQuad(65, 119, 162, 46, cLtBlue1, cLtBlue1),
-    // buildQuad(65, 165, 162, 54, cLtBlue2, cLtBlue2),
-    // buildQuad(65, 219, 162, 54, cLtBlue3, cLtBlue3),
-    // buildQuad(65, 271, 162, 52, cLtBlue4, cLtBlue4),
-    // buildQuad(65, 165, 162, 54, cLtBlue5, cLtBlue5),
-    // buildQuad(65, 165, 162, 54, cLtBlue6, cLtBlue6),
-    // buildQuad(65, 165, 162, 54, cLtBlue7, cLtBlue7),
-    // buildQuad(65, 165, 162, 54, cLtBlue8, cLtBlue8),
+
+    /*
+     * MUSIC
+     */
+    // sf::Music music;
+    // if (!music.openFromFile("../audio/001.mp3"))
+    //     return EXIT_FAILURE;
+
+    // music.setVolume(30);
+    // music.play();
 
 
 
@@ -112,6 +112,8 @@ int main()
         fontEl.second.setSmooth(false);
     }
 
+
+
     /*
      * READING DATA AND GRAPHICS FILES
      */
@@ -128,19 +130,56 @@ int main()
     dM["gusts"] = "Gusts to  77";  // TODO split?
     dM["scroller"] = "Conditions at Moline";
 
+    dM["forecast-day"] = "Saturday";
+    dM["airq-day"] = "Friday";
+
 
     auto cM = parseColorData();
     auto tM = parseTextData(cM, fM, dM);
     auto vM = parseVertexData(cM);
-   
+
+
+    /*
+     * ICONS
+     */
+    map<string, sf::Sprite> icons;
+
+    // TODO load all textures and icons
+    sf::Texture storm;
+    if (!storm.loadFromFile("../icons/Current-Conditions/Thunder.gif"))
+        return 3;
+    
+    icons["TStorm"].setTexture(storm);
+    icons["TStorm"].setPosition(sf::Vector2f(176, 170));
+    icons["TStorm"].setOrigin(sf::Vector2f(icons["TStorm"].getLocalBounds().width/2, 0));
+    icons["TStorm"].setScale(sf::Vector2f(1.0, 1.0));
+
+    map<string, vector<sf::Sprite>> iM;
+    iM["Current-Conditions"] = { icons["TStorm"] };
+
+
+
+    // List of screens
     short curScreen = 0;
     vector<string> screens = {
         "Current-Conditions",
         "Latest-Observations",
+        "Local-Forecast",
         "Extended-Forecast",
-        "Almanac"
+        "Almanac",
+        "Forecast-For",
+        "Air-Quality"
     };
+
+
+    // Time clock Text alignment fix - do not let it jump around due to 
+    // different widths of symbols
+    for (short i = 0; i < screens.size(); i++)
+    {
+        tM[screens[i]][1].setOrigin(sf::Vector2f(99.333, 0));
+    }
     
+
 
 
 
@@ -194,18 +233,32 @@ int main()
         }
 
 
+        //Icons
+        //TODO get from dM
+        for (const auto& iObj : iM[screens[curScreen]])
+        {
+            window.draw(iObj);
+        }
+
+
         // Text
         // Update time/date strings
         epoch = std::time(nullptr);
-        strftime(timeStr, sizeof(timeStr), "%I:%M:%S %p", localtime(&epoch));
-        strftime(dateStr, sizeof(dateStr), "%a %b %e", localtime(&epoch));
+        strftime(timeStr, sizeof(timeStr), "%-I:%M:%S", localtime(&epoch));
+        strftime(timeAPStr, sizeof(timeAPStr), "%p", localtime(&epoch));
+        strftime(dateStr, sizeof(dateStr), "%a %b %e", localtime(&epoch)); // %e is space-padded
         
-        // tM[screens[curScreen]][0].setString(timeStr); // TODO clean up by specifying shadow ON or OFF in dat file
+        // TODO clean up by specifying shadow ON or OFF in dat file
+        // tM[screens[curScreen]][0].setString(timeStr);
         tM[screens[curScreen]][1].setString(timeStr);
-        tM[screens[curScreen]][1].setOrigin(sf::Vector2f(tM[screens[curScreen]][1].getLocalBounds().width, 0));
+        
         // tM[screens[curScreen]][2].setString(dateStr);
         tM[screens[curScreen]][3].setString(dateStr);
         tM[screens[curScreen]][3].setOrigin(sf::Vector2f(tM[screens[curScreen]][3].getLocalBounds().width, 0));
+        
+        // tM[screens[curScreen]][4].setString(timeStr);
+        tM[screens[curScreen]][5].setString(timeAPStr);
+        tM[screens[curScreen]][5].setOrigin(sf::Vector2f(tM[screens[curScreen]][5].getLocalBounds().width, 0));
 
 
         // Draw text
