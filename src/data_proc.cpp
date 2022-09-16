@@ -9,6 +9,7 @@
  * - https://www.weather.gov/media/epz/wxcalc/pressureConversion.pdf
  */
 
+
 namespace ws4p {
     double tempCtoF(double tempC)
     {
@@ -69,9 +70,9 @@ namespace ws4p {
                 0.00085282*tempF*relHum*relHum - 0.00000199*tempF*tempF*relHum*relHum;
 
 
-        if (relHum < 13.0 & 80.0 < tempF < 112.0)
+        if ((relHum < 13.0) & (tempF > 80.0) & (tempF < 112.0))
             heatIdx -= ((13.0-relHum)/4.0) * sqrt((17-abs(tempF-95.0))/17.0);
-        else if (relHum > 85.0 & 80.0 < tempF < 87.0)
+        else if ((relHum > 85.0) & (tempF > 80.0) & (tempF < 87.0))
             heatIdx += ((relHum-85.0)/10.0) * ((87-tempF)/5.0);
 
 

@@ -1,8 +1,8 @@
 CC=g++
-CFLAGS=-c -Wall -std=c++17 
+CFLAGS=-c -Wall -std=c++20
 LDFLAGS=
 LIBFLAGS=-lsfml-graphics -lsfml-window -lsfml-system
-SOURCES=WS4.cpp gfx_init.cpp
+SOURCES=WS4.cpp gfx_init.cpp data_proc.cpp
 OBJECTS=$(SOURCES:.cpp=.o)
 EXECUTABLE=WS4
 BINDIR=/usr/bin

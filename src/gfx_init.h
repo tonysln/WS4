@@ -27,7 +27,7 @@ namespace ws4
     map<string, vector<array<sf::Vertex, 4>>> parseVertexData(map<string, sf::Color> &cM);
     
     // Read in text data and return mapping [screen name] -> [vector of sf::Text]
-    map<string, vector<sf::Text>> parseTextData(map<string, sf::Color> &cM, map<string, sf::Font> &fM);
+    map<string, vector<sf::Text>> parseTextData(map<string, sf::Color> &cM, map<string, sf::Font> &fM, map<string, string> &dM);
 
     // Use stringstream to split string by comma, trim spaces around values and save to vector
     void splitCLine(vector<string> &lineSegs, stringstream &lnStream, string &seg, string &line);

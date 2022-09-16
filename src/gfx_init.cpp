@@ -153,7 +153,7 @@ namespace ws4
     }
 
 
-    map<string, vector<sf::Text>> parseTextData(map<string, sf::Color> &cM, map<string, sf::Font> &fM)
+    map<string, vector<sf::Text>> parseTextData(map<string, sf::Color> &cM, map<string, sf::Font> &fM, map<string, string> &dM)
     {        
         map<string, vector<sf::Text>> tM;
 
@@ -163,6 +163,7 @@ namespace ws4
         vector<string> lineSegs;
 
         string curScene;
+        string replVal;
         std::wstring textVal;
         std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
         for (auto &line : lines) 
@@ -180,7 +181,13 @@ namespace ws4
             // Text string    
             if (lineSegs[0][0] == '%')
             {
-                // Check for corresponding val in dict, N/A if not there
+                // Replace with value in dM, else N/A
+                replVal = lineSegs[0].substr(1, lineSegs[0][lineSegs[0].length()-1]);
+
+                if (dM.contains(replVal))
+                    lineSegs[0] = dM[replVal];
+                else
+                    lineSegs[0] = "N/A";
             }
 
             // Turn into wstring for degree sign support
@@ -189,7 +196,10 @@ namespace ws4
             
             // First add shadow
             tM[curScene].push_back(sf::Text(textVal, fM[lineSegs[3]], stoi(lineSegs[1])*0.67));
-            // TODO make sure tM[curScene] not empty or .back() undefined behaviour
+
+            if (tM[curScene].size() < 1)
+                return tM; // Avoid undefined behaviour
+
             tM[curScene].back().setFillColor(cM["cBlack2"]);
             tM[curScene].back().setPosition(sf::Vector2f(stoi(lineSegs[4])+3, stoi(lineSegs[5])+3));
             tM[curScene].back().setOutlineColor(cM["cBlack2"]);
@@ -201,14 +211,13 @@ namespace ws4
             sf::Vector2f orig(0, 0);
 
             if (align == 'r')
-                orig.x = tM[curScene].back().getGlobalBounds().width;
+                orig.x = tM[curScene].back().getLocalBounds().width;
 
             if (align == 'c')
-                orig.x = tM[curScene].back().getGlobalBounds().width / 2;
+                orig.x = tM[curScene].back().getLocalBounds().width / 2;
 
             tM[curScene].back().setOrigin(orig);
             tM[curScene].back().setScale(sf::Vector2f(1.5f, 1.5));
-
 
             // Then add text itself
             tM[curScene].push_back(sf::Text(textVal, fM[lineSegs[3]], stoi(lineSegs[1])*0.67));

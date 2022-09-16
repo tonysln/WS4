@@ -1,47 +1,45 @@
 #include <SFML/Graphics.hpp>
 #include "WS4.h"
 #include "gfx_init.h"
+#include "data_proc.h"
 #include <vector>
 #include <array>
 #include <map>
+#include <time.h>
 #include <iostream>
 
 
 using namespace ws4;
-using std::cout;
-using std::endl;
+using std::to_string;
+using std::localtime;
+using std::strftime;
 
 
 int main()
 {
     // Print version info
     #ifdef __clang__
-    cout << "Clang Version: ";
-    cout << __clang__ << endl;
-    cout << "LLVM Version: ";
-    cout << __llvm__ << endl;
+    std::cout << "Clang Version: ";
+    std::cout << __clang__ << std::endl;
+    std::cout << "LLVM Version: ";
+    std::cout << __llvm__ << std::endl;
     #else
-    cout << "GCC Version: ";
-    cout << __VERSION__ << endl;
+    std::cout << "GCC Version: ";
+    std::cout << __VERSION__ << std::endl;
     #endif
-
-
-
-    /*
-     * SETUP VARIABLES
-     */
-    const char  TITLE[] = "WS4 Build " __DATE__;
-    const short FPS = 30;
-    const float SCALE = 1.0f;
-    const short WIN_WIDTH = 640;
-    const short WIN_HEIGHT = 480;
-
 
 
 
     /*
      * WINDOW & VIDEOMODE
      */
+    const char  TITLE[] = "WS4 Build " __DATE__;
+    const short FPS = 23;
+    const float SCALE = 1.2f;
+    const short WIN_WIDTH = 640;
+    const short WIN_HEIGHT = 480;
+
+    
     sf::ContextSettings sts;
     sts.antialiasingLevel = 0.0;
     sts.depthBits = 8;
@@ -69,12 +67,11 @@ int main()
     /*
      * CLOCK & TIMERS
      */
-    // TODO
     sf::Clock clock;
     sf::Time currentTime;
-
-
-
+    std::time_t epoch;
+    char timeStr[12];
+    char dateStr[12];
 
 
     // Extended Forecast TEMP TODO
@@ -115,15 +112,25 @@ int main()
         fontEl.second.setSmooth(false);
     }
 
-
-
-
     /*
      * READING DATA AND GRAPHICS FILES
      */
-    // auto dM = collectLatestData();
+    map<string, string> dM;
+    dM["city"] = "Moline";
+    dM["temp"] = "68°";
+    dM["cond"] = "T'Storm";
+    dM["humidity"] = "87%";
+    dM["dewpoint"] = "64°";
+    dM["ceiling"] = "0.8 mi.";
+    dM["visib"] = "3300 ft.";
+    dM["pressure"] = "29.93";
+    dM["wind"] = "Wind:  WNW  38"; // TODO split?
+    dM["gusts"] = "Gusts to  77";  // TODO split?
+    dM["scroller"] = "Conditions at Moline";
+
+
     auto cM = parseColorData();
-    auto tM = parseTextData(cM, fM);
+    auto tM = parseTextData(cM, fM, dM);
     auto vM = parseVertexData(cM);
    
     short curScreen = 0;
@@ -134,8 +141,6 @@ int main()
         "Almanac"
     };
     
-
-
 
 
 
@@ -167,7 +172,9 @@ int main()
                         curScreen = (curScreen - 1 + screens.size()) % screens.size();
                         break;
                     case sf::Keyboard::R:
-                        tM = parseTextData(cM, fM);
+                        tM = parseTextData(cM, fM, dM);
+                        break;
+                    default:
                         break;
                 }
             }
@@ -180,25 +187,34 @@ int main()
         window.clear(cM["cDkBlue1"]);
 
         // Vertices
-        for (auto &vObj : vM[screens[curScreen]])
+        for (const auto& vObj : vM[screens[curScreen]])
         {
             // TODO handle other renderstates later
             window.draw(vObj.data(), vObj.size(), sf::TriangleStrip);
         }
 
+
         // Text
-        for (auto &tObj : tM[screens[curScreen]])
+        // Update time/date strings
+        epoch = std::time(nullptr);
+        strftime(timeStr, sizeof(timeStr), "%I:%M:%S %p", localtime(&epoch));
+        strftime(dateStr, sizeof(dateStr), "%a %b %e", localtime(&epoch));
+        
+        // tM[screens[curScreen]][0].setString(timeStr); // TODO clean up by specifying shadow ON or OFF in dat file
+        tM[screens[curScreen]][1].setString(timeStr);
+        tM[screens[curScreen]][1].setOrigin(sf::Vector2f(tM[screens[curScreen]][1].getLocalBounds().width, 0));
+        // tM[screens[curScreen]][2].setString(dateStr);
+        tM[screens[curScreen]][3].setString(dateStr);
+        tM[screens[curScreen]][3].setOrigin(sf::Vector2f(tM[screens[curScreen]][3].getLocalBounds().width, 0));
+
+
+        // Draw text
+        for (const auto& tObj : tM[screens[curScreen]])
         {
             window.draw(tObj);
         }
 
-        // TODO draw CLOCK
-
-
-
         window.display();
-
-        // Update clock and timers
     }
 
     return EXIT_SUCCESS;
