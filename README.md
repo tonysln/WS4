@@ -29,9 +29,6 @@ $ export LD_LIBRARY_PATH=<path to /lib> && ./WS4
 ### TODOs
 
 - Read in icons, create textures & sprites (re-use objs?)
-- Finish Extended Forecast graphics
-- Add Air Quality colors
-- Create Air Quality graphics
 - Add shadow toggle/info to text in data file
 - Music playback loop
 - Timers for changing screens

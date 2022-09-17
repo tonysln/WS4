@@ -31,4 +31,8 @@ namespace ws4
 
     // Use stringstream to split string by comma, trim spaces around values and save to vector
     void splitCLine(vector<string> &lineSegs, stringstream &lnStream, string &seg, string &line);
+
+    // Load textures for all weather icons and create sprites, return mapping 
+    // [screen name] -> <mapping [icon name] -> [sf::Sprite with texture]>
+    map<string, map<string, sf::Sprite>> loadIconsAsSprites();
 }

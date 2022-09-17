@@ -1,4 +1,5 @@
 #include <SFML/Graphics.hpp>
+#include <filesystem>
 #include "gfx_init.h"
 #include <fstream>
 #include <iostream>
@@ -137,7 +138,7 @@ namespace ws4
                                  cM[lineSegs[4]], cM[lineSegs[5]])
                 );
             }
-            else // Build from 4 x,y coordinates and 1 color
+            else if (size(lineSegs) == 9) // Build from 4 x,y coordinates and 1 color
             {
                 vM[curScene].push_back(
                     buildQuad(stoi(lineSegs[0]), stoi(lineSegs[1]), 
@@ -193,9 +194,10 @@ namespace ws4
             // Turn into wstring for degree sign support
             textVal = converter.from_bytes(lineSegs[0]);
 
-            
+            double sF = 0.67;
+
             // First add shadow
-            tM[curScene].push_back(sf::Text(textVal, fM[lineSegs[3]], stoi(lineSegs[1])*0.67));
+            tM[curScene].push_back(sf::Text(textVal, fM[lineSegs[3]], stoi(lineSegs[1])*sF));
 
             if (tM[curScene].size() < 1)
                 return tM; // Avoid undefined behaviour
@@ -220,7 +222,7 @@ namespace ws4
             tM[curScene].back().setScale(sf::Vector2f(1.5f, 1.5));
 
             // Then add text itself
-            tM[curScene].push_back(sf::Text(textVal, fM[lineSegs[3]], stoi(lineSegs[1])*0.67));
+            tM[curScene].push_back(sf::Text(textVal, fM[lineSegs[3]], stoi(lineSegs[1])*sF));
             tM[curScene].back().setFillColor(cM[lineSegs[2]]);
             tM[curScene].back().setPosition(sf::Vector2f(stoi(lineSegs[4]), stoi(lineSegs[5])));
             tM[curScene].back().setOutlineColor(cM["cBlack1"]);
@@ -233,4 +235,30 @@ namespace ws4
         return tM;
     }
 
+    map<string, map<string, sf::Sprite>> loadIconsAsSprites()
+    {
+        map<string, map<string, sf::Sprite>> iM;
+
+        for (const auto& folder : std::filesystem::directory_iterator("../icons/"))
+        {
+            if (!folder.is_directory())
+                continue;
+
+            for (const auto& entry : std::filesystem::directory_iterator(folder.path()))
+            {
+                if (entry.path().extension() != "gif")
+                    continue;
+
+                sf::Texture texture;
+                if (!texture.loadFromFile(entry.path()))
+                    return iM;
+                
+                sf::Sprite spr(texture);
+                spr.setOrigin(sf::Vector2f(spr.getLocalBounds().width/2, 0));
+                iM[folder.path().stem()][entry.path().stem()] = spr;
+            }
+        }
+
+        return iM;
+    }
 }

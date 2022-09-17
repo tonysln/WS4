@@ -31,7 +31,37 @@ Pressure:,          33, cWhite,     fStar4000,    330,  308,  0.55,   l
 ,                   31, cWhite,     fStar4000Sm,  572,   53,   0.8,   r
 ,                   31, cWhite,     fStar4000Sm,  572,   33,   0.8,   r
 Latest Observations,34, cYellow,    fStar4000,    163,   35,   0.5,   l
-N/A,                33, cWhite,     fStar4000,    300,  300,     1,   l
+°F,                 30, cWhite,     fStar4000Sm,  305,   78,   1.0,   l
+WEATHER,            30, cWhite,     fStar4000Sm,  365,   78,   1.0,   l
+WIND,               30, cWhite,     fStar4000Sm,  505,   78,   1.0,   l
+Altus,              33, cWhite,     fStar4000,    72,    110,  0.8,   l
+71,                 33, cWhite,     fStar4000,    305,   110,  0.8,   l
+M Cloudy,           33, cWhite,     fStar4000,    365,   110,  0.8,   l
+SE16,               33, cWhite,     fStar4000,    505,   110,  0.8,   l
+Enid,               33, cWhite,     fStar4000,    72,    150,  0.8,   l
+59,                 33, cWhite,     fStar4000,    305,   150,  0.8,   l
+T Shower,           33, cWhite,     fStar4000,    365,   150,  0.8,   l
+NE22,               33, cWhite,     fStar4000,    505,   150,  0.8,   l
+Gage,               33, cWhite,     fStar4000,    72,    190,  0.8,   l
+59,                 33, cWhite,     fStar4000,    305,   190,  0.8,   l
+T Shower,           33, cWhite,     fStar4000,    365,   190,  0.8,   l
+NE22,               33, cWhite,     fStar4000,    505,   190,  0.8,   l
+Oklahoma City,      33, cWhite,     fStar4000,    72,    230,  0.8,   l
+62,                 33, cWhite,     fStar4000,    305,   230,  0.8,   l
+Lgt Rain,           33, cWhite,     fStar4000,    365,   230,  0.8,   l
+SE17,               33, cWhite,     fStar4000,    505,   230,  0.8,   l
+Ponca City,         33, cWhite,     fStar4000,    72,    270,  0.8,   l
+61,                 33, cWhite,     fStar4000,    305,   270,  0.8,   l
+Fair,               33, cWhite,     fStar4000,    365,   270,  0.8,   l
+E 24,               33, cWhite,     fStar4000,    505,   270,  0.8,   l
+Tinker AFB,         33, cWhite,     fStar4000,    72,    310,  0.8,   l
+62,                 33, cWhite,     fStar4000,    305,   310,  0.8,   l
+T Shower,           33, cWhite,     fStar4000,    365,   310,  0.8,   l
+SE10,               33, cWhite,     fStar4000,    505,   310,  0.8,   l
+Tulsa,              33, cWhite,     fStar4000,    72,    350,  0.8,   l
+65,                 33, cWhite,     fStar4000,    305,   350,  0.8,   l
+Cloudy,             33, cWhite,     fStar4000,    365,   350,  0.8,   l
+NE14,               33, cWhite,     fStar4000,    505,   350,  0.8,   l
 
 
 [Local-Forecast]
@@ -39,16 +69,21 @@ N/A,                33, cWhite,     fStar4000,    300,  300,     1,   l
 ,                   31, cWhite,     fStar4000Sm,  572,   53,   0.8,   r
 ,                   31, cWhite,     fStar4000Sm,  572,   33,   0.8,   r
 Local Forecast,     34, cYellow,    fStar4000,    163,   35,   0.5,   l
-N/A,                33, cWhite,     fStar4000,    300,  300,     1,   l
+
 
 
 [Extended-Forecast]
 ,                   31, cWhite,     fStar4000Sm,  574,   33,   0.8,   r
 ,                   31, cWhite,     fStar4000Sm,  572,   53,   0.8,   r
 ,                   31, cWhite,     fStar4000Sm,  572,   33,   0.8,   r
-%city,              34, cWhite,     fStar4000,    163,   21,   0.6,   l
-Extended Forecast,  34, cYellow,    fStar4000,    163,   50,   0.6,   l
-N/A,                33, cWhite,     fStar4000,    300,  300,     1,   l
+%city,              34, cWhite,     fStar4000,    163,   21,   0.5,   l
+Extended Forecast,  34, cYellow,    fStar4000,    163,   50,   0.5,   l
+TUE,                35, cYellow,    fStar4000,    120,   100,  1.0,   c
+WED,                35, cYellow,    fStar4000,    320,   100,  1.0,   c
+THU,                35, cYellow,    fStar4000,    510,   100,  1.0,   c
+T'Storms,           35, cWhite,     fStar4000,    120,   238,  1.0,   c
+Cloudy,             35, cWhite,     fStar4000,    320,   238,  1.0,   c
+Showers,            35, cWhite,     fStar4000,    510,   238,  1.0,   c
 
 
 [Almanac]
@@ -56,7 +91,11 @@ N/A,                33, cWhite,     fStar4000,    300,  300,     1,   l
 ,                   31, cWhite,     fStar4000Sm,  572,   53,   0.8,   r
 ,                   31, cWhite,     fStar4000Sm,  572,   33,   0.8,   r
 Almanac,            34, cYellow,    fStar4000,    163,   35,     1,   l
-N/A,                33, cWhite,     fStar4000,    300,  300,     1,   l
+Saturday,           34, cYellow,    fStar4000,    320,   84,     1,   c
+Sunday,             34, cYellow,    fStar4000,    500,   84,     1,   c
+Sunrise:,           34, cWhite,     fStar4000,    200,   115,    1,   r
+Sunset:,            34, cWhite,     fStar4000,    200,   147,    1,   r
+Moon Data:,         34, cYellow,    fStar4000,    82,    190,    1,   l
 
 
 [Forecast-For]
@@ -65,7 +104,7 @@ N/A,                33, cWhite,     fStar4000,    300,  300,     1,   l
 ,                   31, cWhite,     fStar4000Sm,  572,   33,   0.8,   r
 Forecast For,       34, cYellow,    fStar4000,    163,   21,   0.6,   l
 %forecast-day,      34, cYellow,    fStar4000,    163,   50,   0.6,   l
-N/A,                33, cWhite,     fStar4000,    300,  300,     1,   l
+
 
 
 [Air-Quality]
@@ -74,4 +113,7 @@ N/A,                33, cWhite,     fStar4000,    300,  300,     1,   l
 ,                   31, cWhite,     fStar4000Sm,  572,   33,   0.8,   r
 Air Quality,        34, cYellow,    fStar4000,    163,   21,   0.7,   l
 %airq-day,          34, cYellow,    fStar4000,    163,   50,   0.7,   l
-N/A,                33, cWhite,     fStar4000,    300,  300,     1,   l
+HAZARDOUS,          29, cWhite,     fStar4000Sm,  312,   76,   1.0,   l
+VERY UNHEALTHY,     29, cWhite,     fStar4000Sm,  312,   96,   1.0,   l
+UNHEALTHY,          29, cWhite,     fStar4000Sm,  312,   116,  1.0,   l
+GOOD,               29, cWhite,     fStar4000Sm,  312,   136,  1.0,   l

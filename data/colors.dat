@@ -36,3 +36,8 @@ cOrange5,   123,56, 36
 cOrange6,   105,46, 46
 cOrange7,   89, 42, 62
 cOrange8,   71, 34, 64
+cOrange9,   125,60, 40
+cAQYellow,  240,220,10
+cAQOrange1, 240,150,0
+cAQOrange2, 250,100,5
+cAQOrange3, 245,40 ,5
