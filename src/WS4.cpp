@@ -63,7 +63,8 @@ namespace ws4
         for (short i = 0; i < screens.size(); i++)
         {
             double xCoordFix = 99.333;
-            if (localtime(&epoch)->tm_hour % 12 < 10)
+            if (localtime(&epoch)->tm_hour % 12 < 10 && 
+                localtime(&epoch)->tm_hour % 12 > 0)
                 xCoordFix = 94;
 
             tM[screens[i]][1].setOrigin(sf::Vector2f(xCoordFix, 0));
@@ -73,13 +74,16 @@ namespace ws4
 
     void WS4::loadFonts()
     {
-        int f1 = fM["fStar4000"].loadFromFile("../fonts/Star4000.ttf");
-        int f2 = fM["fStar4000Ext"].loadFromFile("../fonts/Star4000-Extended.ttf");
-        int f3 = fM["fStar4000Lg"].loadFromFile("../fonts/Star4000-Large.ttf");
-        int f4 = fM["fStar4000LgC"].loadFromFile("../fonts/Star4000-Large-Compressed.ttf");
-        int f5 = fM["fStar4000Sm"].loadFromFile("../fonts/Star4000-Small.ttf");
-
-        if (!f1||!f2||!f3||!f4||!f4||!f5) return;
+        if(!fM["fStar4000"].loadFromFile("../fonts/Star4000.ttf"))
+            return;
+        if(!fM["fStar4000Ext"].loadFromFile("../fonts/Star4000-Extended.ttf"))
+            return;
+        if(!fM["fStar4000Lg"].loadFromFile("../fonts/Star4000-Large.ttf"))
+            return;
+        if(!fM["fStar4000LgC"].loadFromFile("../fonts/Star4000-Large-Compressed.ttf"))
+            return;
+        if(!fM["fStar4000Sm"].loadFromFile("../fonts/Star4000-Small.ttf"))
+            return;
 
         // for (auto &fontEl : fM)
             // fontEl.second.setSmooth(false);
@@ -161,6 +165,31 @@ namespace ws4
             window.draw(tObj);
         }
     }
+
+
+    void WS4::loadMusic()
+    {
+        // TODO define list of songs, select random?
+        vector<string> songsPaths = 
+        {
+            "../audio/001.mp3",
+            "../audio/002.mp3",
+            "../audio/003.mp3",
+            "../audio/004.mp3",
+            "../audio/005.mp3"
+        };
+        
+        if (!musicPlayer.openFromFile(songsPaths[0]))
+            return;
+
+        musicPlayer.setVolume(20);
+    }
+
+
+    void WS4::changeSong()
+    {
+
+    }
 }
 
 
@@ -184,15 +213,11 @@ int main()
     ws4Engine.loadFonts();
     ws4Engine.loadGraphics();
     
+    // ws4Engine.musicPlayer.play();
 
-    /*
-     * MUSIC
-     */
-    sf::Music music;
-    if (!music.openFromFile("../audio/001.mp3"))
-        return EXIT_FAILURE;
-    music.setVolume(20);
-    music.play();
+    sf::Clock sceneTimer;
+    sf::Time elapsed;
+    float sceneTime = 10.f;
 
 
     /*
@@ -248,6 +273,14 @@ int main()
                 }
             }
         }
+ 
+        // Check if time for scene change
+        if (sceneTimer.getElapsedTime().asSeconds() >= sceneTime)
+        {
+            ws4Engine.nextScreen();
+            elapsed = sceneTimer.restart();
+        }
+
 
         // DRAWING GRAPHICS
         ws4Engine.drawGraphics();
@@ -258,6 +291,13 @@ int main()
         ws4Engine.drawText();
 
         ws4Engine.window.display();
+
+
+        // Check if time to change song
+        // if (ws4Engine.musicPlayer.getStatus() == sf::Music::Status::Stopped)
+        // {
+        //     ws4Engine.changeSong();
+        // }
     }
 
     return EXIT_SUCCESS;

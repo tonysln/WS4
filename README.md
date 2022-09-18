@@ -10,6 +10,8 @@ cmake 3+
 
 OpenGL ?
 
+OpenAL ?
+
 ### Build
 
 Make sure that the correct path is set in the Makefile for SFML files.
@@ -29,7 +31,6 @@ $ export LD_LIBRARY_PATH=<path to /lib> && ./WS4
 ### TODOs
 
 - Read in icons, create textures & sprites (re-use objs?)
-- Add shadow toggle/info to text in data file
-- Music playback loop
-- Timers for changing screens
+- Pressure up/down arrows on CC screen
+- Music playback loop fix
 - Pretty much all of data gathering stuff

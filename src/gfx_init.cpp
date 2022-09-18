@@ -195,6 +195,14 @@ namespace ws4
             textVal = converter.from_bytes(lineSegs[0]);
 
             double sF = 0.67;
+            int shOffst = 3;
+
+            // Hide shadow if flag is set to 0
+            if (size(lineSegs) == 9 && lineSegs.back()[0] == '0')
+            {
+                shOffst = 0;
+            }
+
 
             // First add shadow
             tM[curScene].push_back(sf::Text(textVal, fM[lineSegs[3]], stoi(lineSegs[1])*sF));
@@ -203,7 +211,9 @@ namespace ws4
                 return tM; // Avoid undefined behaviour
 
             tM[curScene].back().setFillColor(cM["cBlack2"]);
-            tM[curScene].back().setPosition(sf::Vector2f(stoi(lineSegs[4])+3, stoi(lineSegs[5])+3));
+            tM[curScene].back().setPosition(
+                sf::Vector2f(stoi(lineSegs[4])+shOffst, stoi(lineSegs[5])+shOffst)
+            );
             tM[curScene].back().setOutlineColor(cM["cBlack2"]);
             tM[curScene].back().setOutlineThickness(0);
             tM[curScene].back().setLetterSpacing(stod(lineSegs[6]));

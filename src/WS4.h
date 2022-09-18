@@ -30,6 +30,7 @@ namespace ws4
 
     public:
         sf::RenderWindow window;
+        sf::Music musicPlayer;
         
         const vector<string> screens = 
         {
@@ -43,7 +44,6 @@ namespace ws4
         };
         short curScreen = 0;
 
-
         WS4();
         void nextScreen();
         void prevScreen();
@@ -53,6 +53,8 @@ namespace ws4
         void loadData();
         void drawGraphics();
         void drawText();
+        void loadMusic();
+        void changeSong();
     };
 
     
