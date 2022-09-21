@@ -154,7 +154,7 @@ namespace ws4
     }
 
 
-    map<string, vector<sf::Text>> parseTextData(map<string, sf::Color> &cM, map<string, sf::Font> &fM, map<string, string> &dM)
+    map<string, vector<sf::Text>> parseTextData(map<string, sf::Color> &cM, map<string, sf::Font> &fM, map<string, map<string, string>> &dM)
     {        
         map<string, vector<sf::Text>> tM;
 
@@ -185,8 +185,8 @@ namespace ws4
                 // Replace with value in dM, else N/A
                 replVal = lineSegs[0].substr(1, lineSegs[0][lineSegs[0].length()-1]);
 
-                if (dM.contains(replVal))
-                    lineSegs[0] = dM[replVal];
+                if (dM[curScene].contains(replVal))
+                    lineSegs[0] = dM[curScene][replVal];
                 else
                     lineSegs[0] = "N/A";
             }
@@ -245,30 +245,4 @@ namespace ws4
         return tM;
     }
 
-    map<string, map<string, sf::Sprite>> loadIconsAsSprites()
-    {
-        map<string, map<string, sf::Sprite>> iM;
-
-        for (const auto& folder : std::filesystem::directory_iterator("../icons/"))
-        {
-            if (!folder.is_directory())
-                continue;
-
-            for (const auto& entry : std::filesystem::directory_iterator(folder.path()))
-            {
-                if (entry.path().extension() != "gif")
-                    continue;
-
-                sf::Texture texture;
-                if (!texture.loadFromFile(entry.path()))
-                    return iM;
-                
-                sf::Sprite spr(texture);
-                spr.setOrigin(sf::Vector2f(spr.getLocalBounds().width/2, 0));
-                iM[folder.path().stem()][entry.path().stem()] = spr;
-            }
-        }
-
-        return iM;
-    }
 }

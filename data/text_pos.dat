@@ -82,8 +82,17 @@ TUE,                35, cYellow,    fStar4000,    120,   100,  1.0,   c
 WED,                35, cYellow,    fStar4000,    320,   100,  1.0,   c
 THU,                35, cYellow,    fStar4000,    510,   100,  1.0,   c
 T'Storms,           35, cWhite,     fStar4000,    120,   238,  1.0,   c
-Cloudy,             35, cWhite,     fStar4000,    320,   238,  1.0,   c
+,                   35, cWhite,     fStar4000,    120,   276,  1.0,   c
+Mostly,             35, cWhite,     fStar4000,    320,   238,  1.0,   c
+Cloudy,             35, cWhite,     fStar4000,    320,   276,  1.0,   c
 Showers,            35, cWhite,     fStar4000,    510,   238,  1.0,   c
+,                   35, cWhite,     fStar4000,    510,   276,  1.0,   c
+Lo,                 35, cViolet2,   fStar4000,    86,    312,  1.0,   c
+Hi,                 35, cYellow,    fStar4000,    154,   312,  1.0,   c
+Lo,                 35, cViolet2,   fStar4000,    286,   312,  1.0,   c
+Hi,                 35, cYellow,    fStar4000,    354,   312,  1.0,   c
+Lo,                 35, cViolet2,   fStar4000,    476,   312,  1.0,   c
+Hi,                 35, cYellow,    fStar4000,    554,   312,  1.0,   c
 
 
 [Almanac]
@@ -95,7 +104,19 @@ Saturday,           34, cYellow,    fStar4000,    320,   84,     1,   c
 Sunday,             34, cYellow,    fStar4000,    500,   84,     1,   c
 Sunrise:,           34, cWhite,     fStar4000,    200,   115,    1,   r
 Sunset:,            34, cWhite,     fStar4000,    200,   147,    1,   r
+7:57 AM,            34, cWhite,     fStar4000,    320,   115,    1,   c
+7:58 AM,            34, cWhite,     fStar4000,    500,   115,    1,   c
+5:25 PM,            34, cWhite,     fStar4000,    320,   147,    1,   c
+5:26 PM,            34, cWhite,     fStar4000,    500,   147,    1,   c
 Moon Data:,         34, cYellow,    fStar4000,    82,    190,    1,   l
+Full,               34, cWhite,     fStar4000,    130,   226,    1,   c
+Last,               34, cWhite,     fStar4000,    250,   226,    1,   c
+New,                34, cWhite,     fStar4000,    370,   226,    1,   c
+First,              34, cWhite,     fStar4000,    490,   226,    1,   c
+Jan 1,              34, cWhite,     fStar4000,    130,   356,    1,   c
+Jan 8,              34, cWhite,     fStar4000,    250,   356,    1,   c
+Jan 16,             34, cWhite,     fStar4000,    370,   356,    1,   c
+Jan 24,             34, cWhite,     fStar4000,    490,   356,    1,   c
 
 
 [Forecast-For]

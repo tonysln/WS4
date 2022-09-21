@@ -12,6 +12,7 @@ namespace ws4
         const float SCALE = 1.0f;
         const short WIN_WIDTH = 640;
         const short WIN_HEIGHT = 480;
+        const short ANIM_FRAMES = 7;
 
         sf::ContextSettings sts;
         sf::View view;
@@ -25,14 +26,22 @@ namespace ws4
         map<string, sf::Color> cM;
         map<string, vector<sf::Text>> tM;
         map<string, vector<array<sf::Vertex, 4>>> vM;
+        map<string, map<string, vector<int>>> iconPos;
+        map<string, vector<sf::Sprite>> iM;
         
+        sf::Texture moonPhasesTexture;
+        sf::Texture curCondTexture;
+        sf::Texture extForcTexture;
+        sf::Texture regMapsTexture;
+        int animFrame;
+
 
     public:
         sf::RenderWindow window;
         sf::Music musicPlayer;
-        map<string, string> dM;
+        map<string, map<string, string>> dM;
         
-        const vector<string> screens = 
+        const vector<string> scr = 
         {
             "Current-Conditions",
             "Latest-Observations",
@@ -42,7 +51,8 @@ namespace ws4
             "Forecast-For",
             "Air-Quality"
         };
-        short curScreen = 0;
+        short cur = 0;
+        short icoCt = 0;
 
         WS4();
         void nextScreen();
@@ -51,6 +61,7 @@ namespace ws4
         void loadFonts();
         void loadGraphics();
         void loadData();
+        void loadIcons();
         void drawGraphics();
         void drawText();
         void loadMusic();

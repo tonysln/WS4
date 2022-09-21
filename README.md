@@ -30,8 +30,6 @@ $ export LD_LIBRARY_PATH=<path to /lib> && ./WS4
 
 ### TODOs
 
-- Finish spritesheets and icon loading
-- Cache icons from other pages?
 - Pressure up/down arrows on CC screen
 - Music playback loop fix
 - Pretty much all of data gathering stuff
