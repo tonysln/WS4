@@ -270,6 +270,29 @@ int main()
         {"Wintry-Mix", {134, 2053, 105}},
     };
 
+    map<string, vector<int>> extForcIconsPos = 
+    {
+        {"Cloudy", {118, 164, 83}},
+        {"Fog", {126, 247, 113}},
+        {"Freezing-Rain", {124, 360, 113}},
+        {"Heavy-Snow", {136, 473, 103}},
+        {"Isolated-Tstorms", {146, 577, 117}},
+        {"Light-Snow", {108, 695, 91}},
+        {"Mostly-Cloudy", {142, 856, 85}},
+        {"Partly-Cloudy", {130, 1010, 85}},
+        {"Rain-Snow", {138, 1094, 117}},
+        {"Rain", {124, 1212, 113}},
+        {"Scattered-Showers", {124, 1326, 101}},
+        {"Scattered-Snow-Showers", {124, 1326, 101}},
+        {"Scattered-Tstorms", {124, 1326, 101}},
+        {"Showers", {70, 1427, 91}},
+        {"Snow-to-Rain", {108, 1519, 91}},
+        {"Sunny", {112, 1611, 107}},
+        {"Thunderstorms", {148, 1718, 123}},
+        {"Windy", {142, 1841, 93}},
+        {"Wintry-Mix", {134, 2053, 105}},
+    };
+
 
 
     int animFrame = 0;
@@ -284,42 +307,6 @@ int main()
     ));
     icons["curCond"].setOrigin(sf::Vector2f(icons["curCond"].getGlobalBounds().width/2, 0));
     icons["curCond"].setScale(sf::Vector2f(0.9, 0.9));
-
-
-    icons["extffIcon1"].setTexture(curCondTexture);
-    icons["extffIcon1"].setPosition(sf::Vector2f(120, 160));
-    icons["extffIcon1"].setTextureRect(sf::IntRect(
-        sf::Vector2i(animFrame*curCondIconsPos[ws4Engine.dM["extf-day1-icon-name"]][0], 
-                    curCondIconsPos[ws4Engine.dM["extf-day1-icon-name"]][1]), 
-        sf::Vector2i(curCondIconsPos[ws4Engine.dM["extf-day1-icon-name"]][0], 
-                    curCondIconsPos[ws4Engine.dM["extf-day1-icon-name"]][2])
-    ));
-    icons["extffIcon1"].setOrigin(sf::Vector2f(icons["extffIcon1"].getGlobalBounds().width/2, 0));
-    icons["extffIcon1"].setScale(sf::Vector2f(0.9, 0.9));
-
-
-    icons["extffIcon2"].setTexture(curCondTexture);
-    icons["extffIcon2"].setPosition(sf::Vector2f(320, 160));
-    icons["extffIcon2"].setTextureRect(sf::IntRect(
-        sf::Vector2i(animFrame*curCondIconsPos[ws4Engine.dM["extf-day2-icon-name"]][0], 
-                    curCondIconsPos[ws4Engine.dM["extf-day2-icon-name"]][1]), 
-        sf::Vector2i(curCondIconsPos[ws4Engine.dM["extf-day2-icon-name"]][0], 
-                    curCondIconsPos[ws4Engine.dM["extf-day2-icon-name"]][2])
-    ));
-    icons["extffIcon2"].setOrigin(sf::Vector2f(icons["extffIcon2"].getGlobalBounds().width/2, 0));
-    icons["extffIcon2"].setScale(sf::Vector2f(0.9, 0.9));
-
-
-    icons["extffIcon3"].setTexture(curCondTexture);
-    icons["extffIcon3"].setPosition(sf::Vector2f(510, 160));
-    icons["extffIcon3"].setTextureRect(sf::IntRect(
-        sf::Vector2i(animFrame*curCondIconsPos[ws4Engine.dM["extf-day3-icon-name"]][0], 
-                    curCondIconsPos[ws4Engine.dM["extf-day3-icon-name"]][1]), 
-        sf::Vector2i(curCondIconsPos[ws4Engine.dM["extf-day3-icon-name"]][0], 
-                    curCondIconsPos[ws4Engine.dM["extf-day3-icon-name"]][2])
-    ));
-    icons["extffIcon3"].setOrigin(sf::Vector2f(icons["extffIcon3"].getGlobalBounds().width/2, 0));
-    icons["extffIcon3"].setScale(sf::Vector2f(0.9, 0.9));
 
 
 
@@ -407,35 +394,6 @@ int main()
                             curCondIconsPos[ws4Engine.dM["curcond-icon-name"]][1]), 
                 sf::Vector2i(curCondIconsPos[ws4Engine.dM["curcond-icon-name"]][0], 
                             curCondIconsPos[ws4Engine.dM["curcond-icon-name"]][2])
-            ));
-        }
-
-        if (ws4Engine.screens[ws4Engine.curScreen] == "Extended-Forecast")
-        {
-            ws4Engine.window.draw(icons["extffIcon1"]);
-            ws4Engine.window.draw(icons["extffIcon2"]);
-            ws4Engine.window.draw(icons["extffIcon3"]);
-            animFrame = (animFrame + 1) % 7;
-
-            icons["extffIcon1"].setTextureRect(sf::IntRect(
-                sf::Vector2i(animFrame*curCondIconsPos[ws4Engine.dM["extf-day1-icon-name"]][0], 
-                            curCondIconsPos[ws4Engine.dM["extf-day1-icon-name"]][1]), 
-                sf::Vector2i(curCondIconsPos[ws4Engine.dM["extf-day1-icon-name"]][0], 
-                            curCondIconsPos[ws4Engine.dM["extf-day1-icon-name"]][2])
-            ));
-
-            icons["extffIcon2"].setTextureRect(sf::IntRect(
-                sf::Vector2i(animFrame*curCondIconsPos[ws4Engine.dM["extf-day2-icon-name"]][0], 
-                            curCondIconsPos[ws4Engine.dM["extf-day2-icon-name"]][1]), 
-                sf::Vector2i(curCondIconsPos[ws4Engine.dM["extf-day2-icon-name"]][0], 
-                            curCondIconsPos[ws4Engine.dM["extf-day2-icon-name"]][2])
-            ));
-
-            icons["extffIcon3"].setTextureRect(sf::IntRect(
-                sf::Vector2i(animFrame*curCondIconsPos[ws4Engine.dM["extf-day3-icon-name"]][0], 
-                            curCondIconsPos[ws4Engine.dM["extf-day3-icon-name"]][1]), 
-                sf::Vector2i(curCondIconsPos[ws4Engine.dM["extf-day3-icon-name"]][0], 
-                            curCondIconsPos[ws4Engine.dM["extf-day3-icon-name"]][2])
             ));
         }
 
