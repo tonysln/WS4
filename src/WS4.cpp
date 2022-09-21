@@ -59,10 +59,9 @@ namespace ws4
     {
         // Time clock Text alignment fix - do not let it jump around due to 
         // different widths of symbols
-        // NB! TODO! call this at 10:00:00 and 12:00:00 !!
         for (short i = 0; i < screens.size(); i++)
         {
-            double xCoordFix = 99.333;
+            double xCoordFix = 102.333;
             if (localtime(&epoch)->tm_hour % 12 < 10 && 
                 localtime(&epoch)->tm_hour % 12 > 0)
                 xCoordFix = 94;
@@ -102,10 +101,11 @@ namespace ws4
     void WS4::loadData()
     {
         dM["city"] = "Moline";
-        dM["temp"] = "68°";
-        dM["cond"] = "T'Storm";
-        dM["humidity"] = "87%";
-        dM["dewpoint"] = "64°";
+        dM["temp"] = "56";
+        dM["cond"] = "Ice Snow";
+        dM["curcond-icon-name"] = "Ice-Snow";
+        dM["humidity"] = "66%";
+        dM["dewpoint"] = "53";
         dM["ceiling"] = "0.8 mi.";
         dM["visib"] = "3300 ft.";
         dM["pressure"] = "29.93";
@@ -115,6 +115,10 @@ namespace ws4
 
         dM["forecast-day"] = "Saturday";
         dM["airq-day"] = "Friday";
+
+        dM["extf-day1-icon-name"] = "Light-Snow";
+        dM["extf-day2-icon-name"] = "Wintry-Mix";
+        dM["extf-day3-icon-name"] = "Freezing-Rain";
     }
 
 
@@ -143,6 +147,12 @@ namespace ws4
         strftime(timeStr, sizeof(timeStr), "%-I:%M:%S", localtime(&epoch));
         strftime(timeAPStr, sizeof(timeAPStr), "%p", localtime(&epoch));
         strftime(dateStr, sizeof(dateStr), "%a %b %e", localtime(&epoch)); // %e is space-padded
+
+        // Check if clock positioning needs to be fixed (at 10 and 1)
+        if ((localtime(&epoch)->tm_min == 0) && (localtime(&epoch)->tm_sec <= 3))
+        {
+            nextScreenUpdate();
+        }
         
         // TODO clean up by specifying shadow ON or OFF in dat file
         // tM[screens[curScreen]][0].setString(timeStr);
@@ -216,43 +226,128 @@ int main()
     // ws4Engine.musicPlayer.play();
 
     sf::Clock sceneTimer;
-    sf::Time elapsed;
+    sf::Time elapsedScene;
     float sceneTime = 10.f;
 
 
     /*
-     * ICONS
+     * TEXTURES & ICONS
      */
-    map<string, sf::Sprite> icons;
-    sf::Texture ccIconTexture;
-    if (!ccIconTexture.loadFromFile("../icons/Current-Conditions/Rain.png"))
+    sf::Texture moonPhasesTexture;
+    if (!moonPhasesTexture.loadFromFile("../icons/Moon-Phases.png"))
         return 3;
 
-    icons["curCond"].setTexture(ccIconTexture);
-    icons["curCond"].setPosition(sf::Vector2f(176, 170));
-    
+    sf::Texture curCondTexture;
+    if (!curCondTexture.loadFromFile("../icons/Current-Conditions.png"))
+        return 3;
+
+
+    // Current Conditions
+    // Name: Width, Y location, Height
+    map<string, vector<int>> curCondIconsPos = 
+    {
+        {"Blowing-Snow", {138, 0, 99}},
+        {"Clear", {100, 99, 65}},
+        {"Cloudy", {118, 164, 83}},
+        {"Freezing-Rain-Sleet", {126, 247, 113}},
+        {"Freezing-Rain", {124, 360, 113}},
+        {"Heavy-Snow", {136, 473, 103}},
+        {"Ice-Snow", {146, 577, 117}},
+        {"Light-Snow", {108, 695, 91}},
+        {"Mostly-Clear", {94, 787, 69}},
+        {"Mostly-Cloudy", {142, 856, 85}},
+        {"Partly-Clear", {138, 940, 69}},
+        {"Partly-Cloudy", {130, 1010, 85}},
+        {"Rain-Snow", {138, 1094, 117}},
+        {"Rain", {124, 1212, 113}},
+        {"Shower", {124, 1326, 101}},
+        {"Sleet", {70, 1427, 91}},
+        {"Snow-Sleet", {108, 1519, 91}},
+        {"Sunny", {112, 1611, 107}},
+        {"Thunder", {148, 1718, 123}},
+        {"ThunderSnow", {142, 1841, 93}},
+        {"Thunderstorm", {142, 1935, 117}},
+        {"Wintry-Mix", {134, 2053, 105}},
+    };
+
+
+
     int animFrame = 0;
-    icons["curCond"].setTextureRect(sf::IntRect(sf::Vector2i(animFrame*124, 0), sf::Vector2i(124, 114)));
-    
-    icons["curCond"].setOrigin(sf::Vector2f(icons["curCond"].getLocalBounds().width/2, 0));
-    icons["curCond"].setScale(sf::Vector2f(1.0, 1.0));
+    map<string, sf::Sprite> icons;
+    icons["curCond"].setTexture(curCondTexture);
+    icons["curCond"].setPosition(sf::Vector2f(178, 174));
+    icons["curCond"].setTextureRect(sf::IntRect(
+        sf::Vector2i(animFrame*curCondIconsPos[ws4Engine.dM["curcond-icon-name"]][0], 
+                    curCondIconsPos[ws4Engine.dM["curcond-icon-name"]][1]), 
+        sf::Vector2i(curCondIconsPos[ws4Engine.dM["curcond-icon-name"]][0], 
+                    curCondIconsPos[ws4Engine.dM["curcond-icon-name"]][2])
+    ));
+    icons["curCond"].setOrigin(sf::Vector2f(icons["curCond"].getGlobalBounds().width/2, 0));
+    icons["curCond"].setScale(sf::Vector2f(0.9, 0.9));
 
-    icons["efIcon1"];
-    icons["efIcon2"];
-    icons["efIcon3"];
 
-    icons["moonIconNew"];
-    icons["moonIconFirst"];
-    icons["moonIconFull"];
-    icons["moonIconLast"];
+    icons["extffIcon1"].setTexture(curCondTexture);
+    icons["extffIcon1"].setPosition(sf::Vector2f(120, 160));
+    icons["extffIcon1"].setTextureRect(sf::IntRect(
+        sf::Vector2i(animFrame*curCondIconsPos[ws4Engine.dM["extf-day1-icon-name"]][0], 
+                    curCondIconsPos[ws4Engine.dM["extf-day1-icon-name"]][1]), 
+        sf::Vector2i(curCondIconsPos[ws4Engine.dM["extf-day1-icon-name"]][0], 
+                    curCondIconsPos[ws4Engine.dM["extf-day1-icon-name"]][2])
+    ));
+    icons["extffIcon1"].setOrigin(sf::Vector2f(icons["extffIcon1"].getGlobalBounds().width/2, 0));
+    icons["extffIcon1"].setScale(sf::Vector2f(0.9, 0.9));
 
-    // NB! stack animated icons into rows and store their heights, load as one large texture
 
-    icons["regObs1"];
-    // ...
+    icons["extffIcon2"].setTexture(curCondTexture);
+    icons["extffIcon2"].setPosition(sf::Vector2f(320, 160));
+    icons["extffIcon2"].setTextureRect(sf::IntRect(
+        sf::Vector2i(animFrame*curCondIconsPos[ws4Engine.dM["extf-day2-icon-name"]][0], 
+                    curCondIconsPos[ws4Engine.dM["extf-day2-icon-name"]][1]), 
+        sf::Vector2i(curCondIconsPos[ws4Engine.dM["extf-day2-icon-name"]][0], 
+                    curCondIconsPos[ws4Engine.dM["extf-day2-icon-name"]][2])
+    ));
+    icons["extffIcon2"].setOrigin(sf::Vector2f(icons["extffIcon2"].getGlobalBounds().width/2, 0));
+    icons["extffIcon2"].setScale(sf::Vector2f(0.9, 0.9));
 
-    icons["travel1"];
-    // ...
+
+    icons["extffIcon3"].setTexture(curCondTexture);
+    icons["extffIcon3"].setPosition(sf::Vector2f(510, 160));
+    icons["extffIcon3"].setTextureRect(sf::IntRect(
+        sf::Vector2i(animFrame*curCondIconsPos[ws4Engine.dM["extf-day3-icon-name"]][0], 
+                    curCondIconsPos[ws4Engine.dM["extf-day3-icon-name"]][1]), 
+        sf::Vector2i(curCondIconsPos[ws4Engine.dM["extf-day3-icon-name"]][0], 
+                    curCondIconsPos[ws4Engine.dM["extf-day3-icon-name"]][2])
+    ));
+    icons["extffIcon3"].setOrigin(sf::Vector2f(icons["extffIcon3"].getGlobalBounds().width/2, 0));
+    icons["extffIcon3"].setScale(sf::Vector2f(0.9, 0.9));
+
+
+
+    // Positions (x) from dM
+    icons["moonPhaseNew"].setTexture(moonPhasesTexture);
+    icons["moonPhaseNew"].setTextureRect(sf::IntRect(sf::Vector2i(0,0), sf::Vector2i(100,94)));
+    icons["moonPhaseNew"].setOrigin(sf::Vector2f(icons["moonPhaseNew"].getGlobalBounds().width/2, 0));
+    icons["moonPhaseNew"].setScale(sf::Vector2f(1.0, 1.0));
+    icons["moonPhaseNew"].setPosition(sf::Vector2f(130, 265));
+
+    icons["moonPhaseFirst"].setTexture(moonPhasesTexture);
+    icons["moonPhaseFirst"].setTextureRect(sf::IntRect(sf::Vector2i(100,0), sf::Vector2i(100,94)));
+    icons["moonPhaseFirst"].setOrigin(sf::Vector2f(icons["moonPhaseFirst"].getGlobalBounds().width/2, 0));
+    icons["moonPhaseFirst"].setScale(sf::Vector2f(1.0, 1.0));
+    icons["moonPhaseFirst"].setPosition(sf::Vector2f(250, 265));
+
+    icons["moonPhaseFull"].setTexture(moonPhasesTexture);
+    icons["moonPhaseFull"].setTextureRect(sf::IntRect(sf::Vector2i(200,0), sf::Vector2i(100,94)));
+    icons["moonPhaseFull"].setOrigin(sf::Vector2f(icons["moonPhaseFull"].getGlobalBounds().width/2, 0));
+    icons["moonPhaseFull"].setScale(sf::Vector2f(1.0, 1.0));
+    icons["moonPhaseFull"].setPosition(sf::Vector2f(370, 265));
+
+    icons["moonPhaseLast"].setTexture(moonPhasesTexture);
+    icons["moonPhaseLast"].setTextureRect(sf::IntRect(sf::Vector2i(300,0), sf::Vector2i(100,94)));
+    icons["moonPhaseLast"].setOrigin(sf::Vector2f(icons["moonPhaseLast"].getGlobalBounds().width/2, 0));
+    icons["moonPhaseLast"].setScale(sf::Vector2f(1.0, 1.0));
+    icons["moonPhaseLast"].setPosition(sf::Vector2f(490, 265));
+
 
 
     /*
@@ -295,7 +390,7 @@ int main()
         if (sceneTimer.getElapsedTime().asSeconds() >= sceneTime)
         {
             ws4Engine.nextScreen();
-            elapsed = sceneTimer.restart();
+            elapsedScene = sceneTimer.restart();
         }
 
 
@@ -303,11 +398,56 @@ int main()
         ws4Engine.drawGraphics();
 
         // Icons
-        ws4Engine.window.draw(icons["curCond"]);
+        if (ws4Engine.screens[ws4Engine.curScreen] == "Current-Conditions")
+        {
+            ws4Engine.window.draw(icons["curCond"]);
+            animFrame = (animFrame + 1) % 7;
+            icons["curCond"].setTextureRect(sf::IntRect(
+                sf::Vector2i(animFrame*curCondIconsPos[ws4Engine.dM["curcond-icon-name"]][0], 
+                            curCondIconsPos[ws4Engine.dM["curcond-icon-name"]][1]), 
+                sf::Vector2i(curCondIconsPos[ws4Engine.dM["curcond-icon-name"]][0], 
+                            curCondIconsPos[ws4Engine.dM["curcond-icon-name"]][2])
+            ));
+        }
 
-        animFrame = (animFrame + 1) % 7;
-        icons["curCond"].setTextureRect(sf::IntRect(sf::Vector2i(animFrame*124, 0), sf::Vector2i(124, 114)));
-        
+        if (ws4Engine.screens[ws4Engine.curScreen] == "Extended-Forecast")
+        {
+            ws4Engine.window.draw(icons["extffIcon1"]);
+            ws4Engine.window.draw(icons["extffIcon2"]);
+            ws4Engine.window.draw(icons["extffIcon3"]);
+            animFrame = (animFrame + 1) % 7;
+
+            icons["extffIcon1"].setTextureRect(sf::IntRect(
+                sf::Vector2i(animFrame*curCondIconsPos[ws4Engine.dM["extf-day1-icon-name"]][0], 
+                            curCondIconsPos[ws4Engine.dM["extf-day1-icon-name"]][1]), 
+                sf::Vector2i(curCondIconsPos[ws4Engine.dM["extf-day1-icon-name"]][0], 
+                            curCondIconsPos[ws4Engine.dM["extf-day1-icon-name"]][2])
+            ));
+
+            icons["extffIcon2"].setTextureRect(sf::IntRect(
+                sf::Vector2i(animFrame*curCondIconsPos[ws4Engine.dM["extf-day2-icon-name"]][0], 
+                            curCondIconsPos[ws4Engine.dM["extf-day2-icon-name"]][1]), 
+                sf::Vector2i(curCondIconsPos[ws4Engine.dM["extf-day2-icon-name"]][0], 
+                            curCondIconsPos[ws4Engine.dM["extf-day2-icon-name"]][2])
+            ));
+
+            icons["extffIcon3"].setTextureRect(sf::IntRect(
+                sf::Vector2i(animFrame*curCondIconsPos[ws4Engine.dM["extf-day3-icon-name"]][0], 
+                            curCondIconsPos[ws4Engine.dM["extf-day3-icon-name"]][1]), 
+                sf::Vector2i(curCondIconsPos[ws4Engine.dM["extf-day3-icon-name"]][0], 
+                            curCondIconsPos[ws4Engine.dM["extf-day3-icon-name"]][2])
+            ));
+        }
+
+        if (ws4Engine.screens[ws4Engine.curScreen] == "Almanac")
+        {
+            ws4Engine.window.draw(icons["moonPhaseNew"]);
+            ws4Engine.window.draw(icons["moonPhaseFirst"]);
+            ws4Engine.window.draw(icons["moonPhaseFull"]);
+            ws4Engine.window.draw(icons["moonPhaseLast"]);
+        }
+            
+
         ws4Engine.drawText();
 
         ws4Engine.window.display();

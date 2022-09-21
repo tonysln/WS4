@@ -22,7 +22,6 @@ namespace ws4
         char dateStr[12];
 
         map<string, sf::Font> fM;
-        map<string, string> dM;
         map<string, sf::Color> cM;
         map<string, vector<sf::Text>> tM;
         map<string, vector<array<sf::Vertex, 4>>> vM;
@@ -31,6 +30,7 @@ namespace ws4
     public:
         sf::RenderWindow window;
         sf::Music musicPlayer;
+        map<string, string> dM;
         
         const vector<string> screens = 
         {
