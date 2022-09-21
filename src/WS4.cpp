@@ -224,18 +224,35 @@ int main()
      * ICONS
      */
     map<string, sf::Sprite> icons;
-    sf::Texture storm;
-    if (!storm.loadFromFile("../icons/Current-Conditions/Thunder.gif"))
+    sf::Texture ccIconTexture;
+    if (!ccIconTexture.loadFromFile("../icons/Current-Conditions/Rain.png"))
         return 3;
+
+    icons["curCond"].setTexture(ccIconTexture);
+    icons["curCond"].setPosition(sf::Vector2f(176, 170));
     
-    icons["TStorm"].setTexture(storm);
-    icons["TStorm"].setPosition(sf::Vector2f(176, 170));
-    icons["TStorm"].setOrigin(sf::Vector2f(icons["TStorm"].getLocalBounds().width/2, 0));
-    icons["TStorm"].setScale(sf::Vector2f(1.0, 1.0));
+    int animFrame = 0;
+    icons["curCond"].setTextureRect(sf::IntRect(sf::Vector2i(animFrame*124, 0), sf::Vector2i(124, 114)));
+    
+    icons["curCond"].setOrigin(sf::Vector2f(icons["curCond"].getLocalBounds().width/2, 0));
+    icons["curCond"].setScale(sf::Vector2f(1.0, 1.0));
 
-    map<string, sf::Sprite> iM;
-    iM["Current-Conditions"] = icons["TStorm"];
+    icons["efIcon1"];
+    icons["efIcon2"];
+    icons["efIcon3"];
 
+    icons["moonIconNew"];
+    icons["moonIconFirst"];
+    icons["moonIconFull"];
+    icons["moonIconLast"];
+
+    // NB! stack animated icons into rows and store their heights, load as one large texture
+
+    icons["regObs1"];
+    // ...
+
+    icons["travel1"];
+    // ...
 
 
     /*
@@ -286,7 +303,10 @@ int main()
         ws4Engine.drawGraphics();
 
         // Icons
-        ws4Engine.window.draw(iM[ws4Engine.screens[ws4Engine.curScreen]]);
+        ws4Engine.window.draw(icons["curCond"]);
+
+        animFrame = (animFrame + 1) % 7;
+        icons["curCond"].setTextureRect(sf::IntRect(sf::Vector2i(animFrame*124, 0), sf::Vector2i(124, 114)));
         
         ws4Engine.drawText();
 

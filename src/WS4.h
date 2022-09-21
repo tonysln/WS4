@@ -8,7 +8,7 @@ namespace ws4
 {
     class WS4 
     {
-        const short FPS = 23;
+        const short FPS = 7;
         const float SCALE = 1.0f;
         const short WIN_WIDTH = 640;
         const short WIN_HEIGHT = 480;
