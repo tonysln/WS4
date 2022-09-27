@@ -153,6 +153,27 @@ Forecast For,       34, cYellow,    fStar4000,    163,   21,   0.6,   l
 %forecast-day,      34, cYellow,    fStar4000,    163,   50,   0.6,   l
 
 
+[Travel-Forecast]
+,                   31, cWhite,     fStar4000Sm,  574,   33,   0.8,   r,0
+,                   31, cWhite,     fStar4000Sm,  572,   53,   0.8,   r,0
+,                   31, cWhite,     fStar4000Sm,  574,   33,   0.8,   r,0
+Travel Forecast,    34, cYellow,    fStar4000,    163,   21,   0.6,   l
+%forecast-day,      34, cYellow,    fStar4000,    163,   50,   0.6,   l
+HIGH,               32, cYellow,    fStar4000Sm,  480,   74,   1.0,   c,0
+LOW,                32, cYellow,    fStar4000Sm,  543,   74,   1.0,   c,0
+Atlanta,            32, cYellow,    fStar4000Lg,  86,    130,  0.6,   l
+Boston,             32, cYellow,    fStar4000Lg,  86,    200,  0.6,   l
+Chicago,            32, cYellow,    fStar4000Lg,  86,    270,  0.6,   l
+Cleveland,          32, cYellow,    fStar4000Lg,  86,    340,  0.6,   l
+90,                 32, cYellow,    fStar4000Lg,  480,   130,  0.9,   c
+72,                 32, cYellow,    fStar4000Lg,  543,   130,  0.9,   c
+78,                 32, cYellow,    fStar4000Lg,  480,   200,  0.9,   c
+70,                 32, cYellow,    fStar4000Lg,  543,   200,  0.9,   c
+90,                 32, cYellow,    fStar4000Lg,  480,   270,  0.9,   c
+70,                 32, cYellow,    fStar4000Lg,  543,   270,  0.9,   c
+89,                 32, cYellow,    fStar4000Lg,  480,   340,  0.9,   c
+72,                 32, cYellow,    fStar4000Lg,  543,   340,  0.9,   c
+
 
 [Air-Quality]
 ,                   31, cWhite,     fStar4000Sm,  574,   33,   0.8,   r,0
@@ -164,3 +185,9 @@ HAZARDOUS,          29, cWhite,     fStar4000Sm,  312,   76,   1.0,   l,0
 VERY UNHEALTHY,     29, cWhite,     fStar4000Sm,  312,   96,   1.0,   l,0
 UNHEALTHY,          29, cWhite,     fStar4000Sm,  312,   116,  1.0,   l,0
 GOOD,               29, cWhite,     fStar4000Sm,  312,   136,  1.0,   l,0
+Sacramento,         34, cWhite,     fStar4000,    242,   170,   0.7,   r
+Placer,             34, cWhite,     fStar4000,    242,   240,   0.7,   r
+Yolo-Solano,        34, cWhite,     fStar4000,    242,   310,   0.7,   r
+230,                38, cWhite,     fStar4000,    304,   185,   0.9,   r
+201,                38, cWhite,     fStar4000,    304,   255,   0.9,   r
+153,                38, cWhite,     fStar4000,    304,   325,   0.9,   r

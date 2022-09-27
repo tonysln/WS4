@@ -61,7 +61,7 @@ namespace ws4
     {
         // Time clock Text alignment fix - do not let it jump around due to 
         // different widths of symbols
-        for (short i = 0; i < scr.size(); i++)
+        for (ulong i = 0; i < scr.size(); i++)
         {
             double xCoordFix = 101.333;
             if (localtime(&epoch)->tm_hour % 12 < 10 && 
@@ -128,6 +128,7 @@ namespace ws4
         dM["Current-Conditions"]["scroller"] = "Conditions at Moline";
 
         dM["Forecast-For"]["forecast-day"] = "Saturday";
+        dM["Travel-Forecast"]["forecast-day"] = "For Saturday";
         dM["Air-Quality"]["airq-day"] = "Friday";
         dM["Almanac"]["icon-0"] = "Full";
         dM["Almanac"]["icon-1"] = "Last";

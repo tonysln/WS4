@@ -50,7 +50,8 @@ namespace ws4
             "Extended-Forecast",
             "Almanac",
             "Forecast-For",
-            "Air-Quality"
+            "Travel-Forecast",
+            "Air-Quality",
         };
         short cur = 0;
         short icoCt = 0;

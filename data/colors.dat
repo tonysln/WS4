@@ -3,6 +3,7 @@ cBlack2,    20, 20, 20
 cWhite,     215,215,215
 cGray1,     175,175,175
 cGray2,     61, 61, 61
+cGray3,     130,130,130
 cViolet1,   130,138,245
 cViolet2,   153,153,153
 cDkBlue1,   28, 10, 87
@@ -41,3 +42,5 @@ cAQYellow,  240,220,10
 cAQOrange1, 240,150,0
 cAQOrange2, 250,100,5
 cAQOrange3, 245,40 ,5
+tfBlue1,   	19, 49, 94
+tfBlue2,    7, 14, 63
