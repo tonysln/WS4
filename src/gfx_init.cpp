@@ -10,6 +10,8 @@
 #include <array>
 
 
+using std::to_string;
+
 namespace ws4
 {
     array<sf::Vertex, 4> buildQuad(int x, int y, int w, int h, sf::Color col1, sf::Color col2)
@@ -243,6 +245,98 @@ namespace ws4
         }
 
         return tM;
+    }
+
+
+    map<string, map<string, vector<int>>> loadIconPos()
+    {
+        map<string, map<string, vector<int>>> iconPos;
+
+        vector<string> lines = loadDatFile("../data/icon_pos.dat");
+        string curScene;
+        stringstream lnStream("");
+        string seg;
+        vector<string> lineSegs;
+
+        for (auto &line : lines) 
+        {
+            // New Scene
+            if (line[0] == '[' && line[line.length()-1] == ']')
+            {
+                curScene = line.substr(1, line.length()-2);
+                iconPos[curScene] = {};
+                continue;
+            }
+
+            splitCLine(lineSegs, lnStream, seg, line);
+            iconPos[curScene][lineSegs[0]] = {stoi(lineSegs[1]), stoi(lineSegs[2]), stoi(lineSegs[3])};
+        }
+
+        return iconPos;
+    }
+
+
+    map<string, vector<sf::Sprite>> loadIcons(map<string, map<string, vector<int>>> &iconPos,
+                                                map<string, map<string, string>> dM,
+                                                sf::Texture &moonPhasesTexture,
+                                                sf::Texture &curCondTexture,
+                                                sf::Texture &extForcTexture,
+                                                sf::Texture &regMapsTexture)
+    {
+        map<string, vector<sf::Sprite>> iM;
+        
+        // Current Conditions Icon
+        iM["Current-Conditions"].push_back(sf::Sprite(curCondTexture));
+        iM["Current-Conditions"][0].setPosition(sf::Vector2f(178, 174));
+        iM["Current-Conditions"][0].setTextureRect(sf::IntRect(
+            sf::Vector2i(0*iconPos["Current-Conditions"][dM["Current-Conditions"]["icon-0"]][0], 
+                        iconPos["Current-Conditions"][dM["Current-Conditions"]["icon-0"]][1]), 
+            sf::Vector2i(iconPos["Current-Conditions"][dM["Current-Conditions"]["icon-0"]][0], 
+                        iconPos["Current-Conditions"][dM["Current-Conditions"]["icon-0"]][2])
+        ));
+        iM["Current-Conditions"][0].setOrigin(sf::Vector2f(
+            iM["Current-Conditions"][0].getGlobalBounds().width/2, 0
+        ));
+
+        // Moon Icons
+        short moonXPos[] = {135, 255, 375, 495};
+        for (short i = 0; i < 4; ++i)
+        {
+            iM["Almanac"].push_back(sf::Sprite(moonPhasesTexture));
+            iM["Almanac"][i].setTextureRect(sf::IntRect(
+                sf::Vector2i(0*iconPos["Almanac"][dM["Almanac"]["icon-" + to_string(i)]][0], 
+                                iconPos["Almanac"][dM["Almanac"]["icon-" + to_string(i)]][1]), 
+                sf::Vector2i(iconPos["Almanac"][dM["Almanac"]["icon-" + to_string(i)]][0], 
+                                iconPos["Almanac"][dM["Almanac"]["icon-"  + to_string(i)]][2])
+            ));
+            iM["Almanac"][i].setOrigin(sf::Vector2f(iM["Almanac"][i].getGlobalBounds().width/2, 0));
+            iM["Almanac"][i].setPosition(sf::Vector2f(moonXPos[i], 270));
+        }
+
+
+        // Extended Forecast Icons
+        short extForcXPos[] = {120, 320, 510};
+        for (short i = 0; i < 3; ++i)
+        {
+           iM["Extended-Forecast"].push_back(sf::Sprite(extForcTexture));
+            iM["Extended-Forecast"][i].setPosition(sf::Vector2f(extForcXPos[i], 150));
+            iM["Extended-Forecast"][i].setTextureRect(sf::IntRect(
+                sf::Vector2i(0*iconPos["Extended-Forecast"][dM["Extended-Forecast"]["icon-" + to_string(i)]][0], 
+                            iconPos["Extended-Forecast"][dM["Extended-Forecast"]["icon-" + to_string(i)]][1]), 
+                sf::Vector2i(iconPos["Extended-Forecast"][dM["Extended-Forecast"]["icon-" + to_string(i)]][0], 
+                            iconPos["Extended-Forecast"][dM["Extended-Forecast"]["icon-" + to_string(i)]][2])
+            ));
+            iM["Extended-Forecast"][i].setOrigin(sf::Vector2f(
+                iM["Extended-Forecast"][i].getGlobalBounds().width/2, 0
+            )); 
+        }
+
+
+        // Regional Forecast Map Icons
+        // ...
+
+
+        return iM;
     }
 
 }

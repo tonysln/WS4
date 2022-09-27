@@ -105,7 +105,9 @@ namespace ws4
             return;
         if (!regMapsTexture.loadFromFile("../icons/Regional-Maps.png"))
             return;
-
+        
+        iconPos = loadIconPos();
+        iM = loadIcons(iconPos, dM, moonPhasesTexture, curCondTexture, extForcTexture, regMapsTexture);
         nextScreenUpdate();
     }
 
@@ -132,190 +134,11 @@ namespace ws4
         dM["Almanac"]["icon-2"] = "New";
         dM["Almanac"]["icon-3"] = "First";
 
-        dM["Extended-Forecast"]["icon-0"] = "Fog";
+        dM["Extended-Forecast"]["icon-0"] = "Thunderstorms";
         dM["Extended-Forecast"]["icon-1"] = "Mostly-Cloudy";
         dM["Extended-Forecast"]["icon-2"] = "Snow-to-Rain";
         dM["Extended-Forecast"]["city"] = "Moline";
     }
-
-
-    void WS4::loadIcons()
-    {
-        iconPos["Current-Conditions"] = 
-        {
-            {"Blowing-Snow", {138, 0, 99}},
-            {"Clear", {100, 99, 65}},
-            {"Cloudy", {118, 164, 83}},
-            {"Freezing-Rain-Sleet", {126, 247, 113}},
-            {"Freezing-Rain", {124, 360, 113}},
-            {"Heavy-Snow", {136, 473, 103}},
-            {"Ice-Snow", {146, 577, 117}},
-            {"Light-Snow", {108, 695, 91}},
-            {"Mostly-Clear", {94, 787, 69}},
-            {"Mostly-Cloudy", {142, 856, 85}},
-            {"Partly-Clear", {138, 940, 69}},
-            {"Partly-Cloudy", {130, 1010, 85}},
-            {"Rain-Snow", {138, 1094, 117}},
-            {"Rain", {124, 1212, 113}},
-            {"Shower", {124, 1326, 101}},
-            {"Sleet", {70, 1427, 91}},
-            {"Snow-Sleet", {108, 1519, 91}},
-            {"Sunny", {112, 1611, 107}},
-            {"Thunder", {148, 1718, 123}},
-            {"ThunderSnow", {142, 1841, 93}},
-            {"Thunderstorm", {142, 1935, 117}},
-            {"Wintry-Mix", {134, 2053, 105}},
-        };
-
-        iconPos["Extended-Forecast"] = 
-        {
-            {"Cloudy", {96, 0, 69}},
-            {"Fog", {112, 70, 91}},
-            {"Freezing-Rain", {100, 161, 91}},
-            {"Heavy-Snow", {114, 253, 85}},
-            {"Isolated-Tstorms", {116, 339, 103}},
-            {"Light-Snow", {86, 443, 75}},
-            {"Mostly-Cloudy", {122, 518, 69}},
-            {"Partly-Cloudy", {106, 588, 69}},
-            {"Rain-Snow", {116, 657, 97}},
-            {"Rain", {100, 755, 89}},
-            {"Scattered-Showers", {132, 845, 97}},
-            {"Scattered-Snow-Showers", {112, 943, 71}},
-            {"Scattered-Tstorms", {130, 1015, 101}},
-            {"Showers", {100, 1117, 81}},
-            {"Snow-to-Rain", {116, 1199, 91}},
-            {"Sunny", {90, 1290, 87}},
-            {"Thunderstorms", {118, 1378, 97}},
-            {"Windy", {88, 1475, 63}},
-            {"Wintry-Mix", {106, 1538, 83}},
-        };
-
-        iconPos["Forecast-For"] = 
-        {
-            {"AM-Snow", {52, 0, 39}},
-            {"Blowing-Snow", {56, 40, 49}},
-            {"Clear", {36, 89, 37}},
-            {"Cloudy-Wind", {66, 126, 57}},
-            {"Cloudy", {52, 184, 35}},
-            {"Fog", {48, 220, 45}},
-            {"Freezing-Rain-Sleet", {60, 266, 61}},
-            {"Freezing-Rain-Snow", {50, 328, 45}},
-            {"Freezing-Rain", {50, 374, 35}},
-            {"Heavy-Snow", {48, 409, 47}},
-            {"Light-Snow", {44, 457, 45}},
-            {"Mostly-Clear", {46, 502, 37}},
-            {"Mostly-Cloudy", {60, 540, 55}},
-            {"Partly-Clear", {66, 596, 37}},
-            {"Partly-Cloudy", {60, 633, 55}},
-            {"Rain-Sleet", {62, 689, 63}},
-            {"Rain-Snow", {46, 753, 53}},
-            {"Rain-Wind", {64, 807, 55}},
-            {"Rain", {44, 863, 39}},
-            {"Scattered-Showers", {60, 902, 55}},
-            {"Scattered-Snow-Showers", {60, 958, 71}},
-            {"Scattered-Tstorms", {64, 1030, 57}},
-            {"Shower", {42, 1088, 30}},
-            {"Sleet", {46, 1118, 43}},
-            {"Snow-Sleet", {48, 1161, 47}},
-            {"Sunny-Wind", {66, 1209, 55}},
-            {"Sunny", {60, 1265, 55}},
-            {"Thunder", {62, 1321, 63}},
-            {"ThunderSnow", {62, 1385, 59}},
-            {"Thunderstorm", {58, 1445, 59}},
-            {"Wind", {56, 1504, 45}},
-            {"Wintry-Mix", {56, 1544, 51}},
-        };
-
-        iconPos["Almanac"] = 
-        {
-            {"New", {100, 0, 93}},
-            {"First", {100, 94, 93}},
-            {"Full", {100, 188, 93}},
-            {"Last", {100, 282, 93}},
-        };
-
-        // TODO automate all of this
-
-        // Current Conditions Icon
-        iM["Current-Conditions"].push_back(sf::Sprite(curCondTexture));
-        iM["Current-Conditions"][0].setPosition(sf::Vector2f(178, 174));
-        iM["Current-Conditions"][0].setTextureRect(sf::IntRect(
-            sf::Vector2i(animFrame*iconPos["Current-Conditions"][dM["Current-Conditions"]["icon-0"]][0], 
-                        iconPos["Current-Conditions"][dM["Current-Conditions"]["icon-0"]][1]), 
-            sf::Vector2i(iconPos["Current-Conditions"][dM["Current-Conditions"]["icon-0"]][0], 
-                        iconPos["Current-Conditions"][dM["Current-Conditions"]["icon-0"]][2])
-        ));
-        iM["Current-Conditions"][0].setOrigin(sf::Vector2f(
-            iM["Current-Conditions"][0].getGlobalBounds().width/2, 0
-        ));
-
-        // Moon Icons
-        iM["Almanac"].push_back(sf::Sprite(moonPhasesTexture));
-        iM["Almanac"][0].setTextureRect(sf::IntRect(
-            sf::Vector2i(animFrame*iconPos["Almanac"][dM["Almanac"]["icon-0"]][0], iconPos["Almanac"][dM["Almanac"]["icon-0"]][1]), 
-            sf::Vector2i(iconPos["Almanac"][dM["Almanac"]["icon-0"]][0], iconPos["Almanac"][dM["Almanac"]["icon-0"]][2])
-        ));
-        iM["Almanac"][0].setOrigin(sf::Vector2f(iM["Almanac"][0].getGlobalBounds().width/2, 0));
-        iM["Almanac"][0].setPosition(sf::Vector2f(135, 270));
-        iM["Almanac"].push_back(sf::Sprite(moonPhasesTexture));
-        iM["Almanac"][1].setTextureRect(sf::IntRect(
-            sf::Vector2i(animFrame*iconPos["Almanac"][dM["Almanac"]["icon-1"]][0], iconPos["Almanac"][dM["Almanac"]["icon-1"]][1]), 
-            sf::Vector2i(iconPos["Almanac"][dM["Almanac"]["icon-1"]][0], iconPos["Almanac"][dM["Almanac"]["icon-1"]][2])
-        ));
-        iM["Almanac"][1].setOrigin(sf::Vector2f(iM["Almanac"][1].getGlobalBounds().width/2, 0));
-        iM["Almanac"][1].setPosition(sf::Vector2f(255, 270));
-        iM["Almanac"].push_back(sf::Sprite(moonPhasesTexture));
-        iM["Almanac"][2].setTextureRect(sf::IntRect(
-            sf::Vector2i(animFrame*iconPos["Almanac"][dM["Almanac"]["icon-2"]][0], iconPos["Almanac"][dM["Almanac"]["icon-2"]][1]), 
-            sf::Vector2i(iconPos["Almanac"][dM["Almanac"]["icon-2"]][0], iconPos["Almanac"][dM["Almanac"]["icon-2"]][2])
-        ));
-        iM["Almanac"][2].setOrigin(sf::Vector2f(iM["Almanac"][2].getGlobalBounds().width/2, 0));
-        iM["Almanac"][2].setPosition(sf::Vector2f(375, 270));
-        iM["Almanac"].push_back(sf::Sprite(moonPhasesTexture));
-        iM["Almanac"][3].setTextureRect(sf::IntRect(
-            sf::Vector2i(animFrame*iconPos["Almanac"][dM["Almanac"]["icon-3"]][0], iconPos["Almanac"][dM["Almanac"]["icon-3"]][1]), 
-            sf::Vector2i(iconPos["Almanac"][dM["Almanac"]["icon-3"]][0], iconPos["Almanac"][dM["Almanac"]["icon-3"]][2])
-        ));
-        iM["Almanac"][3].setOrigin(sf::Vector2f(iM["Almanac"][3].getGlobalBounds().width/2, 0));
-        iM["Almanac"][3].setPosition(sf::Vector2f(495, 270));
-
-
-        // Extended Forecast Icons
-        iM["Extended-Forecast"].push_back(sf::Sprite(extForcTexture));
-        iM["Extended-Forecast"][0].setPosition(sf::Vector2f(120, 150));
-        iM["Extended-Forecast"][0].setTextureRect(sf::IntRect(
-            sf::Vector2i(animFrame*iconPos["Extended-Forecast"][dM["Extended-Forecast"]["icon-0"]][0], 
-                        iconPos["Extended-Forecast"][dM["Extended-Forecast"]["icon-0"]][1]), 
-            sf::Vector2i(iconPos["Extended-Forecast"][dM["Extended-Forecast"]["icon-0"]][0], 
-                        iconPos["Extended-Forecast"][dM["Extended-Forecast"]["icon-0"]][2])
-        ));
-        iM["Extended-Forecast"][0].setOrigin(sf::Vector2f(
-            iM["Extended-Forecast"][0].getGlobalBounds().width/2, 0
-        ));
-        iM["Extended-Forecast"].push_back(sf::Sprite(extForcTexture));
-        iM["Extended-Forecast"][1].setPosition(sf::Vector2f(320, 150));
-        iM["Extended-Forecast"][1].setTextureRect(sf::IntRect(
-            sf::Vector2i(animFrame*iconPos["Extended-Forecast"][dM["Extended-Forecast"]["icon-1"]][0], 
-                        iconPos["Extended-Forecast"][dM["Extended-Forecast"]["icon-1"]][1]), 
-            sf::Vector2i(iconPos["Extended-Forecast"][dM["Extended-Forecast"]["icon-1"]][0], 
-                        iconPos["Extended-Forecast"][dM["Extended-Forecast"]["icon-1"]][2])
-        ));
-        iM["Extended-Forecast"][1].setOrigin(sf::Vector2f(
-            iM["Extended-Forecast"][1].getGlobalBounds().width/2, 0
-        ));
-        iM["Extended-Forecast"].push_back(sf::Sprite(extForcTexture));
-        iM["Extended-Forecast"][2].setPosition(sf::Vector2f(510, 150));
-        iM["Extended-Forecast"][2].setTextureRect(sf::IntRect(
-            sf::Vector2i(animFrame*iconPos["Extended-Forecast"][dM["Extended-Forecast"]["icon-2"]][0], 
-                        iconPos["Extended-Forecast"][dM["Extended-Forecast"]["icon-2"]][1]), 
-            sf::Vector2i(iconPos["Extended-Forecast"][dM["Extended-Forecast"]["icon-2"]][0], 
-                        iconPos["Extended-Forecast"][dM["Extended-Forecast"]["icon-2"]][2])
-        ));
-        iM["Extended-Forecast"][2].setOrigin(sf::Vector2f(
-            iM["Extended-Forecast"][2].getGlobalBounds().width/2, 0
-        ));
-    }
-
 
     void WS4::drawGraphics()
     {
@@ -411,7 +234,6 @@ int main()
     ws4Engine.loadData();
     ws4Engine.loadFonts();
     ws4Engine.loadGraphics();
-    ws4Engine.loadIcons();
     
     // ws4Engine.musicPlayer.play();
 

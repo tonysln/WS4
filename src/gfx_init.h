@@ -31,4 +31,15 @@ namespace ws4
 
     // Use stringstream to split string by comma, trim spaces around values and save to vector
     void splitCLine(vector<string> &lineSegs, stringstream &lnStream, string &seg, string &line);
+
+    // Load icon positions (in sprite sheet) and return mapping [screen name] -> map<[icon name] -> [vector of position and size]>
+    map<string, map<string, vector<int>>> loadIconPos();
+
+    // Create sprites for icons and return mapping [sprite/icon name] -> [sf::Sprite]
+    map<string, vector<sf::Sprite>> loadIcons(map<string, map<string, vector<int>>> &iconPos,
+                                                map<string, map<string, string>> dM,
+                                                sf::Texture &moonPhasesTexture,
+                                                sf::Texture &curCondTexture,
+                                                sf::Texture &extForcTexture,
+                                                sf::Texture &regMapsTexture);
 }

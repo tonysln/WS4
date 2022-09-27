@@ -64,12 +64,32 @@ Cloudy,             33, cWhite,     fStar4000,    365,   350,  0.8,   l
 NE14,               33, cWhite,     fStar4000,    505,   350,  0.8,   l
 
 
-[Local-Forecast]
+[Local-Forecast-1]
 ,                   31, cWhite,     fStar4000Sm,  574,   33,   0.8,   r,0
 ,                   31, cWhite,     fStar4000Sm,  572,   53,   0.8,   r,0
 ,                   31, cWhite,     fStar4000Sm,  574,   33,   0.8,   r,0
 Local Forecast,     34, cYellow,    fStar4000,    163,   35,   0.5,   l
+RAIN IN THE AFTERNOON. HIGHS IN,33, cWhite,     fStar4000,    70,   105,  1.0,   l
+THE UPPER 70S. SOUTHEAST WINDS,33, cWhite,     fStar4000,    70,   145,  1.0,   l
+10 TO 15 MPH. CHANCE OF RAIN 50,33, cWhite,     fStar4000,    70,   185,  1.0,   l
+PERCENT.,33, cWhite,     fStar4000,    70,   225,  1.0,   l
+,33, cWhite,     fStar4000,    70,   265,  1.0,   l
+TONIGHT...PARTLY CLOUDY IN THE,33, cWhite,     fStar4000,    70,   305,  1.0,   l
+EVENING THEN BECOMING MOSTLY,33, cWhite,     fStar4000,    70,   345,  1.0,   l
 
+
+[Local-Forecast-2]
+,                   31, cWhite,     fStar4000Sm,  574,   33,   0.8,   r,0
+,                   31, cWhite,     fStar4000Sm,  572,   53,   0.8,   r,0
+,                   31, cWhite,     fStar4000Sm,  574,   33,   0.8,   r,0
+Local Forecast,     34, cYellow,    fStar4000,    163,   35,   0.5,   l
+CLOUDY. LOWS IN THE UPPER 60S.,33, cWhite,     fStar4000,    70,   105,  1.0,   l
+SOUTH WINDS 5 TO 10 MPH.,33, cWhite,     fStar4000,    70,   145,  1.0,   l
+,33, cWhite,     fStar4000,    70,   185,  1.0,   l
+WEDNESDAY...MOSTLY CLOUDY.,33, cWhite,     fStar4000,    70,   225,  1.0,   l
+CHANCE OF RAIN IN THE MORNING,33, cWhite,     fStar4000,    70,   265,  1.0,   l
+THEN SHOWERS LIKELY AND CHANCE,33, cWhite,     fStar4000,    70,   305,  1.0,   l
+OF THUNDERSTORMS IN THE,33, cWhite,     fStar4000,    70,   345,  1.0,   l
 
 
 [Extended-Forecast]
@@ -87,12 +107,18 @@ Mostly,             35, cWhite,     fStar4000,    320,   238,  1.0,   c
 Cloudy,             35, cWhite,     fStar4000,    320,   276,  1.0,   c
 Showers,            35, cWhite,     fStar4000,    510,   238,  1.0,   c
 ,                   35, cWhite,     fStar4000,    510,   276,  1.0,   c
-Lo,                 35, cViolet2,   fStar4000,    86,    312,  1.0,   c
-Hi,                 35, cYellow,    fStar4000,    154,   312,  1.0,   c
-Lo,                 35, cViolet2,   fStar4000,    286,   312,  1.0,   c
-Hi,                 35, cYellow,    fStar4000,    354,   312,  1.0,   c
-Lo,                 35, cViolet2,   fStar4000,    476,   312,  1.0,   c
-Hi,                 35, cYellow,    fStar4000,    554,   312,  1.0,   c
+Lo,                 35, cViolet2,   fStar4000,    86,    310,  1.0,   c
+Hi,                 35, cYellow,    fStar4000,    154,   310,  1.0,   c
+Lo,                 35, cViolet2,   fStar4000,    286,   310,  1.0,   c
+Hi,                 35, cYellow,    fStar4000,    354,   310,  1.0,   c
+Lo,                 35, cViolet2,   fStar4000,    476,   310,  1.0,   c
+Hi,                 35, cYellow,    fStar4000,    554,   310,  1.0,   c
+77,                 36, cWhite,     fStar4000Lg,  86,    350,  1.0,   c
+87,                 36, cWhite,     fStar4000Lg,  154,   350,  1.0,   c
+76,                 36, cWhite,     fStar4000Lg,  286,   350,  1.0,   c
+89,                 36, cWhite,     fStar4000Lg,  354,   350,  1.0,   c
+76,                 36, cWhite,     fStar4000Lg,  476,   350,  1.0,   c
+88,                 36, cWhite,     fStar4000Lg,  554,   350,  1.0,   c
 
 
 [Almanac]

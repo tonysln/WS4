@@ -45,7 +45,8 @@ namespace ws4
         {
             "Current-Conditions",
             "Latest-Observations",
-            "Local-Forecast",
+            "Local-Forecast-1",
+            "Local-Forecast-2",
             "Extended-Forecast",
             "Almanac",
             "Forecast-For",
@@ -61,7 +62,6 @@ namespace ws4
         void loadFonts();
         void loadGraphics();
         void loadData();
-        void loadIcons();
         void drawGraphics();
         void drawText();
         void loadMusic();

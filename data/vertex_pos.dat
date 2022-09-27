@@ -96,7 +96,13 @@
 %Bottom-Bar-Blue%
 
 
-[Local-Forecast]
+[Local-Forecast-1]
+0,     90,     640,    308,   cGPurple,    cGOrange
+%Center-Box-Blue%
+%Top-Bar-Orange%
+%Bottom-Bar-Blue%
+
+[Local-Forecast-2]
 0,     90,     640,    308,   cGPurple,    cGOrange
 %Center-Box-Blue%
 %Top-Bar-Orange%
