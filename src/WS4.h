@@ -33,6 +33,7 @@ namespace ws4
         sf::Texture curCondTexture;
         sf::Texture extForcTexture;
         sf::Texture regMapsTexture;
+        sf::Texture regBaseMapTexture;
         int animFrame;
 
 

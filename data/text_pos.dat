@@ -151,6 +151,8 @@ Jan 24,             34, cWhite,     fStar4000,    490,   356,    1,   c
 ,                   31, cWhite,     fStar4000Sm,  574,   33,   0.8,   r,0
 Forecast For,       34, cYellow,    fStar4000,    163,   21,   0.6,   l
 %forecast-day,      34, cYellow,    fStar4000,    163,   50,   0.6,   l
+%city-0,            32, cWhite,     fStar4000,    430,   88,   0.5,   c
+%city-0-temp,       34, cYellow,    fStar4000LgC, 405,   125,    1,   c
 
 
 [Travel-Forecast]

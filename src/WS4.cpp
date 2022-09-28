@@ -100,6 +100,8 @@ namespace ws4
             return;
         if (!regMapsTexture.loadFromFile("../icons/Regional-Maps.png"))
             return;
+        if (!regBaseMapTexture.loadFromFile("../graphics/maps/basemap-2.png"))
+            return;
     }
 
 
@@ -130,18 +132,31 @@ namespace ws4
         dM["Current-Conditions"]["gusts"] = "Gusts to  77"; 
         dM["Current-Conditions"]["scroller"] = "Conditions at Moline";
 
+        // TODO Text positions
         dM["Forecast-For"]["forecast-day"] = "Saturday";
         dM["Forecast-For"]["num-cities"] = "5";
+        dM["Forecast-For"]["map-x"] = "400";
+        dM["Forecast-For"]["map-y"] = "1900";
         dM["Forecast-For"]["icon-0"] = "Mostly-Clear";
+        dM["Forecast-For"]["icon-0-x"] = "100";
+        dM["Forecast-For"]["icon-0-y"] = "120";
         dM["Forecast-For"]["icon-1"] = "Mostly-Cloudy";
+        dM["Forecast-For"]["icon-1-x"] = "220";
+        dM["Forecast-For"]["icon-1-y"] = "240";
         dM["Forecast-For"]["icon-2"] = "Rain";
+        dM["Forecast-For"]["icon-2-x"] = "290";
+        dM["Forecast-For"]["icon-2-y"] = "270";
         dM["Forecast-For"]["icon-3"] = "Rain-Wind";
+        dM["Forecast-For"]["icon-3-x"] = "350";
+        dM["Forecast-For"]["icon-3-y"] = "300";
         dM["Forecast-For"]["icon-4"] = "Partly-Clear";
-        dM["Forecast-For"]["city-0"] = "Spokane";
-        dM["Forecast-For"]["city-1"] = "New York";
-        dM["Forecast-For"]["city-2"] = "Delaware";
-        dM["Forecast-For"]["city-3"] = "Cleveland";
-        dM["Forecast-For"]["city-4"] = "Moline";
+        dM["Forecast-For"]["icon-4-x"] = "460";
+        dM["Forecast-For"]["icon-4-y"] = "130";
+        dM["Forecast-For"]["city-0"] = "Tulsa";
+        dM["Forecast-For"]["city-1"] = "Fort Smith";
+        dM["Forecast-For"]["city-2"] = "OK City";
+        dM["Forecast-For"]["city-3"] = "Amarillo";
+        dM["Forecast-For"]["city-4"] = "Dallas";
         dM["Forecast-For"]["city-0-temp"] = "67";
         dM["Forecast-For"]["city-1-temp"] = "54";
         dM["Forecast-For"]["city-2-temp"] = "58";
@@ -294,6 +309,7 @@ int main()
                         ws4Engine.prevScreen();
                         break;
                     case sf::Keyboard::R:
+                        ws4Engine.loadData();
                         ws4Engine.loadGraphics();
                         break;
                     default:

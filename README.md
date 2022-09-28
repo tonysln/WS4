@@ -32,9 +32,8 @@ $ export LD_LIBRARY_PATH=<path to /lib> && ./WS4
 
 - Pressure up/down arrows on CC screen
 - Music playback loop fix
+- Finalize basemap loading
 - Pretty much all of data gathering stuff
-- Local Radar bg map and header & colors
-- Travel forecast screen and scrolling BG
 
 https://forecast.weather.gov/MapClick.php?lat=47.6218&lon=-122.35&unit=0&lg=english&FcstType=text&TextType=2
 

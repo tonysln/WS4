@@ -147,9 +147,6 @@
 0,     90,     640,    308,   cGPurple,    cGOrange
 %Top-Bar-Orange%
 %Quality-Index-Scale%
-315,     194,     203,    36,   cBlack1,   cBlack1
-315,     195,     200,    16,   cGray2,    cGray3
-315,     211,     200,    16,   cGray3,    cGray2
 %Bottom-Bar-Blue%
 
 

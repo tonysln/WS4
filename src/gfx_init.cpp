@@ -11,6 +11,7 @@
 
 
 using std::to_string;
+using std::stoi;
 
 namespace ws4
 {
@@ -333,13 +334,14 @@ namespace ws4
 
 
         // Regional Forecast Map Icons
-        short forcMapXPos[] = {100, 220, 290, 350, 390}; // TODO move to dM
-        short forcMapYPos[] = {120, 240, 110, 290, 390}; // TODO move to dM
         short numCities = std::stoi(dM["Forecast-For"]["num-cities"]);
         for (short i = 0; i < numCities; ++i)
         {
-            iM["Forecast-For"].push_back(sf::Sprite(extForcTexture));
-            iM["Forecast-For"][i].setPosition(sf::Vector2f(forcMapXPos[i], forcMapYPos[i]));
+            iM["Forecast-For"].push_back(sf::Sprite(regMapsTexture));
+            iM["Forecast-For"][i].setPosition(sf::Vector2f(
+                stoi(dM["Forecast-For"]["icon-" + to_string(i) + "-x"]), 
+                stoi(dM["Forecast-For"]["icon-" + to_string(i) + "-y"])
+            ));
             iM["Forecast-For"][i].setTextureRect(sf::IntRect(
                 sf::Vector2i(0*iconPos["Forecast-For"][dM["Forecast-For"]["icon-" + to_string(i)]][0], 
                             iconPos["Forecast-For"][dM["Forecast-For"]["icon-" + to_string(i)]][1]), 
