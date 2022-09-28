@@ -61,7 +61,7 @@ namespace ws4
     {
         // Time clock Text alignment fix - do not let it jump around due to 
         // different widths of symbols
-        for (ulong i = 0; i < scr.size(); i++)
+        for (u_long i = 0; i < scr.size(); i++)
         {
             double xCoordFix = 101.333;
             if (localtime(&epoch)->tm_hour % 12 < 10 && 
@@ -90,13 +90,8 @@ namespace ws4
             // fontEl.second.setSmooth(false);
     }
 
-
-    void WS4::loadGraphics()
+    void WS4::loadTextures()
     {
-        cM = parseColorData();
-        tM = parseTextData(cM, fM, dM);
-        vM = parseVertexData(cM);
-
         if (!moonPhasesTexture.loadFromFile("../icons/Moon-Phases.png"))
             return;
         if (!curCondTexture.loadFromFile("../icons/Current-Conditions.png"))
@@ -105,7 +100,14 @@ namespace ws4
             return;
         if (!regMapsTexture.loadFromFile("../icons/Regional-Maps.png"))
             return;
-        
+    }
+
+
+    void WS4::loadGraphics()
+    {
+        cM = parseColorData();
+        tM = parseTextData(cM, fM, dM);
+        vM = parseVertexData(cM);
         iconPos = loadIconPos();
         iM = loadIcons(iconPos, dM, moonPhasesTexture, curCondTexture, extForcTexture, regMapsTexture);
         nextScreenUpdate();
@@ -123,11 +125,29 @@ namespace ws4
         dM["Current-Conditions"]["ceiling"] = "0.8 mi.";
         dM["Current-Conditions"]["visib"] = "3300 ft.";
         dM["Current-Conditions"]["pressure"] = "29.93";
+        dM["Current-Conditions"]["pressure-arrow"] = "up";
         dM["Current-Conditions"]["wind"] = "Wind:  WNW  38";
         dM["Current-Conditions"]["gusts"] = "Gusts to  77"; 
         dM["Current-Conditions"]["scroller"] = "Conditions at Moline";
 
         dM["Forecast-For"]["forecast-day"] = "Saturday";
+        dM["Forecast-For"]["num-cities"] = "5";
+        dM["Forecast-For"]["icon-0"] = "Mostly-Clear";
+        dM["Forecast-For"]["icon-1"] = "Mostly-Cloudy";
+        dM["Forecast-For"]["icon-2"] = "Rain";
+        dM["Forecast-For"]["icon-3"] = "Rain-Wind";
+        dM["Forecast-For"]["icon-4"] = "Partly-Clear";
+        dM["Forecast-For"]["city-0"] = "Spokane";
+        dM["Forecast-For"]["city-1"] = "New York";
+        dM["Forecast-For"]["city-2"] = "Delaware";
+        dM["Forecast-For"]["city-3"] = "Cleveland";
+        dM["Forecast-For"]["city-4"] = "Moline";
+        dM["Forecast-For"]["city-0-temp"] = "67";
+        dM["Forecast-For"]["city-1-temp"] = "54";
+        dM["Forecast-For"]["city-2-temp"] = "58";
+        dM["Forecast-For"]["city-3-temp"] = "66";
+        dM["Forecast-For"]["city-4-temp"] = "70";
+        
         dM["Travel-Forecast"]["forecast-day"] = "For Saturday";
         dM["Air-Quality"]["airq-day"] = "Friday";
         dM["Almanac"]["icon-0"] = "Full";
@@ -234,6 +254,7 @@ int main()
     WS4 ws4Engine;
     ws4Engine.loadData();
     ws4Engine.loadFonts();
+    ws4Engine.loadTextures();
     ws4Engine.loadGraphics();
     
     // ws4Engine.musicPlayer.play();

@@ -50,8 +50,8 @@ namespace ws4
             "Extended-Forecast",
             "Almanac",
             "Forecast-For",
-            "Travel-Forecast",
-            "Air-Quality",
+            // "Travel-Forecast",
+            // "Air-Quality",
         };
         short cur = 0;
         short icoCt = 0;
@@ -61,6 +61,7 @@ namespace ws4
         void prevScreen();
         void nextScreenUpdate();
         void loadFonts();
+        void loadTextures();
         void loadGraphics();
         void loadData();
         void drawGraphics();

@@ -318,7 +318,7 @@ namespace ws4
         short extForcXPos[] = {120, 320, 510};
         for (short i = 0; i < 3; ++i)
         {
-           iM["Extended-Forecast"].push_back(sf::Sprite(extForcTexture));
+            iM["Extended-Forecast"].push_back(sf::Sprite(extForcTexture));
             iM["Extended-Forecast"][i].setPosition(sf::Vector2f(extForcXPos[i], 150));
             iM["Extended-Forecast"][i].setTextureRect(sf::IntRect(
                 sf::Vector2i(0*iconPos["Extended-Forecast"][dM["Extended-Forecast"]["icon-" + to_string(i)]][0], 
@@ -333,7 +333,23 @@ namespace ws4
 
 
         // Regional Forecast Map Icons
-        // ...
+        short forcMapXPos[] = {100, 220, 290, 350, 390}; // TODO move to dM
+        short forcMapYPos[] = {120, 240, 110, 290, 390}; // TODO move to dM
+        short numCities = std::stoi(dM["Forecast-For"]["num-cities"]);
+        for (short i = 0; i < numCities; ++i)
+        {
+            iM["Forecast-For"].push_back(sf::Sprite(extForcTexture));
+            iM["Forecast-For"][i].setPosition(sf::Vector2f(forcMapXPos[i], forcMapYPos[i]));
+            iM["Forecast-For"][i].setTextureRect(sf::IntRect(
+                sf::Vector2i(0*iconPos["Forecast-For"][dM["Forecast-For"]["icon-" + to_string(i)]][0], 
+                            iconPos["Forecast-For"][dM["Forecast-For"]["icon-" + to_string(i)]][1]), 
+                sf::Vector2i(iconPos["Forecast-For"][dM["Forecast-For"]["icon-" + to_string(i)]][0], 
+                            iconPos["Forecast-For"][dM["Forecast-For"]["icon-" + to_string(i)]][2])
+            ));
+            iM["Forecast-For"][i].setOrigin(sf::Vector2f(
+                iM["Forecast-For"][i].getGlobalBounds().width/2, 0
+            )); 
+        }
 
 
         return iM;
