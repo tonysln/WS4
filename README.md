@@ -1,33 +1,66 @@
 # WS4
 
-C++ 20
+About...
 
-libsfml-dev >= 2.6.0
+Make sure to read the Documentation & Reference in `/doc` for a full overview and explanation of the system.
 
-gcc 11+
+## Project Structure
 
-cmake 3+
-
-OpenGL ?
-
-OpenAL ?
-
-### Build
-
-Make sure that the correct path is set in the Makefile for SFML files.
-
-```bash
-$ cd src
-$ make clean
-$ make
+```shell
+/
+├── *bin                          # Compiled binary files
+├── config                        # System configuration files
+├── data                          # Data files for graphics and weather info
+├── doc                           # Documentation & reference
+├── extlibs                       # External libraries
+├── fonts                         # Font files
+├── graphics                      # Graphical elements
+│     ├── icons
+│     └── maps
+├── *music                        # Background music
+├── *obj                          # Compiled object files
+├── src                           # Source and header files
+├── .gitignore
+├── Makefile
+└── README.md
 ```
 
-### TODOs
+*Folders marked with an asterisk (\*) are ignored by git*.
+
+## Requirements
+
+Should work on any OS... (TODO experiment)
+
+| Library Name  | Version  |
+| ------------- |----------|
+| G++           | >= 11    |
+| SFML          | >= 2.6.0 |
+| libcurl       | >= 7.58.0|
+
+
+
+### Build & Run
+
+```bash
+$ make clean
+$ make
+$ ./bin/WS4
+```
+
+...
+
+## Configuration
+
+To be updated...
+
+## TODOs
 
 - Pressure up/down arrows on CC screen
 - Music playback loop fix
 - Finalize basemap loading
 - Pretty much all of data gathering stuff
+
+## Temp links
 
 https://forecast.weather.gov/MapClick.php?lat=47.6218&lon=-122.35&unit=0&lg=english&FcstType=text&TextType=2
 
