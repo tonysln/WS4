@@ -31,7 +31,12 @@
 *.out
 *.app
 
-/reference
-/fonts
+# Folders
+/gallery/
+/graphics/
+/music/
+/obj/
+/bin/
 
-.vscode
+.idea/*
+./.idea

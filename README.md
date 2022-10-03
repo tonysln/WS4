@@ -22,12 +22,6 @@ $ make clean
 $ make
 ```
 
-### Run
-
-```bash
-$ export LD_LIBRARY_PATH=<path to /lib> && ./WS4
-```
-
 ### TODOs
 
 - Pressure up/down arrows on CC screen
