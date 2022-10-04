@@ -1,6 +1,6 @@
 #include <SFML/Graphics.hpp>
 #include <filesystem>
-#include "gfx_init.h"
+#include "GfxLoader.h"
 #include <fstream>
 #include <iostream>
 #include <sstream>
@@ -12,6 +12,7 @@
 
 using std::to_string;
 using std::stoi;
+
 
 namespace ws4
 {
@@ -187,11 +188,7 @@ namespace ws4
             {
                 // Replace with value in dM, else N/A
                 replVal = lineSegs[0].substr(1, lineSegs[0][lineSegs[0].length()-1]);
-
-                if (dM[curScene].contains(replVal))
-                    lineSegs[0] = dM[curScene][replVal];
-                else
-                    lineSegs[0] = "N/A";
+                lineSegs[0] = dM[curScene][replVal];
             }
 
             // Turn into wstring for degree sign support

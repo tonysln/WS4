@@ -31,11 +31,11 @@ Make sure to read the Documentation & Reference in `/doc` for a full overview an
 
 Should work on any OS... (TODO experiment)
 
-| Library Name  | Version  |
-| ------------- |----------|
-| G++           | >= 11    |
-| SFML          | >= 2.6.0 |
-| libcurl       | >= 7.58.0|
+| Library Name  | Version    |
+| ------------- |------------|
+| G++           | \>= 11     |
+| SFML          | \>= 2.6.0  |
+| libcurl       | \>= 7.58.0 |
 
 
 
@@ -53,30 +53,12 @@ $ ./bin/WS4
 
 To be updated...
 
-## TODOs
+## Resources Used
 
-- Pressure up/down arrows on CC screen
-- Music playback loop fix
-- Finalize basemap loading
-- Pretty much all of data gathering stuff
+* Star4000 Fonts by [TWC Classics](https://twcclassics.com/) contributor Nick Smith.
+* Icons by [TWC Classics](https://twcclassics.com/) contributors Charles A. and Nick S.
+* LaTeX documentation template by [LianTze Lim](https://www.overleaf.com/articles/autorating-calculator-user-guide/fdfgkxkpqczv).
 
-## Temp links
+## License
 
-https://forecast.weather.gov/MapClick.php?lat=47.6218&lon=-122.35&unit=0&lg=english&FcstType=text&TextType=2
-
-https://forecast.weather.gov/MapClick.php?CityName=Medford&state=NY&site=OKX&lat=40.8224&lon=-72.9847
-
-https://forecast.weather.gov/product.php?site=NWS&issuedby=OKX&product=RWR&format=CI&version=1&glossary=1&highlight=off
-
-https://tgftp.nws.noaa.gov/data/forecasts/zone/
-
-https://airquality.weather.gov/
-
-https://graphical.weather.gov/xml/
-
-https://graphical.weather.gov/xml/xml_fields_icon_weather_conditions.php
-
-https://alerts.weather.gov/
-
-https://www.aviationweather.gov/adds/dataserver_current/httpparam?dataSource=metars&requestType=retrieve&format=xml&hoursBeforeNow=3&mostRecent=true&stationString=EETU
-
+This software is distributed under the [zlib/libpng license](https://opensource.org/licenses/Zlib).

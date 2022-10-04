@@ -3,6 +3,9 @@ using std::string;
 using std::array;
 using std::map;
 
+#ifndef WS4_WS4_H
+#define WS4_WS4_H
+
 
 namespace ws4 
 {
@@ -71,5 +74,6 @@ namespace ws4
         void changeSong();
     };
 
-    
 }
+
+#endif //WS4_WS4_H

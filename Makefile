@@ -6,20 +6,23 @@ TARGET = WS4
 
 # Which object files that the executable consists of
 OBJS = $(OBJDIR)/WS4.o
-OBJS += $(OBJDIR)/gfx_init.o
-OBJS += $(OBJDIR)/data_proc.o
+OBJS += $(OBJDIR)/GfxLoader.o
+OBJS += $(OBJDIR)/GfxManager.o
+OBJS += $(OBJDIR)/AnimIcon.o
+OBJS += $(OBJDIR)/TextLabel.o
+OBJS += $(OBJDIR)/DataProc.o
 
 # What compiler to use
 CC = g++
 
 # Compiler flags, -g for debug, -c to make an object file
-CFLAGS = -c -Wall -std=c++20 -g
+CFLAGS = -c -Wall -std=c++17 -g
 
-# define any directories containing header files other than /usr/include
-INCLUDES = #-I/home/newhall/include  -I../include
+# Directories containing header files other than /usr/include
+INCLUDES = #-I/extlibs/include/
 
-# Directory with SFML libs
-LDFLAGS = #-L/home/dast/lib -L/usr/local/ssl/lib
+# Directory with SFML libs (non-standard)
+LDFLAGS = #-L/extlibs/
 
 # SFML components
 LIBS = -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio

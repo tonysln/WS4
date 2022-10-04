@@ -1,3 +1,6 @@
+#ifndef WS4_DATAPROC_H
+#define WS4_DATAPROC_H
+
 namespace ws4p
 {
     double tempCtoF(double tempC);
@@ -12,3 +15,5 @@ namespace ws4p
     bool todayHasMoonEvent();
     void nextMoonPhases();
 }
+
+#endif //WS4_DATAPROC_H

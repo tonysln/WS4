@@ -7,8 +7,8 @@
 #include <iostream>
 
 #include "WS4.h"
-#include "gfx_init.h"
-#include "data_proc.h"
+#include "GfxLoader.h"
+#include "DataProc.h"
 
 using namespace ws4;
 using std::to_string;
@@ -92,13 +92,13 @@ namespace ws4
 
     void WS4::loadTextures()
     {
-        if (!moonPhasesTexture.loadFromFile("../icons/Moon-Phases.png"))
+        if (!moonPhasesTexture.loadFromFile("../graphics/icons/Moon-Phases.png"))
             return;
-        if (!curCondTexture.loadFromFile("../icons/Current-Conditions.png"))
+        if (!curCondTexture.loadFromFile("../graphics/icons/Current-Conditions.png"))
             return;
-        if (!extForcTexture.loadFromFile("../icons/Extended-Forecast.png"))
+        if (!extForcTexture.loadFromFile("../graphics/icons/Extended-Forecast.png"))
             return;
-        if (!regMapsTexture.loadFromFile("../icons/Regional-Maps.png"))
+        if (!regMapsTexture.loadFromFile("../graphics/icons/Regional-Maps.png"))
             return;
         if (!regBaseMapTexture.loadFromFile("../graphics/maps/basemap-2.png"))
             return;

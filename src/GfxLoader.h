@@ -7,6 +7,10 @@ using std::array;
 using std::map;
 
 
+#ifndef WS4_GFXLOADER_H
+#define WS4_GFXLOADER_H
+
+
 namespace ws4
 {
     // Construct an array of Vertices at (x,y) with size (w,h) and gradient of given colors
@@ -43,3 +47,5 @@ namespace ws4
                                                 sf::Texture &extForcTexture,
                                                 sf::Texture &regMapsTexture);
 }
+
+#endif //WS4_GFXLOADER_H
