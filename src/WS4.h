@@ -1,3 +1,12 @@
+#include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
+#include "GfxManager.h"
+#include <vector>
+#include <time.h>
+#include <array>
+#include <map>
+
+
 using std::vector;
 using std::string;
 using std::array;
@@ -17,6 +26,7 @@ namespace ws4
         const short WIN_HEIGHT = 480;
         const short ANIM_FRAMES = 7;
 
+        sf::RenderWindow window;
         sf::ContextSettings sts;
         sf::View view;
 
@@ -24,6 +34,8 @@ namespace ws4
         char timeStr[12];
         char timeAPStr[6];
         char dateStr[12];
+        sf::Clock sceneTimer;
+        sf::Time elapsedScene;
 
         map<string, sf::Font> fM;
         map<string, sf::Color> cM;
@@ -31,6 +43,8 @@ namespace ws4
         map<string, vector<array<sf::Vertex, 4>>> vM;
         map<string, map<string, vector<int>>> iconPos;
         map<string, vector<sf::Sprite>> iM;
+
+        ws4::GfxManager gfxManager;
         
         sf::Texture moonPhasesTexture;
         sf::Texture curCondTexture;
@@ -39,12 +53,9 @@ namespace ws4
         sf::Texture regBaseMapTexture;
         int animFrame;
 
-
-    public:
-        sf::RenderWindow window;
+        
         sf::Music musicPlayer;
         map<string, map<string, string>> dM;
-        
         const vector<string> scr = 
         {
             "Current-Conditions",
@@ -59,19 +70,25 @@ namespace ws4
         };
         short cur = 0;
         short icoCt = 0;
+        float sceneTime = 10.f;
 
-        WS4();
         void nextScreen();
         void prevScreen();
         void nextScreenUpdate();
+        void drawGraphics();
+        void drawText();
+        void changeSong();
+
+
+    public:
+        WS4();
         void loadFonts();
         void loadTextures();
         void loadGraphics();
         void loadData();
-        void drawGraphics();
-        void drawText();
         void loadMusic();
-        void changeSong();
+        int runLoop();
+        void loadLDL();
     };
 
 }

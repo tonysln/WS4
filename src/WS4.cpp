@@ -1,16 +1,7 @@
-#include <SFML/Graphics.hpp>
-#include <SFML/Audio.hpp>
-#include <vector>
-#include <array>
-#include <map>
-#include <time.h>
-#include <iostream>
-
-#include "WS4.h"
 #include "GfxLoader.h"
 #include "DataProc.h"
+#include "WS4.h"
 
-using namespace ws4;
 using std::to_string;
 using std::localtime;
 using std::strftime;
@@ -41,8 +32,9 @@ namespace ws4
         window.setView(view);
 
         animFrame = 0;
-    }
 
+        gfxManager = GfxManager();
+    }
 
     void WS4::nextScreen()
     {
@@ -100,8 +92,8 @@ namespace ws4
             return;
         if (!regMapsTexture.loadFromFile("../graphics/icons/Regional-Maps.png"))
             return;
-        if (!regBaseMapTexture.loadFromFile("../graphics/maps/basemap-2.png"))
-            return;
+        // if (!regBaseMapTexture.loadFromFile("../graphics/maps/basemap-2.png"))
+        //     return;
     }
 
 
@@ -229,13 +221,7 @@ namespace ws4
     {
         // TODO define list of songs, select random?
         vector<string> songsPaths = 
-        {
-            "../audio/001.mp3",
-            "../audio/002.mp3",
-            "../audio/003.mp3",
-            "../audio/004.mp3",
-            "../audio/005.mp3"
-        };
+        { };
         
         if (!musicPlayer.openFromFile(songsPaths[0]))
             return;
@@ -245,98 +231,68 @@ namespace ws4
 
 
     void WS4::changeSong()
+    { }
+
+
+    int WS4::runLoop()
     {
-
-    }
-}
-
-
-
-int main()
-{
-    // Print version info
-    #ifdef __clang__
-    std::cout << "Clang Version: ";
-    std::cout << __clang__ << std::endl;
-    std::cout << "LLVM Version: ";
-    std::cout << __llvm__ << std::endl;
-    #else
-    std::cout << "GCC Version: ";
-    std::cout << __VERSION__ << std::endl;
-    #endif
-
-
-    WS4 ws4Engine;
-    ws4Engine.loadData();
-    ws4Engine.loadFonts();
-    ws4Engine.loadTextures();
-    ws4Engine.loadGraphics();
-    
-    // ws4Engine.musicPlayer.play();
-
-    // sf::Clock sceneTimer;
-    // sf::Time elapsedScene;
-    float sceneTime = 10.f;
-
-
-
-
-    /*
-     * MAIN LOOP
-     */
-    while (ws4Engine.window.isOpen())
-    {
-        // EVENTS
-        sf::Event event;
-        while (ws4Engine.window.pollEvent(event))
+        while (window.isOpen())
         {
-            if (event.type == sf::Event::Closed)
-                ws4Engine.window.close();
-
-            if (event.type == sf::Event::KeyPressed)
+            // EVENTS
+            sf::Event event;
+            while (window.pollEvent(event))
             {
-                switch(event.key.code)
+                if (event.type == sf::Event::Closed)
+                    window.close();
+
+                if (event.type == sf::Event::KeyPressed)
                 {
-                    case sf::Keyboard::Escape:
-                    case sf::Keyboard::Q:
-                    case sf::Keyboard::Space:
-                        ws4Engine.window.close(); 
-                        break;
-                    case sf::Keyboard::P:
-                        ws4Engine.nextScreen();
-                        break;
-                    case sf::Keyboard::O:
-                        ws4Engine.prevScreen();
-                        break;
-                    case sf::Keyboard::R:
-                        ws4Engine.loadData();
-                        ws4Engine.loadGraphics();
-                        break;
-                    default:
-                        break;
+                    switch(event.key.code)
+                    {
+                        case sf::Keyboard::Escape:
+                        case sf::Keyboard::Q:
+                        case sf::Keyboard::Space:
+                            window.close(); 
+                            break;
+                        case sf::Keyboard::P:
+                            nextScreen();
+                            break;
+                        case sf::Keyboard::O:
+                            prevScreen();
+                            break;
+                        case sf::Keyboard::R:
+                            loadData();
+                            loadGraphics();
+                            break;
+                        default:
+                            break;
+                    }
                 }
             }
+    
+            // Check if time for scene change
+            // if (sceneTimer.getElapsedTime().asSeconds() >= sceneTime)
+            // {
+            //     nextScreen();
+            //     elapsedScene = sceneTimer.restart();
+            // }
+
+            drawGraphics();
+            drawText();
+
+            // Render everything to window
+            gfxManager.renderAllTo(window, cur);
+
+            // Display window
+            window.display();
+
+
+            // Check if time to change song
+            // if (musicPlayer.getStatus() == sf::Music::Status::Stopped)
+            //     changeSong();
+
         }
- 
-        // Check if time for scene change
-        // if (sceneTimer.getElapsedTime().asSeconds() >= sceneTime)
-        // {
-        //     ws4Engine.nextScreen();
-        //     elapsedScene = sceneTimer.restart();
-        // }
 
-
-        // DRAWING GRAPHICS
-        ws4Engine.drawGraphics();
-        ws4Engine.drawText();
-        ws4Engine.window.display();
-
-
-        // Check if time to change song
-        // if (ws4Engine.musicPlayer.getStatus() == sf::Music::Status::Stopped)
-        //     ws4Engine.changeSong();
-
+        return EXIT_SUCCESS;
     }
-
-    return EXIT_SUCCESS;
-};
+}

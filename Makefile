@@ -5,18 +5,21 @@ BINDIR = bin
 TARGET = WS4
 
 # Which object files that the executable consists of
-OBJS = $(OBJDIR)/WS4.o
+OBJS  = $(OBJDIR)/main.o
 OBJS += $(OBJDIR)/GfxLoader.o
+OBJS += $(OBJDIR)/GfxScreen.o
 OBJS += $(OBJDIR)/GfxManager.o
 OBJS += $(OBJDIR)/AnimIcon.o
 OBJS += $(OBJDIR)/TextLabel.o
+OBJS += $(OBJDIR)/GfxLDL.o
+OBJS += $(OBJDIR)/WS4.o
 OBJS += $(OBJDIR)/DataProc.o
 
 # What compiler to use
 CC = g++
 
 # Compiler flags, -g for debug, -c to make an object file
-CFLAGS = -c -Wall -std=c++17 -g
+CFLAGS = -c -Wall -std=c++17 -g -fconcepts
 
 # Directories containing header files other than /usr/include
 INCLUDES = #-I/extlibs/include/

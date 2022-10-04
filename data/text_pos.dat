@@ -16,7 +16,6 @@ Visibility:,        33, cWhite,     fStar4000,    330,  267,  0.55,   l
 Pressure:,          33, cWhite,     fStar4000,    330,  308,  0.55,   l
 %wind,              30, cWhite,     fStar4000Ext,  75,  308,     1,   l
 %gusts,             30, cWhite,     fStar4000Ext,  75,  346,     1,   l
-%scroller,          30, cWhite,     fStar4000,     62,  398,     1,   l
 %temp,              39, cWhite,     fStar4000Lg,  190,  104,     1,   c
 %cond,              37, cWhite,     fStar4000Ext, 180,  136,   0.8,   c
 %humidity,          33, cWhite,     fStar4000,    565,  141,  0.45,   r

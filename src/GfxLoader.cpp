@@ -1,13 +1,10 @@
-#include <SFML/Graphics.hpp>
-#include <filesystem>
 #include "GfxLoader.h"
-#include <fstream>
+
+#include <filesystem>
 #include <iostream>
-#include <sstream>
-#include <string>
+#include <fstream>
 #include <codecvt>
 #include <locale>
-#include <array>
 
 
 using std::to_string;
@@ -28,6 +25,13 @@ namespace ws4
         return quad;
     }
 
+
+    array<sf::Vertex, 4> buildQuad(int x, int y, int w, int h, sf::Color col)
+    {
+        return buildQuad(x, y, w, h, col, col);
+    }
+
+
     array<sf::Vertex, 4> buildQuad(int x1, int y1, int x2, int y2, 
                                             int x3, int y3, int x4, int y4, sf::Color col)
     {
@@ -40,6 +44,60 @@ namespace ws4
         };
         return quad;
     }
+
+
+    map<string, sf::Font> loadFontMap()
+    {
+        map<string, sf::Font> fM;
+
+        if(!fM["Star4000"].loadFromFile("../fonts/Star4000.ttf"))
+            return fM;
+        if(!fM["Star4000-Extended"].loadFromFile("../fonts/Star4000-Extended.ttf"))
+            return fM;
+        if(!fM["Star4000-Large"].loadFromFile("../fonts/Star4000-Large.ttf"))
+            return fM;
+        if(!fM["Star4000-Large-Compressed"].loadFromFile("../fonts/Star4000-Large-Compressed.ttf"))
+            return fM;
+        if(!fM["Star4000-Small"].loadFromFile("../fonts/Star4000-Small.ttf"))
+            return fM;
+
+        return fM;
+    }
+
+
+    map<string, sf::Color> loadColorMap()
+    {
+        map<string, sf::Color> cM =
+        {
+            {"#0e0e0e", sf::Color(14,14,14)},
+            {"#141414", sf::Color(20,20,20)},
+            {"#d7d7d7", sf::Color(215,215,215)},
+            {"#afafaf", sf::Color(175,175,175)},
+            {"#1c0a57", sf::Color(28,10,87)},
+            {"#233270", sf::Color(35,50,112)},
+        };
+
+        return cM;
+    }
+
+
+    map<string, sf::Texture> loadTextureMap()
+    {
+        map<string, sf::Texture> tM;
+        
+        if (!tM["Moon"].loadFromFile("../graphics/icons/Moon-Phases.png"))
+            return tM;
+        if (!tM["CC"].loadFromFile("../graphics/icons/Current-Conditions.png"))
+            return tM;
+        if (!tM["EF"].loadFromFile("../graphics/icons/Extended-Forecast.png"))
+            return tM;
+        if (!tM["RF"].loadFromFile("../graphics/icons/Regional-Maps.png"))
+            return tM;
+
+        return tM;
+    }
+
+
 
 
     vector<string> loadDatFile(string &&fname)

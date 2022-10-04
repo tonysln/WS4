@@ -1,3 +1,8 @@
+#include <SFML/Graphics.hpp>
+#include <sstream>
+#include <string>
+#include <vector>
+#include <array>
 #include <map>
 
 using std::stringstream;
@@ -13,8 +18,17 @@ using std::map;
 
 namespace ws4
 {
+    map<string, sf::Font> loadFontMap();
+    map<string, sf::Color> loadColorMap();
+    map<string, sf::Texture> loadTextureMap();
+
+
+
     // Construct an array of Vertices at (x,y) with size (w,h) and gradient of given colors
     array<sf::Vertex, 4> buildQuad(int x, int y, int w, int h, sf::Color col1, sf::Color col2);
+
+    // Construct an array of Vertices at (x,y) with size (w,h) and a single color
+    array<sf::Vertex, 4> buildQuad(int x, int y, int w, int h, sf::Color col);
 
     // Construct an array of Vertices at four given (x,y) points and given color
     array<sf::Vertex, 4> buildQuad(int x1, int y1, int x2, int y2, 

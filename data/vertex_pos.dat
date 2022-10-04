@@ -86,34 +86,33 @@
 0,     90,     640,    308,   cGPurple,    cGOrange
 %Center-Box-Blue%
 %Top-Bar-Orange%
-%Bottom-Bar-Blue%
 
 
 [Latest-Observations]
 0,     90,     640,    308,   cGPurple,    cGOrange
 %Center-Box-Blue%
 %Top-Bar-Orange%
-%Bottom-Bar-Blue%
+
 
 
 [Local-Forecast-1]
 0,     90,     640,    308,   cGPurple,    cGOrange
 %Center-Box-Blue%
 %Top-Bar-Orange%
-%Bottom-Bar-Blue%
+
 
 [Local-Forecast-2]
 0,     90,     640,    308,   cGPurple,    cGOrange
 %Center-Box-Blue%
 %Top-Bar-Orange%
-%Bottom-Bar-Blue%
+
 
 
 [Outlook]
 0,     90,     640,    308,   cGPurple,    cGOrange
 %Center-Box-Blue%
 %Top-Bar-Orange%
-%Bottom-Bar-Blue%
+
 
 
 [Extended-Forecast]
@@ -122,7 +121,7 @@
 %Forecast-Pane-Left%
 %Forecast-Pane-Center%
 %Forecast-Pane-Right%
-%Bottom-Bar-Blue%
+
 
 
 [Almanac]
@@ -130,31 +129,31 @@
 0,     130,    640,    62,    cOrange9,    cOrange1
 0,     192,    640,    206,   cGray2,      cGray2
 %Top-Bar-Orange%
-%Bottom-Bar-Blue%
+
 
 
 [Regional-Observations]
 %Top-Bar-Orange%
-%Bottom-Bar-Blue%
+
 
 
 [Forecast-For]
 %Top-Bar-Orange%
-%Bottom-Bar-Blue%
+
 
 
 [Air-Quality]
 0,     90,     640,    308,   cGPurple,    cGOrange
 %Top-Bar-Orange%
 %Quality-Index-Scale%
-%Bottom-Bar-Blue%
+
 
 
 [Travel-Forecast]
 0,     112,     640,    143,   tfBlue1,    tfBlue2
 0,     255,     640,    143,   tfBlue2,    tfBlue1
 %Top-Bar-Orange%
-%Bottom-Bar-Blue%
+
 
 
 [Current-Radar]
@@ -170,5 +169,5 @@
 0,     90,     640,    308,   cGPurple,    cGOrange
 %Center-Box-Blue%
 %Top-Bar-Orange%
-%Bottom-Bar-Blue%
+
 

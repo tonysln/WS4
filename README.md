@@ -29,7 +29,7 @@ Make sure to read the Documentation & Reference in `/doc` for a full overview an
 
 ## Requirements
 
-Should work on any OS... (TODO experiment)
+Supported platforms: Linux, macOS, ... Windows(?)
 
 | Library Name  | Version    |
 | ------------- |------------|
