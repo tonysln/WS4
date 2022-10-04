@@ -24,7 +24,7 @@ namespace ws4
         map<string, sf::Texture> textureMap;
 
         map<string, map<string, vector<int>>> iconPos;
-        vector<GfxScreen> screenVec;
+        vector<GfxScreen> staticScreenVec;
         GfxLDL LDL;
 
         // TODO static and dynamic stuff

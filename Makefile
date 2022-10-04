@@ -19,7 +19,7 @@ OBJS += $(OBJDIR)/DataProc.o
 CC = g++
 
 # Compiler flags, -g for debug, -c to make an object file
-CFLAGS = -c -Wall -std=c++17 -g -fconcepts
+CFLAGS = -c -Wall -std=c++17 -g
 
 # Directories containing header files other than /usr/include
 INCLUDES = #-I/extlibs/include/
