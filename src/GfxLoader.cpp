@@ -73,6 +73,7 @@ namespace ws4
             {"#141414", sf::Color(20,20,20)},
             {"#d7d7d7", sf::Color(215,215,215)},
             {"#afafaf", sf::Color(175,175,175)},
+            {"#3d3d3d", sf::Color(61,61,61)},
             {"#1c0a57", sf::Color(28,10,87)},
             {"#233270", sf::Color(35,50,112)},
             {"#2e1251", sf::Color(46,18,81)},
@@ -95,6 +96,22 @@ namespace ws4
             {"#592a3e", sf::Color(89,42,62)},
             {"#472240", sf::Color(71,34,64)},
             {"#cdb900", sf::Color(205,185,0)},
+            {"#7d3c28", sf::Color(125,60,40)},
+            {"#828af5", sf::Color(130,138,245)},
+
+            {"#565bca", sf::Color(86,91,202)},
+            {"#424eca", sf::Color(66,78,202)},
+            {"#2c42ca", sf::Color(44,66,202)},
+            {"#2539ca", sf::Color(37,57,202)},
+            {"#0931ca", sf::Color(9,49,202)},
+            {"#0028cb", sf::Color(0,40,203)},
+            {"#0024cb", sf::Color(0,36,203)},
+            {"#0022cb", sf::Color(0,34,203)},
+
+            {"#f0dc0a", sf::Color(240,220,10)},
+            {"#f09600", sf::Color(240,150,0)},
+            {"#fa6405", sf::Color(250,100,5)},
+            {"#f52805", sf::Color(245,40,5)}
         };
 
         return cM;
@@ -339,6 +356,42 @@ namespace ws4
                 vector {
                     // Background gradient
                     buildQuad(0, 90, 640, 308, colorMap["#2e1251"], colorMap["#c05d02"]),
+                    // Left panel
+                    buildQuad(37, 100, 175, 296, colorMap["#0e0e0e"]),
+                    buildQuad(40, 103, 169, 290, colorMap["#828af5"]),
+                    buildQuad(44, 106, 161, 284, colorMap["#0e0e0e"]),
+                    buildQuad(46, 108, 157, 32, colorMap["#565bca"]),
+                    buildQuad(46, 140, 157, 35, colorMap["#424eca"]),
+                    buildQuad(46, 175, 157, 36, colorMap["#2c42ca"]),
+                    buildQuad(46, 211, 157, 34, colorMap["#2539ca"]),
+                    buildQuad(46, 245, 157, 34, colorMap["#0931ca"]),
+                    buildQuad(46, 279, 157, 37, colorMap["#0028cb"]),
+                    buildQuad(46, 316, 157, 36, colorMap["#0024cb"]),
+                    buildQuad(46, 352, 157, 36, colorMap["#0022cb"]),
+                    // Center panel
+                    buildQuad(231, 100, 175, 296, colorMap["#0e0e0e"]),
+                    buildQuad(234, 103, 169, 290, colorMap["#828af5"]),
+                    buildQuad(238, 106, 161, 284, colorMap["#0e0e0e"]),
+                    buildQuad(240, 108, 157, 32, colorMap["#565bca"]),
+                    buildQuad(240, 140, 157, 35, colorMap["#424eca"]),
+                    buildQuad(240, 175, 157, 36, colorMap["#2c42ca"]),
+                    buildQuad(240, 211, 157, 34, colorMap["#2539ca"]),
+                    buildQuad(240, 245, 157, 34, colorMap["#0931ca"]),
+                    buildQuad(240, 279, 157, 37, colorMap["#0028cb"]),
+                    buildQuad(240, 316, 157, 36, colorMap["#0024cb"]),
+                    buildQuad(240, 352, 157, 36, colorMap["#0022cb"]),
+                    // Right panel
+                    buildQuad(426, 100, 175, 296, colorMap["#0e0e0e"]),
+                    buildQuad(429, 103, 169, 290, colorMap["#828af5"]),
+                    buildQuad(433, 106, 161, 284, colorMap["#0e0e0e"]),
+                    buildQuad(435, 108, 157, 32, colorMap["#565bca"]),
+                    buildQuad(435, 140, 157, 35, colorMap["#424eca"]),
+                    buildQuad(435, 175, 157, 36, colorMap["#2c42ca"]),
+                    buildQuad(435, 211, 157, 34, colorMap["#2539ca"]),
+                    buildQuad(435, 245, 157, 34, colorMap["#0931ca"]),
+                    buildQuad(435, 279, 157, 37, colorMap["#0028cb"]),
+                    buildQuad(435, 316, 157, 36, colorMap["#0024cb"]),
+                    buildQuad(435, 352, 157, 36, colorMap["#0022cb"]),
                     // Top bar
                     buildQuad(0, 29, 499, 29, 494, 37, 0, 37, colorMap["#c35b00"]),
                     buildQuad(0, 37, 494, 37, 489, 45, 0, 45, colorMap["#b25200"]),
@@ -367,9 +420,10 @@ namespace ws4
             GfxScreen {
                 vector {
                     // Top gradient
-                    // ...
+                    buildQuad(0, 90, 640, 40, colorMap["#2e1251"], colorMap["#7d3c28"]),
+                    buildQuad(0, 130, 640, 62, colorMap["#7d3c28"], colorMap["#c35b00"]),
                     // Gray background
-                    // ...
+                    buildQuad(0, 192, 640, 206, colorMap["#3d3d3d"]),
                     // Top bar
                     buildQuad(0, 29, 499, 29, 494, 37, 0, 37, colorMap["#c35b00"]),
                     buildQuad(0, 37, 494, 37, 489, 45, 0, 45, colorMap["#b25200"]),
