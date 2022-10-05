@@ -20,7 +20,7 @@ namespace ws4
 {
     class WS4 
     {
-        const short FPS = 7;
+        const short FPS = 30;
         const float SCALE = 1.0f;
         const short WIN_WIDTH = 640;
         const short WIN_HEIGHT = 480;
@@ -38,9 +38,6 @@ namespace ws4
         sf::Time elapsedScene;
 
         map<string, sf::Font> fM;
-        map<string, sf::Color> cM;
-        map<string, vector<sf::Text>> tM;
-        map<string, vector<array<sf::Vertex, 4>>> vM;
         map<string, map<string, vector<int>>> iconPos;
         map<string, vector<sf::Sprite>> iM;
 
@@ -52,6 +49,7 @@ namespace ws4
         sf::Texture regMapsTexture;
         sf::Texture regBaseMapTexture;
         int animFrame;
+        int animCounter;
 
         
         sf::Music musicPlayer;
@@ -60,13 +58,13 @@ namespace ws4
         {
             "Current-Conditions",
             "Latest-Observations",
+            "Regional-Observations",
             "Local-Forecast-1",
             "Local-Forecast-2",
+            "Local-Forecast-3",
+            "Forecast-For",
             "Extended-Forecast",
             "Almanac",
-            "Forecast-For",
-            // "Travel-Forecast",
-            // "Air-Quality",
         };
         short cur = 0;
         short icoCt = 0;
@@ -82,13 +80,11 @@ namespace ws4
 
     public:
         WS4();
-        void loadFonts();
         void loadTextures();
         void loadGraphics();
         void loadData();
         void loadMusic();
         int runLoop();
-        void loadLDL();
     };
 
 }

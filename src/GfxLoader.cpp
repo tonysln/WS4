@@ -118,6 +118,280 @@ namespace ws4
     }
 
 
+    void loadStaticScreenVec(vector<GfxScreen> &stScrVec, map<string, sf::Font> &fontMap, 
+                                                            map<string, sf::Color> &colorMap)
+    {
+        stScrVec.push_back
+        (
+            // Screen 0 - "Current Conditions"
+            GfxScreen {
+                vector {
+                    // Background gradient
+                    buildQuad(0, 90, 640, 308, colorMap["#2e1251"], colorMap["#c05d02"]),
+                    // Center blue panel
+                    buildQuad(52, 90, 531, 308, colorMap["#2652b2"]),
+                    buildQuad(55, 94, 527, 302, colorMap["#254ba3"]),
+                    buildQuad(57, 96, 523, 298, colorMap["#254698"]),
+                    buildQuad(59, 98, 519, 294, colorMap["#24408c"]),
+                    buildQuad(61, 100, 515, 290, colorMap["#233a80"]),
+                    buildQuad(63, 102, 511, 286, colorMap["#223474"]),
+                    buildQuad(65, 104, 507, 282, colorMap["#222f69"]),
+                    buildQuad(66, 105, 506, 281, colorMap["#212b60"]),
+                    buildQuad(67, 106, 505, 280, colorMap["#21285a"]),
+                    // Top bar
+                    buildQuad(0, 29, 499, 29, 494, 37, 0, 37, colorMap["#c35b00"]),
+                    buildQuad(0, 37, 494, 37, 489, 45, 0, 45, colorMap["#b25200"]),
+                    buildQuad(0, 45, 489, 45, 483, 54, 0, 54, colorMap["#9d4b13"]),
+                    buildQuad(0, 54, 483, 54, 478, 61, 0, 61, colorMap["#8e421a"]),
+                    buildQuad(0, 61, 478, 61, 471, 71, 0, 71, colorMap["#7b3824"]),
+                    buildQuad(0, 71, 471, 71, 467, 77, 0, 77, colorMap["#692e2e"]),
+                    buildQuad(0, 77, 467, 77, 461, 85, 0, 85, colorMap["#592a3e"]),
+                    buildQuad(0, 85, 461, 85, 457, 90, 0, 90, colorMap["#472240"]),
+                },
+                vector {
+                    TextLabel("Current", fontMap["Star4000"], "#cdb900", 34, 3, 0.9, 163, 21, colorMap, 0),
+                    TextLabel("Conditions", fontMap["Star4000"], "#cdb900", 34, 3, 0.9, 163, 50, colorMap, 0),
+                    TextLabel("Humidity:", fontMap["Star4000"], "#d7d7d7", 33, 1, 0.55, 330, 141, colorMap, 0),
+                    TextLabel("Dewpoint:", fontMap["Star4000"], "#d7d7d7", 33, 1, 0.55, 330, 181, colorMap, 0),
+                    TextLabel("Ceiling:", fontMap["Star4000"], "#d7d7d7", 33, 1, 0.55, 330, 225, colorMap, 0),
+                    TextLabel("Visibility:", fontMap["Star4000"], "#d7d7d7", 33, 1, 0.55, 330, 267, colorMap, 0),
+                    TextLabel("Pressure:", fontMap["Star4000"], "#d7d7d7", 33, 1, 0.55, 330, 308, colorMap, 0),
+                }
+            }
+        );
+        stScrVec.push_back
+        (
+            // Screen 1 - "Latest Observations"
+            GfxScreen {
+                vector {
+                    // Background gradient
+                    buildQuad(0, 90, 640, 308, colorMap["#2e1251"], colorMap["#c05d02"]),
+                    // Center blue panel
+                    buildQuad(52, 90, 531, 308, colorMap["#2652b2"]),
+                    buildQuad(55, 94, 527, 302, colorMap["#254ba3"]),
+                    buildQuad(57, 96, 523, 298, colorMap["#254698"]),
+                    buildQuad(59, 98, 519, 294, colorMap["#24408c"]),
+                    buildQuad(61, 100, 515, 290, colorMap["#233a80"]),
+                    buildQuad(63, 102, 511, 286, colorMap["#223474"]),
+                    buildQuad(65, 104, 507, 282, colorMap["#222f69"]),
+                    buildQuad(66, 105, 506, 281, colorMap["#212b60"]),
+                    buildQuad(67, 106, 505, 280, colorMap["#21285a"]),
+                    // Top bar
+                    buildQuad(0, 29, 499, 29, 494, 37, 0, 37, colorMap["#c35b00"]),
+                    buildQuad(0, 37, 494, 37, 489, 45, 0, 45, colorMap["#b25200"]),
+                    buildQuad(0, 45, 489, 45, 483, 54, 0, 54, colorMap["#9d4b13"]),
+                    buildQuad(0, 54, 483, 54, 478, 61, 0, 61, colorMap["#8e421a"]),
+                    buildQuad(0, 61, 478, 61, 471, 71, 0, 71, colorMap["#7b3824"]),
+                    buildQuad(0, 71, 471, 71, 467, 77, 0, 77, colorMap["#692e2e"]),
+                    buildQuad(0, 77, 467, 77, 461, 85, 0, 85, colorMap["#592a3e"]),
+                    buildQuad(0, 85, 461, 85, 457, 90, 0, 90, colorMap["#472240"]),
+                },
+                vector {
+                    TextLabel("Latest Observations", fontMap["Star4000"], "#cdb900", 34, 3, 0.5, 163, 35, colorMap, 0),
+                    TextLabel("F°", fontMap["Star4000-Small"], "#d7d7d7", 30, 0, 1.0, 305, 78, colorMap, 0),
+                    TextLabel("WEATHER", fontMap["Star4000-Small"], "#d7d7d7", 30, 0, 1.0, 365, 78, colorMap, 0),
+                    TextLabel("WIND", fontMap["Star4000-Small"], "#d7d7d7", 30, 0, 1.0, 505, 78, colorMap, 0),
+                }
+            }
+        );
+        stScrVec.push_back
+        (
+            // Screen 2 - "Regional Observations"
+            GfxScreen {
+                vector {
+                    // Top bar
+                    buildQuad(0, 29, 499, 29, 494, 37, 0, 37, colorMap["#c35b00"]),
+                    buildQuad(0, 37, 494, 37, 489, 45, 0, 45, colorMap["#b25200"]),
+                    buildQuad(0, 45, 489, 45, 483, 54, 0, 54, colorMap["#9d4b13"]),
+                    buildQuad(0, 54, 483, 54, 478, 61, 0, 61, colorMap["#8e421a"]),
+                    buildQuad(0, 61, 478, 61, 471, 71, 0, 71, colorMap["#7b3824"]),
+                    buildQuad(0, 71, 471, 71, 467, 77, 0, 77, colorMap["#692e2e"]),
+                    buildQuad(0, 77, 467, 77, 461, 85, 0, 85, colorMap["#592a3e"]),
+                    buildQuad(0, 85, 461, 85, 457, 90, 0, 90, colorMap["#472240"]),
+                },
+                vector {
+                    TextLabel("Regional", fontMap["Star4000"], "#cdb900", 34, 3, 0.6, 163, 21, colorMap, 0),
+                    TextLabel("Observations", fontMap["Star4000"], "#cdb900", 34, 3, 0.6, 163, 50, colorMap, 0),
+                }
+            }
+        );
+        stScrVec.push_back
+        (
+            // Screen 3 - "36-Hour Forecast 1/3"
+            GfxScreen {
+                vector {
+                    // Background gradient
+                    buildQuad(0, 90, 640, 308, colorMap["#2e1251"], colorMap["#c05d02"]),
+                    // Center blue panel
+                    buildQuad(52, 90, 531, 308, colorMap["#2652b2"]),
+                    buildQuad(55, 94, 527, 302, colorMap["#254ba3"]),
+                    buildQuad(57, 96, 523, 298, colorMap["#254698"]),
+                    buildQuad(59, 98, 519, 294, colorMap["#24408c"]),
+                    buildQuad(61, 100, 515, 290, colorMap["#233a80"]),
+                    buildQuad(63, 102, 511, 286, colorMap["#223474"]),
+                    buildQuad(65, 104, 507, 282, colorMap["#222f69"]),
+                    buildQuad(66, 105, 506, 281, colorMap["#212b60"]),
+                    buildQuad(67, 106, 505, 280, colorMap["#21285a"]),
+                    // Top bar
+                    buildQuad(0, 29, 499, 29, 494, 37, 0, 37, colorMap["#c35b00"]),
+                    buildQuad(0, 37, 494, 37, 489, 45, 0, 45, colorMap["#b25200"]),
+                    buildQuad(0, 45, 489, 45, 483, 54, 0, 54, colorMap["#9d4b13"]),
+                    buildQuad(0, 54, 483, 54, 478, 61, 0, 61, colorMap["#8e421a"]),
+                    buildQuad(0, 61, 478, 61, 471, 71, 0, 71, colorMap["#7b3824"]),
+                    buildQuad(0, 71, 471, 71, 467, 77, 0, 77, colorMap["#692e2e"]),
+                    buildQuad(0, 77, 467, 77, 461, 85, 0, 85, colorMap["#592a3e"]),
+                    buildQuad(0, 85, 461, 85, 457, 90, 0, 90, colorMap["#472240"]),
+                },
+                vector {
+                    TextLabel("Local Forecast", fontMap["Star4000"], "#cdb900", 34, 3, 0.6, 163, 35, colorMap, 0),
+                }
+            }
+        );
+        stScrVec.push_back
+        (
+            // Screen 4 - "36-Hour Forecast 2/3"
+            GfxScreen {
+                vector {
+                    // Background gradient
+                    buildQuad(0, 90, 640, 308, colorMap["#2e1251"], colorMap["#c05d02"]),
+                    // Center blue panel
+                    buildQuad(52, 90, 531, 308, colorMap["#2652b2"]),
+                    buildQuad(55, 94, 527, 302, colorMap["#254ba3"]),
+                    buildQuad(57, 96, 523, 298, colorMap["#254698"]),
+                    buildQuad(59, 98, 519, 294, colorMap["#24408c"]),
+                    buildQuad(61, 100, 515, 290, colorMap["#233a80"]),
+                    buildQuad(63, 102, 511, 286, colorMap["#223474"]),
+                    buildQuad(65, 104, 507, 282, colorMap["#222f69"]),
+                    buildQuad(66, 105, 506, 281, colorMap["#212b60"]),
+                    buildQuad(67, 106, 505, 280, colorMap["#21285a"]),
+                    // Top bar
+                    buildQuad(0, 29, 499, 29, 494, 37, 0, 37, colorMap["#c35b00"]),
+                    buildQuad(0, 37, 494, 37, 489, 45, 0, 45, colorMap["#b25200"]),
+                    buildQuad(0, 45, 489, 45, 483, 54, 0, 54, colorMap["#9d4b13"]),
+                    buildQuad(0, 54, 483, 54, 478, 61, 0, 61, colorMap["#8e421a"]),
+                    buildQuad(0, 61, 478, 61, 471, 71, 0, 71, colorMap["#7b3824"]),
+                    buildQuad(0, 71, 471, 71, 467, 77, 0, 77, colorMap["#692e2e"]),
+                    buildQuad(0, 77, 467, 77, 461, 85, 0, 85, colorMap["#592a3e"]),
+                    buildQuad(0, 85, 461, 85, 457, 90, 0, 90, colorMap["#472240"]),
+                },
+                vector {
+                    TextLabel("Local Forecast", fontMap["Star4000"], "#cdb900", 34, 3, 0.6, 163, 35, colorMap, 0),
+                }
+            }
+        );
+        stScrVec.push_back
+        (
+            // Screen 5 - "36-Hour Forecast 3/3"
+            GfxScreen {
+                vector {
+                    // Background gradient
+                    buildQuad(0, 90, 640, 308, colorMap["#2e1251"], colorMap["#c05d02"]),
+                    // Center blue panel
+                    buildQuad(52, 90, 531, 308, colorMap["#2652b2"]),
+                    buildQuad(55, 94, 527, 302, colorMap["#254ba3"]),
+                    buildQuad(57, 96, 523, 298, colorMap["#254698"]),
+                    buildQuad(59, 98, 519, 294, colorMap["#24408c"]),
+                    buildQuad(61, 100, 515, 290, colorMap["#233a80"]),
+                    buildQuad(63, 102, 511, 286, colorMap["#223474"]),
+                    buildQuad(65, 104, 507, 282, colorMap["#222f69"]),
+                    buildQuad(66, 105, 506, 281, colorMap["#212b60"]),
+                    buildQuad(67, 106, 505, 280, colorMap["#21285a"]),
+                    // Top bar
+                    buildQuad(0, 29, 499, 29, 494, 37, 0, 37, colorMap["#c35b00"]),
+                    buildQuad(0, 37, 494, 37, 489, 45, 0, 45, colorMap["#b25200"]),
+                    buildQuad(0, 45, 489, 45, 483, 54, 0, 54, colorMap["#9d4b13"]),
+                    buildQuad(0, 54, 483, 54, 478, 61, 0, 61, colorMap["#8e421a"]),
+                    buildQuad(0, 61, 478, 61, 471, 71, 0, 71, colorMap["#7b3824"]),
+                    buildQuad(0, 71, 471, 71, 467, 77, 0, 77, colorMap["#692e2e"]),
+                    buildQuad(0, 77, 467, 77, 461, 85, 0, 85, colorMap["#592a3e"]),
+                    buildQuad(0, 85, 461, 85, 457, 90, 0, 90, colorMap["#472240"]),
+                },
+                vector {
+                    TextLabel("Local Forecast", fontMap["Star4000"], "#cdb900", 34, 3, 0.6, 163, 35, colorMap, 0),
+                }
+            }
+        );
+        stScrVec.push_back
+        (
+            // Screen 6 - "Regional Forecast Map"
+            GfxScreen {
+                vector {
+                    // Top bar
+                    buildQuad(0, 29, 499, 29, 494, 37, 0, 37, colorMap["#c35b00"]),
+                    buildQuad(0, 37, 494, 37, 489, 45, 0, 45, colorMap["#b25200"]),
+                    buildQuad(0, 45, 489, 45, 483, 54, 0, 54, colorMap["#9d4b13"]),
+                    buildQuad(0, 54, 483, 54, 478, 61, 0, 61, colorMap["#8e421a"]),
+                    buildQuad(0, 61, 478, 61, 471, 71, 0, 71, colorMap["#7b3824"]),
+                    buildQuad(0, 71, 471, 71, 467, 77, 0, 77, colorMap["#692e2e"]),
+                    buildQuad(0, 77, 467, 77, 461, 85, 0, 85, colorMap["#592a3e"]),
+                    buildQuad(0, 85, 461, 85, 457, 90, 0, 90, colorMap["#472240"]),
+                },
+                vector {
+                    TextLabel("Forecast For", fontMap["Star4000"], "#cdb900", 34, 3, 0.6, 163, 21, colorMap, 0),
+                    TextLabel("Weekday", fontMap["Star4000"], "#cdb900", 34, 3, 0.6, 163, 50, colorMap, 0),
+                }
+            }
+        );
+        stScrVec.push_back
+        (
+            // Screen 7 - "Extended Forecast"
+            GfxScreen {
+                vector {
+                    // Background gradient
+                    buildQuad(0, 90, 640, 308, colorMap["#2e1251"], colorMap["#c05d02"]),
+                    // Top bar
+                    buildQuad(0, 29, 499, 29, 494, 37, 0, 37, colorMap["#c35b00"]),
+                    buildQuad(0, 37, 494, 37, 489, 45, 0, 45, colorMap["#b25200"]),
+                    buildQuad(0, 45, 489, 45, 483, 54, 0, 54, colorMap["#9d4b13"]),
+                    buildQuad(0, 54, 483, 54, 478, 61, 0, 61, colorMap["#8e421a"]),
+                    buildQuad(0, 61, 478, 61, 471, 71, 0, 71, colorMap["#7b3824"]),
+                    buildQuad(0, 71, 471, 71, 467, 77, 0, 77, colorMap["#692e2e"]),
+                    buildQuad(0, 77, 467, 77, 461, 85, 0, 85, colorMap["#592a3e"]),
+                    buildQuad(0, 85, 461, 85, 457, 90, 0, 90, colorMap["#472240"]),
+                },
+                vector {
+                    TextLabel("Area", fontMap["Star4000"], "#d7d7d7", 34, 2, 0.5, 163, 21, colorMap, 0),
+                    TextLabel("Extended Forecast", fontMap["Star4000"], "#cdb900", 34, 2, 0.5, 163, 50, colorMap, 0),
+                    // TextLabel("Lo", fontMap["Star4000"], "#cdb900", 34, 3, 0.9, 163, 50, colorMap, 0),
+                    // TextLabel("Hi", fontMap["Star4000"], "#cdb900", 34, 3, 0.9, 163, 50, colorMap, 0),
+                    // TextLabel("Lo", fontMap["Star4000"], "#cdb900", 34, 3, 0.9, 163, 50, colorMap, 0),
+                    // TextLabel("Hi", fontMap["Star4000"], "#cdb900", 34, 3, 0.9, 163, 50, colorMap, 0),
+                    // TextLabel("Lo", fontMap["Star4000"], "#cdb900", 34, 3, 0.9, 163, 50, colorMap, 0),
+                    // TextLabel("Hi", fontMap["Star4000"], "#cdb900", 34, 3, 0.9, 163, 50, colorMap, 0),
+                }
+            }
+        );
+        stScrVec.push_back
+        (
+            // Screen 8 - "Almanac"
+            GfxScreen {
+                vector {
+                    // Top gradient
+                    // ...
+                    // Gray background
+                    // ...
+                    // Top bar
+                    buildQuad(0, 29, 499, 29, 494, 37, 0, 37, colorMap["#c35b00"]),
+                    buildQuad(0, 37, 494, 37, 489, 45, 0, 45, colorMap["#b25200"]),
+                    buildQuad(0, 45, 489, 45, 483, 54, 0, 54, colorMap["#9d4b13"]),
+                    buildQuad(0, 54, 483, 54, 478, 61, 0, 61, colorMap["#8e421a"]),
+                    buildQuad(0, 61, 478, 61, 471, 71, 0, 71, colorMap["#7b3824"]),
+                    buildQuad(0, 71, 471, 71, 467, 77, 0, 77, colorMap["#692e2e"]),
+                    buildQuad(0, 77, 467, 77, 461, 85, 0, 85, colorMap["#592a3e"]),
+                    buildQuad(0, 85, 461, 85, 457, 90, 0, 90, colorMap["#472240"]),
+                },
+                vector {
+                    TextLabel("Almanac", fontMap["Star4000"], "#cdb900", 34, 3, 0.9, 163, 35, colorMap, 0),
+                    // TextLabel("Sunrise:", fontMap["Star4000"], "#d7d7d7", 34, 1, 0.9, 163, 35, colorMap, 2),
+                    // TextLabel("Sunset:", fontMap["Star4000"], "#d7d7d7", 34, 1, 0.9, 163, 35, colorMap, 2),
+                    // TextLabel("Moon Data:", fontMap["Star4000"], "#cdb900", 34, 1, 0.9, 163, 35, colorMap, 0),
+                }
+            }
+        );
+    }
+
+
+
 
 
     vector<string> loadDatFile(string &&fname)
@@ -155,173 +429,8 @@ namespace ws4
         lnStream.str("");
         lnStream.clear();
     }
-
-
-    map<string, sf::Color> parseColorData()
-    {   
-        map<string, sf::Color> cM;
-
-        vector<string> lines = loadDatFile("../data/colors.dat");
-        stringstream lnStream("");
-        string seg;
-        vector<string> lineSegs;
-
-        for (auto &line : lines)
-        {
-            splitCLine(lineSegs, lnStream, seg, line);
-            cM[lineSegs[0]] = sf::Color(stoi(lineSegs[1]), stoi(lineSegs[2]), stoi(lineSegs[3]));
-        }
-
-        return cM;
-    }
     
 
-    map<string, vector<array<sf::Vertex, 4>>> parseVertexData(map<string, sf::Color> &cM)
-    {   
-        map<string, vector<array<sf::Vertex, 4>>> vM;
-
-        vector<string> lines = loadDatFile("../data/vertex_pos.dat");
-        stringstream lnStream("");
-        string seg;
-        vector<string> lineSegs;
-
-        string curScene;
-        string partName;
-        for (auto &line : lines) 
-        {
-            // New Scene
-            if (line[0] == '[' && line[line.length()-1] == ']')
-            {
-                curScene = line.substr(1, line.length()-2);
-                vM[curScene] = {};
-                continue;
-            }
-
-            // Include already defined parts
-            if (line[0] == '%' && line[line.length()-1] == '%')
-            {   
-                partName = line.substr(1, line.length()-2);
-
-                vM[curScene].reserve(vM[curScene].size() + vM[partName].size());
-
-                vM[curScene].insert(end(vM[curScene]), 
-                                    begin(vM[partName]), 
-                                    end(vM[partName]));
-                continue;
-            }
-
-            splitCLine(lineSegs, lnStream, seg, line);
-
-            if (size(lineSegs) == 6) // Build from 1 x,y, w,h and 2 colors
-            {
-                vM[curScene].push_back(
-                    buildQuad(stoi(lineSegs[0]), stoi(lineSegs[1]), 
-                              stoi(lineSegs[2]), stoi(lineSegs[3]), 
-                                 cM[lineSegs[4]], cM[lineSegs[5]])
-                );
-            }
-            else if (size(lineSegs) == 9) // Build from 4 x,y coordinates and 1 color
-            {
-                vM[curScene].push_back(
-                    buildQuad(stoi(lineSegs[0]), stoi(lineSegs[1]), 
-                              stoi(lineSegs[2]), stoi(lineSegs[3]),
-                              stoi(lineSegs[4]), stoi(lineSegs[5]),
-                              stoi(lineSegs[6]), stoi(lineSegs[7]), 
-                                                  cM[lineSegs[8]])
-                );
-            }
-        }
-
-        return vM;
-    }
-
-
-    map<string, vector<sf::Text>> parseTextData(map<string, sf::Color> &cM, map<string, sf::Font> &fM, map<string, map<string, string>> &dM)
-    {        
-        map<string, vector<sf::Text>> tM;
-
-        vector<string> lines = loadDatFile("../data/text_pos.dat");
-        stringstream lnStream("");
-        string seg;
-        vector<string> lineSegs;
-
-        string curScene;
-        string replVal;
-        std::wstring textVal;
-        std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
-        for (auto &line : lines) 
-        {
-            // New Scene
-            if (line[0] == '[' && line[line.length()-1] == ']')
-            {
-                curScene = line.substr(1, line.length()-2);
-                tM[curScene] = {};
-                continue;
-            }
-
-            splitCLine(lineSegs, lnStream, seg, line);
-
-            // Text string    
-            if (lineSegs[0][0] == '%')
-            {
-                // Replace with value in dM, else N/A
-                replVal = lineSegs[0].substr(1, lineSegs[0][lineSegs[0].length()-1]);
-                lineSegs[0] = dM[curScene][replVal];
-            }
-
-            // Turn into wstring for degree sign support
-            textVal = converter.from_bytes(lineSegs[0]);
-
-            double sF = 0.67;
-            int shOffst = 3;
-
-            // Hide shadow if flag is set to 0
-            if (size(lineSegs) == 9 && lineSegs.back()[0] == '0')
-            {
-                shOffst = 0;
-            }
-
-
-            // First add shadow
-            tM[curScene].push_back(sf::Text(textVal, fM[lineSegs[3]], stoi(lineSegs[1])*sF));
-
-            if (tM[curScene].size() < 1)
-                return tM; // Avoid undefined behaviour
-
-            tM[curScene].back().setFillColor(cM["cBlack2"]);
-            tM[curScene].back().setPosition(
-                sf::Vector2f(stoi(lineSegs[4])+shOffst, stoi(lineSegs[5])+shOffst)
-            );
-            tM[curScene].back().setOutlineColor(cM["cBlack2"]);
-            tM[curScene].back().setOutlineThickness(0);
-            tM[curScene].back().setLetterSpacing(stod(lineSegs[6]));
-
-            // Calculate origin/alignment
-            char align = lineSegs[7][0];
-            sf::Vector2f orig(0, 0);
-
-            if (align == 'r')
-                orig.x = tM[curScene].back().getLocalBounds().width;
-
-            if (align == 'c')
-                orig.x = tM[curScene].back().getLocalBounds().width / 2;
-
-            tM[curScene].back().setOrigin(orig);
-            tM[curScene].back().setScale(sf::Vector2f(1.5f, 1.5));
-
-            // Then add text itself
-            tM[curScene].push_back(sf::Text(textVal, fM[lineSegs[3]], stoi(lineSegs[1])*sF));
-            tM[curScene].back().setFillColor(cM[lineSegs[2]]);
-            tM[curScene].back().setPosition(sf::Vector2f(stoi(lineSegs[4]), stoi(lineSegs[5])));
-            tM[curScene].back().setOutlineColor(cM["cBlack1"]);
-            tM[curScene].back().setOutlineThickness(1);
-            tM[curScene].back().setLetterSpacing(stod(lineSegs[6]));
-            tM[curScene].back().setOrigin(orig);
-            tM[curScene].back().setScale(sf::Vector2f(1.5f, 1.5));
-        }
-
-        return tM;
-    }
 
 
     map<string, map<string, vector<int>>> loadIconPos()

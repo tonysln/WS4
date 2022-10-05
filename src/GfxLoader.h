@@ -1,4 +1,5 @@
 #include <SFML/Graphics.hpp>
+#include "GfxScreen.h"
 #include <sstream>
 #include <string>
 #include <vector>
@@ -21,6 +22,8 @@ namespace ws4
     map<string, sf::Font> loadFontMap();
     map<string, sf::Color> loadColorMap();
     map<string, sf::Texture> loadTextureMap();
+    void loadStaticScreenVec(vector<GfxScreen> &stScrVec, 
+                            map<string, sf::Font> &fontMap, map<string, sf::Color> &colorMap);
 
 
 
@@ -37,15 +40,7 @@ namespace ws4
     // Load data file and return as a vector of strings
     vector<string> loadDatFile(string &&fname);
     
-    // Read in colors data file and return mapping [color name] -> [sf::Color]
-    map<string, sf::Color> parseColorData();
-    
-    // Read in vertex data (shapes and screen layouts), return mapping
-    // [screen name] -> [vector of Vertex arrays]
-    map<string, vector<array<sf::Vertex, 4>>> parseVertexData(map<string, sf::Color> &cM);
-    
-    // Read in text data and return mapping [screen name] -> [vector of sf::Text]
-    map<string, vector<sf::Text>> parseTextData(map<string, sf::Color> &cM, map<string, sf::Font> &fM, map<string, map<string, string>> &dM);
+
 
     // Use stringstream to split string by comma, trim spaces around values and save to vector
     void splitCLine(vector<string> &lineSegs, stringstream &lnStream, string &seg, string &line);

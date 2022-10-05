@@ -32,6 +32,7 @@ namespace ws4
         window.setView(view);
 
         animFrame = 0;
+        animCounter = 0;
 
         gfxManager = GfxManager();
     }
@@ -59,28 +60,9 @@ namespace ws4
             if (localtime(&epoch)->tm_hour % 12 < 10 && 
                 localtime(&epoch)->tm_hour % 12 > 0)
                 xCoordFix = 92.333;
-
-            tM[scr[i]][1].setOrigin(sf::Vector2f(xCoordFix, 0));
         }
     }
 
-
-    void WS4::loadFonts()
-    {
-        if(!fM["fStar4000"].loadFromFile("../fonts/Star4000.ttf"))
-            return;
-        if(!fM["fStar4000Ext"].loadFromFile("../fonts/Star4000-Extended.ttf"))
-            return;
-        if(!fM["fStar4000Lg"].loadFromFile("../fonts/Star4000-Large.ttf"))
-            return;
-        if(!fM["fStar4000LgC"].loadFromFile("../fonts/Star4000-Large-Compressed.ttf"))
-            return;
-        if(!fM["fStar4000Sm"].loadFromFile("../fonts/Star4000-Small.ttf"))
-            return;
-
-        // for (auto &fontEl : fM)
-            // fontEl.second.setSmooth(false);
-    }
 
     void WS4::loadTextures()
     {
@@ -99,9 +81,6 @@ namespace ws4
 
     void WS4::loadGraphics()
     {
-        cM = parseColorData();
-        tM = parseTextData(cM, fM, dM);
-        vM = parseVertexData(cM);
         iconPos = loadIconPos();
         iM = loadIcons(iconPos, dM, moonPhasesTexture, curCondTexture, extForcTexture, regMapsTexture);
         nextScreenUpdate();
@@ -124,7 +103,6 @@ namespace ws4
         dM["Current-Conditions"]["gusts"] = "Gusts to  77"; 
         dM["Current-Conditions"]["scroller"] = "Conditions at Moline";
 
-        // TODO Text positions
         dM["Forecast-For"]["forecast-day"] = "Saturday";
         dM["Forecast-For"]["num-cities"] = "5";
         dM["Forecast-For"]["map-x"] = "400";
@@ -170,14 +148,15 @@ namespace ws4
 
     void WS4::drawGraphics()
     {
-        window.clear(cM["cDkBlue1"]);
-
-        // Vertices and Shapes
-        for (const auto& vObj : vM[scr[cur]])
-            window.draw(vObj.data(), vObj.size(), sf::TriangleStrip);
-
         // Icons & Animation
-        animFrame = (animFrame + 1) % ANIM_FRAMES;
+        animCounter++;
+
+        if (animCounter >= FPS / ANIM_FRAMES)
+        {
+            animFrame = (animFrame + 1) % ANIM_FRAMES;
+            animCounter = 0;
+        }
+        
         icoCt = 0;
         for (auto& iObj : iM[scr[cur]])
         {
@@ -204,16 +183,6 @@ namespace ws4
         // Check if clock positioning needs to be fixed (at 10 and 1)
         if ((localtime(&epoch)->tm_min == 0) && (localtime(&epoch)->tm_sec <= 3))
             nextScreenUpdate();
-
-        tM[scr[cur]][1].setString(timeStr);
-        tM[scr[cur]][3].setString(dateStr);
-        tM[scr[cur]][3].setOrigin(sf::Vector2f(tM[scr[cur]][3].getLocalBounds().width, 0));
-        tM[scr[cur]][5].setString(timeAPStr);
-        tM[scr[cur]][5].setOrigin(sf::Vector2f(tM[scr[cur]][5].getLocalBounds().width, 0));
-
-        // Draw text
-        for (const auto& tObj : tM[scr[cur]])
-            window.draw(tObj);
     }
 
 
@@ -277,11 +246,11 @@ namespace ws4
             //     elapsedScene = sceneTimer.restart();
             // }
 
-            drawGraphics();
-            drawText();
-
             // Render everything to window
             gfxManager.renderAllTo(window, cur);
+
+            drawGraphics();
+            drawText();
 
             // Display window
             window.display();
