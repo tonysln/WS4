@@ -20,7 +20,7 @@ namespace ws4
         vector<sf::Text> shadowVec;
 
         // 0 - None, 1 - A bit larger than outline, 2.. 3..
-        int shadowLevel;
+        int shadowLevel = 1;
         double scaleFactor = 0.67;
         sf::Vector2f scale = sf::Vector2f(1.5f, 1.5f);
         

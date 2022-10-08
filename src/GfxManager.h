@@ -1,5 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include "GfxScreen.h"
+#include "AnimIcon.h"
+#include "MapCity.h"
 #include "GfxLDL.h"
 #include <vector>
 #include <array>
@@ -25,9 +27,11 @@ namespace ws4
 
         map<string, map<string, vector<int>>> iconPos;
         vector<GfxScreen> staticScreenVec;
+        vector<vector<TextLabel>> dynamicTextVec;
+        vector<vector<AnimIcon>> dynamicIconVec;
+        vector<MapCity> regMapCities;
+        vector<MapCity> forcMapCities;
         GfxLDL LDL;
-
-        // TODO static and dynamic stuff
 
         sf::Texture mainScreenTexture;
 

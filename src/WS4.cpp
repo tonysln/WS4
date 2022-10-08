@@ -249,8 +249,8 @@ namespace ws4
             // Render everything to window
             gfxManager.renderAllTo(window, cur);
 
-            drawGraphics();
-            drawText();
+//            drawGraphics();
+//            drawText();
 
             // Display window
             window.display();

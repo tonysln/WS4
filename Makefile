@@ -11,6 +11,7 @@ OBJS += $(OBJDIR)/GfxScreen.o
 OBJS += $(OBJDIR)/GfxManager.o
 OBJS += $(OBJDIR)/AnimIcon.o
 OBJS += $(OBJDIR)/TextLabel.o
+OBJS += $(OBJDIR)/MapCity.o
 OBJS += $(OBJDIR)/GfxLDL.o
 OBJS += $(OBJDIR)/WS4.o
 OBJS += $(OBJDIR)/DataProc.o
