@@ -27,7 +27,7 @@ namespace ws4
 
 
     public:
-        GfxLDL(map<string, sf::Color> &colorMap, map<string, sf::Font> &fontMap);
+        GfxLDL(string text, map<string, sf::Color> &colorMap, map<string, sf::Font> &fontMap);
         GfxLDL() = default;
 
         void renderTo(sf::RenderWindow &window);

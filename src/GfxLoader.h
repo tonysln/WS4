@@ -24,6 +24,7 @@ namespace ws4
     map<string, sf::Font> loadFontMap();
     map<string, sf::Color> loadColorMap();
     map<string, sf::Texture> loadTextureMap();
+    map<string, vector<int>> loadIconPositionsMap();
 
     // Create vectors of vertices, textlabels and animicons for all screens.
     // Vectors fed into GfxScreen classes and saved into main screens vector in GfxManager.
@@ -42,22 +43,7 @@ namespace ws4
     array<sf::Vertex, 4> buildQuad(int x, int y, int w, int h, sf::Color col);
 
     // Construct an array of Vertices at four given (x,y) points and given color
-    array<sf::Vertex, 4> buildQuad(int x1, int y1, int x2, int y2, 
-                                            int x3, int y3, int x4, int y4, sf::Color col);
-
-
-
-
-
-    vector<string> loadDatFile(string &&fname);
-    void splitCLine(vector<string> &lineSegs, stringstream &lnStream, string &seg, string &line);
-    map<string, map<string, vector<int>>> loadIconPos();
-    map<string, vector<sf::Sprite>> loadIcons(map<string, map<string, vector<int>>> &iconPos,
-                                                map<string, map<string, string>> dM,
-                                                sf::Texture &moonPhasesTexture,
-                                                sf::Texture &curCondTexture,
-                                                sf::Texture &extForcTexture,
-                                                sf::Texture &regMapsTexture);
+    array<sf::Vertex, 4> buildQuad(int x1, int y1, int x2, int y2, int x3, int y3, int x4, int y4, sf::Color col);
 }
 
 #endif //WS4_GFXLOADER_H

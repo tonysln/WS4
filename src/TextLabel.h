@@ -32,7 +32,7 @@ namespace ws4
 
         void renderTo(sf::RenderWindow &window);
         void updateText(string text);
-        sf::String toUtf8String(string text);
+        static sf::String toUtf8String(string text);
         void alignRight();
         void alignLeft();
         void alignCenter();

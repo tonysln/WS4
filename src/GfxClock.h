@@ -10,10 +10,13 @@ namespace ws4
 {
     class GfxClock
     {
+        ws4::TextLabel time;
+        ws4::TextLabel date;
 
 
     public:
-        GfxClock();
+        GfxClock(map<string, sf::Color> &colorMap, map<string, sf::Font> &fontMap);
+        GfxClock() = default;
 
         void update();
         void renderTo(sf::RenderWindow &window);

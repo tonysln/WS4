@@ -1,6 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include "TextLabel.h"
 #include "AnimIcon.h"
+#include "MapCity.h"
 #include <vector>
 #include <array>
 #include <map>
@@ -23,14 +24,18 @@ namespace ws4
         vector<TextLabel> dynamicText;
         vector<TextLabel> staticText;
         vector<AnimIcon> icons;
+        vector<MapCity> cities;
 
 
     public:
-        GfxScreen(vector<array<sf::Vertex, 4>> sbv, vector<TextLabel> st, vector<TextLabel> dt, vector<AnimIcon> ico);
+        GfxScreen(vector< array< sf::Vertex, 4 > > sbv, vector<TextLabel> st, vector<TextLabel> dt);
+        GfxScreen(vector< array< sf::Vertex, 4 > > sbv, vector<TextLabel> st);
         GfxScreen() = default;
 
-        void updateText(vector<string> newText);
-        void updateIcons();
+        void updateText(const vector<string>& newText);
+        void loadIcons(vector<AnimIcon> iconVec);
+        void loadCities(vector<MapCity> cityVec);
+        void switchIconFrames(int iconFrame);
         void renderTo(sf::RenderWindow &window);
     };
 }

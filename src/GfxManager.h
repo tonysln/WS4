@@ -25,8 +25,10 @@ namespace ws4
         map<string, sf::Font> fontMap;
         map<string, sf::Color> colorMap;
         map<string, sf::Texture> textureMap;
+        map<string, vector<int>> iconPosMap;
 
-        map<string, map<string, vector<int>>> iconPos;
+        int iconFrameCounter = 0;
+        int iconFrame = 0;
 
         vector<GfxScreen> screens;
         vector<MapCity> regMapCities;

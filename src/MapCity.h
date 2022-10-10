@@ -20,9 +20,13 @@ namespace ws4
         int y;
 
     public:
-        MapCity();
+        MapCity(string nameText, string tempText, int x, int y, map<string, sf::Font> &fontMap,
+                        map<string, sf::Color> &colorMap, sf::Texture &icoTxt, vector<int> icoPos);
+        MapCity() = default;
+
         void updateTemp(string newTemp);
         void updateIcon();
+        void switchFrames(int iconFrame);
         void renderTo(sf::RenderWindow &window);
     };
 }

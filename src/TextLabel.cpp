@@ -1,4 +1,6 @@
 #include "TextLabel.h"
+
+#include <utility>
 #include "GfxManager.h"
 
 
@@ -60,7 +62,7 @@ namespace ws4
 
     void TextLabel::updateText(string text)
     {
-        label.setString(toUtf8String(text));
+        label.setString(toUtf8String(std::move(text)));
     }
 
 

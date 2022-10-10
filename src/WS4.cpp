@@ -81,8 +81,6 @@ namespace ws4
 
     void WS4::loadGraphics()
     {
-        iconPos = loadIconPos();
-        iM = loadIcons(iconPos, dM, moonPhasesTexture, curCondTexture, extForcTexture, regMapsTexture);
         nextScreenUpdate();
     }
 
@@ -146,30 +144,6 @@ namespace ws4
         dM["Extended-Forecast"]["city"] = "Moline";
     }
 
-    void WS4::drawGraphics()
-    {
-        // Icons & Animation
-        animCounter++;
-
-        if (animCounter >= FPS / ANIM_FRAMES)
-        {
-            animFrame = (animFrame + 1) % ANIM_FRAMES;
-            animCounter = 0;
-        }
-        
-        icoCt = 0;
-        for (auto& iObj : iM[scr[cur]])
-        {
-            window.draw(iObj);
-            iObj.setTextureRect(sf::IntRect(
-                sf::Vector2i(animFrame * iconPos[scr[cur]][dM[scr[cur]]["icon-" + to_string(icoCt)]][0], 
-                                         iconPos[scr[cur]][dM[scr[cur]]["icon-" + to_string(icoCt)]][1]), 
-                sf::Vector2i(iconPos[scr[cur]][dM[scr[cur]]["icon-" + to_string(icoCt)]][0], 
-                             iconPos[scr[cur]][dM[scr[cur]]["icon-" + to_string(icoCt)]][2])
-            ));
-            icoCt++;
-        }
-    }
 
 
     void WS4::drawText()
@@ -249,7 +223,6 @@ namespace ws4
             // Render everything to window
             gfxManager.renderAllTo(window, cur);
 
-//            drawGraphics();
 //            drawText();
 
             // Display window

@@ -6,7 +6,7 @@
 
 namespace ws4
 {
-    GfxLDL::GfxLDL(map<string, sf::Color> &colorMap, map<string, sf::Font> &fontMap)
+    GfxLDL::GfxLDL(string text, map<string, sf::Color> &colorMap, map<string, sf::Font> &fontMap)
     {
         vertexObjs = 
         {
@@ -15,7 +15,7 @@ namespace ws4
             buildQuad(0, 402, 640, 78, colorMap["#233270"])
         };
 
-        textLabel = TextLabel("Currently at Moline", fontMap["Star4000"], "#d7d7d7", 30, 1, 1.0f, 62, 398, colorMap, 0);
+        textLabel = TextLabel(text, fontMap["Star4000"], "#d7d7d7", 30, 1, 1.0f, 62, 398, colorMap, 0);
     }
 
 

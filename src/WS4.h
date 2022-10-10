@@ -20,11 +20,9 @@ namespace ws4
 {
     class WS4 
     {
-        const short FPS = 30;
         const float SCALE = 1.0f;
         const short WIN_WIDTH = 640;
         const short WIN_HEIGHT = 480;
-        const short ANIM_FRAMES = 7;
 
         sf::RenderWindow window;
         sf::ContextSettings sts;
@@ -38,7 +36,6 @@ namespace ws4
         sf::Time elapsedScene;
 
         map<string, sf::Font> fM;
-        map<string, map<string, vector<int>>> iconPos;
         map<string, vector<sf::Sprite>> iM;
 
         ws4::GfxManager gfxManager;
@@ -73,12 +70,14 @@ namespace ws4
         void nextScreen();
         void prevScreen();
         void nextScreenUpdate();
-        void drawGraphics();
         void drawText();
         void changeSong();
 
 
     public:
+        const static short ANIM_FRAMES = 7;
+        const static short FPS = 30;
+
         WS4();
         void loadTextures();
         void loadGraphics();

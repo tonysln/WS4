@@ -3,7 +3,7 @@
 
 namespace ws4
 {
-    GfxClock::GfxClock()
+    GfxClock::GfxClock(map<string, sf::Color> &colorMap, map<string, sf::Font> &fontMap)
     {
 
     }
