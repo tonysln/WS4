@@ -1,5 +1,6 @@
 #include <SFML/Graphics.hpp>
 #include "TextLabel.h"
+#include "AnimIcon.h"
 #include <vector>
 #include <array>
 #include <map>
@@ -18,15 +19,18 @@ namespace ws4
 {
     class GfxScreen
     {   
-        vector<array<sf::Vertex, 4>> vertexObjs;
-        vector<sf::Sprite> animIcons;
-        vector<ws4::TextLabel> textLabels;
+        vector<array<sf::Vertex, 4>> staticBgVertices;
+        vector<TextLabel> dynamicText;
+        vector<TextLabel> staticText;
+        vector<AnimIcon> icons;
 
 
     public:
-        GfxScreen(vector<array<sf::Vertex, 4>> vObj, vector<ws4::TextLabel> tLbls);
+        GfxScreen(vector<array<sf::Vertex, 4>> sbv, vector<TextLabel> st, vector<TextLabel> dt, vector<AnimIcon> ico);
         GfxScreen() = default;
 
+        void updateText(vector<string> newText);
+        void updateIcons();
         void renderTo(sf::RenderWindow &window);
     };
 }

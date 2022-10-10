@@ -13,12 +13,22 @@ namespace ws4
         colorMap = loadColorMap();
         textureMap = loadTextureMap();
 
-        // TODO draw offscreen?
-        
-        loadStaticScreenVec(staticScreenVec, fontMap, colorMap);
+        loadCurrentConditions(screens, fontMap, colorMap);
+        loadLatestObservations(screens, fontMap, colorMap);
+        loadRegionalObservations(screens, fontMap, colorMap);
+        loadLocalForecast(screens, fontMap, colorMap);
+        loadRegionalForecast(screens, fontMap, colorMap);
+        loadExtendedForecast(screens, fontMap, colorMap);
+        loadAlmanac(screens, fontMap, colorMap);
 
-        
+
         LDL = GfxLDL(colorMap, fontMap);
+    }
+
+
+    void GfxManager::updateData()
+    {
+
     }
 
 
@@ -27,14 +37,12 @@ namespace ws4
         // Clear window
         window.clear(colorMap["#1c0a57"]);
 
-        // Render current scene static
-        staticScreenVec.at(scrIdx).renderTo(window);
-
-        // Render current scene dynamic
-
+        // Render current scene
+        screens.at(scrIdx).renderTo(window);
 
         // Render time & date
-
+        clock.update();
+        clock.renderTo(window);
 
         // Render LDL
         LDL.renderTo(window);

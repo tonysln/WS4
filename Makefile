@@ -6,6 +6,7 @@ TARGET = WS4
 
 # Which object files that the executable consists of
 OBJS  = $(OBJDIR)/main.o
+OBJS += $(OBJDIR)/GfxClock.o
 OBJS += $(OBJDIR)/GfxLoader.o
 OBJS += $(OBJDIR)/GfxScreen.o
 OBJS += $(OBJDIR)/GfxManager.o

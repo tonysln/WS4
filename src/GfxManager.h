@@ -1,5 +1,6 @@
 #include <SFML/Graphics.hpp>
 #include "GfxScreen.h"
+#include "GfxClock.h"
 #include "AnimIcon.h"
 #include "MapCity.h"
 #include "GfxLDL.h"
@@ -26,11 +27,11 @@ namespace ws4
         map<string, sf::Texture> textureMap;
 
         map<string, map<string, vector<int>>> iconPos;
-        vector<GfxScreen> staticScreenVec;
-        vector<vector<TextLabel>> dynamicTextVec;
-        vector<vector<AnimIcon>> dynamicIconVec;
+
+        vector<GfxScreen> screens;
         vector<MapCity> regMapCities;
         vector<MapCity> forcMapCities;
+        GfxClock clock;
         GfxLDL LDL;
 
         sf::Texture mainScreenTexture;
@@ -39,6 +40,7 @@ namespace ws4
     public:
         GfxManager();
 
+        void updateData();
         void renderAllTo(sf::RenderWindow &window, short scrIdx);
     };
 }

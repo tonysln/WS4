@@ -135,12 +135,10 @@ namespace ws4
     }
 
 
-    void loadStaticScreenVec(vector<GfxScreen> &stScrVec, map<string, sf::Font> &fontMap, 
-                                                            map<string, sf::Color> &colorMap)
+    void loadCurrentConditions(vector<GfxScreen> &vec, map<string, sf::Font> &fontMap, map<string, sf::Color> &colorMap)
     {
-        stScrVec.push_back
+        vec.push_back
         (
-            // Screen 0 - "Current Conditions"
             GfxScreen {
                 vector {
                     // Background gradient
@@ -173,12 +171,31 @@ namespace ws4
                     TextLabel("Ceiling:", fontMap["Star4000"], "#d7d7d7", 33, 1, 0.55, 330, 225, colorMap, 0),
                     TextLabel("Visibility:", fontMap["Star4000"], "#d7d7d7", 33, 1, 0.55, 330, 267, colorMap, 0),
                     TextLabel("Pressure:", fontMap["Star4000"], "#d7d7d7", 33, 1, 0.55, 330, 308, colorMap, 0),
+                },
+                vector {
+                    TextLabel("Moline", fontMap["Star4000"], "#cdb900", 34, 1, 0.55, 320, 92, colorMap, 0),
+                    TextLabel("56°", fontMap["Star4000-Large"], "#d7d7d7", 39, 1, 1.0, 190, 104, colorMap, 1),
+                    TextLabel("Ice Snow", fontMap["Star4000-Extended"], "#d7d7d7", 37, 1, 0.8, 180, 136, colorMap, 1),
+                    TextLabel("66%", fontMap["Star4000"], "#d7d7d7", 33, 1, 0.45, 565, 141, colorMap, 2),
+                    TextLabel("53°", fontMap["Star4000"], "#d7d7d7", 33, 1, 0.45, 565, 181, colorMap, 2),
+                    TextLabel("0.8 mi.", fontMap["Star4000"], "#d7d7d7", 33, 1, 0.45, 565, 267, colorMap, 2),
+                    TextLabel("3300 ft.", fontMap["Star4000"], "#d7d7d7", 33, 1, 0.45, 565, 225, colorMap, 2),
+                    TextLabel("29.93", fontMap["Star4000"], "#d7d7d7", 33, 1, 0.45, 565, 308, colorMap, 2),
+                    TextLabel("Wind:  WNW  38", fontMap["Star4000-Extended"], "#d7d7d7", 33, 1, 1.0, 75, 308, colorMap, 0),
+                    TextLabel("Gusts to  77", fontMap["Star4000-Extended"], "#d7d7d7", 33, 1, 1.0, 75, 346, colorMap, 0),
+                },
+                vector {
+                    AnimIcon(),
                 }
             }
         );
-        stScrVec.push_back
+    }
+
+
+    void loadLatestObservations(vector<GfxScreen> &vec, map<string, sf::Font> &fontMap, map<string, sf::Color> &colorMap)
+    {
+        vec.push_back
         (
-            // Screen 1 - "Latest Observations"
             GfxScreen {
                 vector {
                     // Background gradient
@@ -208,12 +225,49 @@ namespace ws4
                     TextLabel("F°", fontMap["Star4000-Small"], "#d7d7d7", 30, 0, 1.0, 305, 78, colorMap, 0),
                     TextLabel("WEATHER", fontMap["Star4000-Small"], "#d7d7d7", 30, 0, 1.0, 365, 78, colorMap, 0),
                     TextLabel("WIND", fontMap["Star4000-Small"], "#d7d7d7", 30, 0, 1.0, 505, 78, colorMap, 0),
+                },
+                vector {
+                    TextLabel("Altus", fontMap["Star4000"], "#d7d7d7", 33, 1, 0.8, 72, 110, colorMap, 0),
+                    TextLabel("71", fontMap["Star4000"], "#d7d7d7", 33, 1, 0.8, 305, 110, colorMap, 0),
+                    TextLabel("M Cloudy", fontMap["Star4000"], "#d7d7d7", 33, 1, 0.8, 365, 110, colorMap, 0),
+                    TextLabel("SE16", fontMap["Star4000"], "#d7d7d7", 33, 1, 0.8, 505, 110, colorMap, 0),
+                    TextLabel("Enid", fontMap["Star4000"], "#d7d7d7", 33, 1, 0.8, 72, 150, colorMap, 0),
+                    TextLabel("59", fontMap["Star4000"], "#d7d7d7", 33, 1, 0.8, 305, 150, colorMap, 0),
+                    TextLabel("T Shower", fontMap["Star4000"], "#d7d7d7", 33, 1, 0.8, 365, 150, colorMap, 0),
+                    TextLabel("NE22", fontMap["Star4000"], "#d7d7d7", 33, 1, 0.8, 505, 150, colorMap, 0),
+                    TextLabel("Gage", fontMap["Star4000"], "#d7d7d7", 33, 1, 0.8, 72, 190, colorMap, 0),
+                    TextLabel("59", fontMap["Star4000"], "#d7d7d7", 33, 1, 0.8, 305, 190, colorMap, 0),
+                    TextLabel("T Shower", fontMap["Star4000"], "#d7d7d7", 33, 1, 0.8, 365, 190, colorMap, 0),
+                    TextLabel("NE22", fontMap["Star4000"], "#d7d7d7", 33, 1, 0.8, 505, 190, colorMap, 0),
+                    TextLabel("Oklahoma City", fontMap["Star4000"], "#d7d7d7", 33, 1, 0.8, 72, 230, colorMap, 0),
+                    TextLabel("62", fontMap["Star4000"], "#d7d7d7", 33, 1, 0.8, 305, 230, colorMap, 0),
+                    TextLabel("Lgt Rain", fontMap["Star4000"], "#d7d7d7", 33, 1, 0.8, 365, 230, colorMap, 0),
+                    TextLabel("SE17", fontMap["Star4000"], "#d7d7d7", 33, 1, 0.8, 505, 230, colorMap, 0),
+                    TextLabel("Ponca City", fontMap["Star4000"], "#d7d7d7", 33, 1, 0.8, 72, 270, colorMap, 0),
+                    TextLabel("61", fontMap["Star4000"], "#d7d7d7", 33, 1, 0.8, 305, 270, colorMap, 0),
+                    TextLabel("Fair", fontMap["Star4000"], "#d7d7d7", 33, 1, 0.8, 365, 270, colorMap, 0),
+                    TextLabel("E 24", fontMap["Star4000"], "#d7d7d7", 33, 1, 0.8, 505, 270, colorMap, 0),
+                    TextLabel("Tinker AFB", fontMap["Star4000"], "#d7d7d7", 33, 1, 0.8, 72, 310, colorMap, 0),
+                    TextLabel("62", fontMap["Star4000"], "#d7d7d7", 33, 1, 0.8, 305, 310, colorMap, 0),
+                    TextLabel("T Shower", fontMap["Star4000"], "#d7d7d7", 33, 1, 0.8, 365, 310, colorMap, 0),
+                    TextLabel("SE10", fontMap["Star4000"], "#d7d7d7", 33, 1, 0.8, 505, 310, colorMap, 0),
+                    TextLabel("Tulsa", fontMap["Star4000"], "#d7d7d7", 33, 1, 0.8, 72, 350, colorMap, 0),
+                    TextLabel("65", fontMap["Star4000"], "#d7d7d7", 33, 1, 0.8, 305, 350, colorMap, 0),
+                    TextLabel("Cloudy", fontMap["Star4000"], "#d7d7d7", 33, 1, 0.8, 365, 350, colorMap, 0),
+                    TextLabel("NE14", fontMap["Star4000"], "#d7d7d7", 33, 1, 0.8, 505, 350, colorMap, 0),
+                },
+                vector {
+                    AnimIcon(),
                 }
             }
         );
-        stScrVec.push_back
+    }
+
+
+    void loadRegionalObservations(vector<GfxScreen> &vec, map<string, sf::Font> &fontMap, map<string, sf::Color> &colorMap)
+    {
+        vec.push_back
         (
-            // Screen 2 - "Regional Observations"
             GfxScreen {
                 vector {
                     // Top bar
@@ -229,12 +283,22 @@ namespace ws4
                 vector {
                     TextLabel("Regional", fontMap["Star4000"], "#cdb900", 34, 3, 0.6, 163, 21, colorMap, 0),
                     TextLabel("Observations", fontMap["Star4000"], "#cdb900", 34, 3, 0.6, 163, 50, colorMap, 0),
+                },
+                vector {
+                    TextLabel("", fontMap["Star4000"], "#d7d7d7", 34, 1, 0.9, 163, 35, colorMap, 2),
+                },
+                vector {
+                    AnimIcon(),
                 }
             }
         );
-        stScrVec.push_back
+    }
+
+
+    void loadLocalForecast(vector<GfxScreen> &vec, map<string, sf::Font> &fontMap, map<string, sf::Color> &colorMap)
+    {
+        vec.push_back
         (
-            // Screen 3 - "36-Hour Forecast 1/3"
             GfxScreen {
                 vector {
                     // Background gradient
@@ -261,76 +325,22 @@ namespace ws4
                 },
                 vector {
                     TextLabel("Local Forecast", fontMap["Star4000"], "#cdb900", 34, 3, 0.6, 163, 35, colorMap, 0),
-                }
-            }
-        );
-        stScrVec.push_back
-        (
-            // Screen 4 - "36-Hour Forecast 2/3"
-            GfxScreen {
-                vector {
-                    // Background gradient
-                    buildQuad(0, 90, 640, 308, colorMap["#2e1251"], colorMap["#c05d02"]),
-                    // Center blue panel
-                    buildQuad(52, 90, 531, 308, colorMap["#2652b2"]),
-                    buildQuad(55, 94, 527, 302, colorMap["#254ba3"]),
-                    buildQuad(57, 96, 523, 298, colorMap["#254698"]),
-                    buildQuad(59, 98, 519, 294, colorMap["#24408c"]),
-                    buildQuad(61, 100, 515, 290, colorMap["#233a80"]),
-                    buildQuad(63, 102, 511, 286, colorMap["#223474"]),
-                    buildQuad(65, 104, 507, 282, colorMap["#222f69"]),
-                    buildQuad(66, 105, 506, 281, colorMap["#212b60"]),
-                    buildQuad(67, 106, 505, 280, colorMap["#21285a"]),
-                    // Top bar
-                    buildQuad(0, 29, 499, 29, 494, 37, 0, 37, colorMap["#c35b00"]),
-                    buildQuad(0, 37, 494, 37, 489, 45, 0, 45, colorMap["#b25200"]),
-                    buildQuad(0, 45, 489, 45, 483, 54, 0, 54, colorMap["#9d4b13"]),
-                    buildQuad(0, 54, 483, 54, 478, 61, 0, 61, colorMap["#8e421a"]),
-                    buildQuad(0, 61, 478, 61, 471, 71, 0, 71, colorMap["#7b3824"]),
-                    buildQuad(0, 71, 471, 71, 467, 77, 0, 77, colorMap["#692e2e"]),
-                    buildQuad(0, 77, 467, 77, 461, 85, 0, 85, colorMap["#592a3e"]),
-                    buildQuad(0, 85, 461, 85, 457, 90, 0, 90, colorMap["#472240"]),
                 },
                 vector {
-                    TextLabel("Local Forecast", fontMap["Star4000"], "#cdb900", 34, 3, 0.6, 163, 35, colorMap, 0),
-                }
-            }
-        );
-        stScrVec.push_back
-        (
-            // Screen 5 - "36-Hour Forecast 3/3"
-            GfxScreen {
-                vector {
-                    // Background gradient
-                    buildQuad(0, 90, 640, 308, colorMap["#2e1251"], colorMap["#c05d02"]),
-                    // Center blue panel
-                    buildQuad(52, 90, 531, 308, colorMap["#2652b2"]),
-                    buildQuad(55, 94, 527, 302, colorMap["#254ba3"]),
-                    buildQuad(57, 96, 523, 298, colorMap["#254698"]),
-                    buildQuad(59, 98, 519, 294, colorMap["#24408c"]),
-                    buildQuad(61, 100, 515, 290, colorMap["#233a80"]),
-                    buildQuad(63, 102, 511, 286, colorMap["#223474"]),
-                    buildQuad(65, 104, 507, 282, colorMap["#222f69"]),
-                    buildQuad(66, 105, 506, 281, colorMap["#212b60"]),
-                    buildQuad(67, 106, 505, 280, colorMap["#21285a"]),
-                    // Top bar
-                    buildQuad(0, 29, 499, 29, 494, 37, 0, 37, colorMap["#c35b00"]),
-                    buildQuad(0, 37, 494, 37, 489, 45, 0, 45, colorMap["#b25200"]),
-                    buildQuad(0, 45, 489, 45, 483, 54, 0, 54, colorMap["#9d4b13"]),
-                    buildQuad(0, 54, 483, 54, 478, 61, 0, 61, colorMap["#8e421a"]),
-                    buildQuad(0, 61, 478, 61, 471, 71, 0, 71, colorMap["#7b3824"]),
-                    buildQuad(0, 71, 471, 71, 467, 77, 0, 77, colorMap["#692e2e"]),
-                    buildQuad(0, 77, 467, 77, 461, 85, 0, 85, colorMap["#592a3e"]),
-                    buildQuad(0, 85, 461, 85, 457, 90, 0, 90, colorMap["#472240"]),
+                    TextLabel("", fontMap["Star4000"], "#d7d7d7", 34, 1, 0.9, 163, 35, colorMap, 2),
                 },
                 vector {
-                    TextLabel("Local Forecast", fontMap["Star4000"], "#cdb900", 34, 3, 0.6, 163, 35, colorMap, 0),
+                    AnimIcon(),
                 }
             }
         );
-        stScrVec.push_back
+    }
+
+
+    void loadRegionalForecast(vector<GfxScreen> &vec, map<string, sf::Font> &fontMap, map<string, sf::Color> &colorMap)
+    {
+        vec.push_back
         (
-            // Screen 6 - "Regional Forecast Map"
             GfxScreen {
                 vector {
                     // Top bar
@@ -345,13 +355,22 @@ namespace ws4
                 },
                 vector {
                     TextLabel("Forecast For", fontMap["Star4000"], "#cdb900", 34, 3, 0.6, 163, 21, colorMap, 0),
-                    TextLabel("Weekday", fontMap["Star4000"], "#cdb900", 34, 3, 0.6, 163, 50, colorMap, 0),
+                },
+                vector {
+                    TextLabel("Monday", fontMap["Star4000"], "#cdb900", 34, 3, 0.6, 163, 50, colorMap, 0),
+                },
+                vector {
+                    AnimIcon(),
                 }
             }
         );
-        stScrVec.push_back
+    }
+
+
+    void loadExtendedForecast(vector<GfxScreen> &vec, map<string, sf::Font> &fontMap, map<string, sf::Color> &colorMap)
+    {
+        vec.push_back
         (
-            // Screen 7 - "Extended Forecast"
             GfxScreen {
                 vector {
                     // Background gradient
@@ -403,7 +422,6 @@ namespace ws4
                     buildQuad(0, 85, 461, 85, 457, 90, 0, 90, colorMap["#472240"]),
                 },
                 vector {
-                    TextLabel("Area", fontMap["Star4000"], "#d7d7d7", 34, 2, 0.5, 163, 21, colorMap, 0),
                     TextLabel("Extended Forecast", fontMap["Star4000"], "#cdb900", 34, 2, 0.5, 163, 50, colorMap, 0),
                     // TextLabel("Lo", fontMap["Star4000"], "#cdb900", 34, 3, 0.9, 163, 50, colorMap, 0),
                     // TextLabel("Hi", fontMap["Star4000"], "#cdb900", 34, 3, 0.9, 163, 50, colorMap, 0),
@@ -411,12 +429,22 @@ namespace ws4
                     // TextLabel("Hi", fontMap["Star4000"], "#cdb900", 34, 3, 0.9, 163, 50, colorMap, 0),
                     // TextLabel("Lo", fontMap["Star4000"], "#cdb900", 34, 3, 0.9, 163, 50, colorMap, 0),
                     // TextLabel("Hi", fontMap["Star4000"], "#cdb900", 34, 3, 0.9, 163, 50, colorMap, 0),
+                },
+                vector {
+                    TextLabel("Moline", fontMap["Star4000"], "#d7d7d7", 34, 2, 0.5, 163, 21, colorMap, 0),
+                },
+                vector {
+                    AnimIcon(),
                 }
             }
         );
-        stScrVec.push_back
+    }
+
+
+    void loadAlmanac(vector<GfxScreen> &vec, map<string, sf::Font> &fontMap, map<string, sf::Color> &colorMap)
+    {
+        vec.push_back
         (
-            // Screen 8 - "Almanac"
             GfxScreen {
                 vector {
                     // Top gradient
@@ -439,10 +467,17 @@ namespace ws4
                     // TextLabel("Sunrise:", fontMap["Star4000"], "#d7d7d7", 34, 1, 0.9, 163, 35, colorMap, 2),
                     // TextLabel("Sunset:", fontMap["Star4000"], "#d7d7d7", 34, 1, 0.9, 163, 35, colorMap, 2),
                     // TextLabel("Moon Data:", fontMap["Star4000"], "#cdb900", 34, 1, 0.9, 163, 35, colorMap, 0),
+                },
+                vector {
+                    TextLabel("", fontMap["Star4000"], "#d7d7d7", 34, 1, 0.9, 163, 35, colorMap, 2),
+                },
+                vector {
+                    AnimIcon(),
                 }
             }
         );
     }
+
 
 
 
