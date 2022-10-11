@@ -262,7 +262,7 @@ namespace ws4
                     TextLabel("Pressure:", fontMap["Star4000"], "#d7d7d7", 33, 1, 0.55, 330, 308, colorMap, 0),
                 },
                 vector {
-                    TextLabel("Moline", fontMap["Star4000"], "#cdb900", 34, 1, 0.55, 320, 92, colorMap, 0),
+                    TextLabel("Moline", fontMap["Star4000"], "#cdb900", 34, 2, 0.55, 320, 92, colorMap, 0),
                     TextLabel("56°", fontMap["Star4000-Large"], "#d7d7d7", 39, 1, 1.0, 190, 104, colorMap, 1),
                     TextLabel("Ice Snow", fontMap["Star4000-Extended"], "#d7d7d7", 37, 1, 0.8, 180, 136, colorMap, 1),
                     TextLabel("66%", fontMap["Star4000"], "#d7d7d7", 33, 1, 0.45, 565, 141, colorMap, 2),
@@ -640,8 +640,8 @@ namespace ws4
                     TextLabel("Moon Data:", fontMap["Star4000"], "#cdb900", 34, 1, 0.9, 82, 190, colorMap, 0),
                 },
                 vector {
-                    TextLabel("Saturday", fontMap["Star4000"], "#d7d7d7", 34, 1, 1.0, 320, 84, colorMap, 1),
-                    TextLabel("Sunday", fontMap["Star4000"], "#d7d7d7", 34, 1, 1.0, 500, 84, colorMap, 1),
+                    TextLabel("Saturday", fontMap["Star4000"], "#cdb900", 34, 1, 1.0, 320, 84, colorMap, 1),
+                    TextLabel("Sunday", fontMap["Star4000"], "#cdb900", 34, 1, 1.0, 500, 84, colorMap, 1),
                     TextLabel("7:57 AM", fontMap["Star4000"], "#d7d7d7", 34, 1, 1.0, 320, 115, colorMap, 1),
                     TextLabel("7:58 AM", fontMap["Star4000"], "#d7d7d7", 34, 1, 1.0, 500, 115, colorMap, 1),
                     TextLabel("5:25 PM", fontMap["Star4000"], "#d7d7d7", 34, 1, 1.0, 320, 147, colorMap, 1),

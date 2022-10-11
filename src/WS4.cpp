@@ -27,39 +27,8 @@ namespace ws4
         view.setSize(sf::Vector2f(window.getSize().x/SCALE, window.getSize().y/SCALE));
         view.setCenter(sf::Vector2f(view.getSize().x/2, view.getSize().y/2));
         window.setView(view);
-
-
-        // Load mappings for all graphics
-        fontMap = loadFontMap();
-        colorMap = loadColorMap();
-        textureMap = loadTextureMap();
-        iconPosMap = loadIconPositionsMap();
-
-
-        // [0] Current Conditions
-        loadCurrentConditions(screens, fontMap, colorMap);
-        // [1] Latest Observations
-        loadLatestObservations(screens, fontMap, colorMap);
-        // [2] Regional Observations
-        loadRegionalObservations(screens, fontMap, colorMap);
-        // [3,4,5] Local (36-Hour) Forecast
-        loadLocalForecast(screens, fontMap, colorMap);
-        // [6] Regional Forecast
-        loadRegionalForecast(screens, fontMap, colorMap);
-        // [7] Extended Forecast
-        loadExtendedForecast(screens, fontMap, colorMap);
-        // [8] Almanac
-        loadAlmanac(screens, fontMap, colorMap);
-
-        LDL = GfxLDL("Currently at Moline", colorMap, fontMap);
-        clock = GfxClock(colorMap, fontMap);
-
-        LDL.useScroll(true);
-        LDL.setText("Ministry: Rail Baltica progress slowed by poor design work, bad management.");
-
-        // Dynamic data
-        loadData();
     }
+
 
     void WS4::nextScreen()
     {
@@ -88,8 +57,39 @@ namespace ws4
     }
 
 
+    void WS4::loadGraphics()
+    {
+        // Load mappings for all graphics
+        fontMap = loadFontMap();
+        colorMap = loadColorMap();
+        textureMap = loadTextureMap();
+        iconPosMap = loadIconPositionsMap();
+
+        // [0] Current Conditions
+        loadCurrentConditions(screens, fontMap, colorMap);
+        // [1] Latest Observations
+        loadLatestObservations(screens, fontMap, colorMap);
+        // [2] Regional Observations
+        loadRegionalObservations(screens, fontMap, colorMap);
+        // [3,4,5] Local (36-Hour) Forecast
+        loadLocalForecast(screens, fontMap, colorMap);
+        // [6] Regional Forecast
+        loadRegionalForecast(screens, fontMap, colorMap);
+        // [7] Extended Forecast
+        loadExtendedForecast(screens, fontMap, colorMap);
+        // [8] Almanac
+        loadAlmanac(screens, fontMap, colorMap);
+
+        LDL = GfxLDL(" ", colorMap, fontMap);
+        clock = GfxClock(colorMap, fontMap);
+    }
+
+
     void WS4::loadData()
     {
+        // NB! graphics *MUST* be loaded before calling this method
+        // TODO use script to cut out and zoom correct map part, save it as img and load here
+
         // [0] Current Conditions
         screens.at(0).loadIcons({
             AnimIcon(textureMap["CC"], iconPosMap["CC_Ice-Snow"], 178, 230)
@@ -124,67 +124,18 @@ namespace ws4
             AnimIcon(textureMap["Moon"], iconPosMap["M_Full"], 375, 320),
             AnimIcon(textureMap["Moon"], iconPosMap["M_Last"], 495, 320)
         });
+
+        LDLStrings = {"Conditions at Moline", "Ice Snow",
+                      "Temp: 56°F",
+                      "Humidity:  66%   Dewpoint: 53°",
+                      "Barometric Pressure: 29.93 F",
+                      "Wind: WNW  38 MPH",
+                      "Visib:   0.8 mi.  Ceiling:3300 ft.",
+                      "October Precipitation: 0.09 in"};
+        LDLScrollStr = "Ministry: Rail Baltica progress slowed by poor design work, bad management.";
+
+        LDL.setText(LDLStrings.at(LDLStrIdx));
     }
-
-
-//    void WS4::loadData()
-//    {
-//        dM["Current-Conditions"]["city"] = "Moline";
-//        dM["Current-Conditions"]["temp"] = "56";
-//        dM["Current-Conditions"]["cond"] = "Ice Snow";
-//        dM["Current-Conditions"]["icon-0"] = "Ice-Snow";
-//        dM["Current-Conditions"]["humidity"] = "66%";
-//        dM["Current-Conditions"]["dewpoint"] = "53";
-//        dM["Current-Conditions"]["ceiling"] = "0.8 mi.";
-//        dM["Current-Conditions"]["visib"] = "3300 ft.";
-//        dM["Current-Conditions"]["pressure"] = "29.93";
-//        dM["Current-Conditions"]["pressure-arrow"] = "up";
-//        dM["Current-Conditions"]["wind"] = "Wind:  WNW  38";
-//        dM["Current-Conditions"]["gusts"] = "Gusts to  77";
-//        dM["Current-Conditions"]["scroller"] = "Conditions at Moline";
-//
-//        dM["Forecast-For"]["forecast-day"] = "Saturday";
-//        dM["Forecast-For"]["num-cities"] = "5";
-//        dM["Forecast-For"]["map-x"] = "400";
-//        dM["Forecast-For"]["map-y"] = "1900";
-//        dM["Forecast-For"]["icon-0"] = "Mostly-Clear";
-//        dM["Forecast-For"]["icon-0-x"] = "100";
-//        dM["Forecast-For"]["icon-0-y"] = "120";
-//        dM["Forecast-For"]["icon-1"] = "Mostly-Cloudy";
-//        dM["Forecast-For"]["icon-1-x"] = "220";
-//        dM["Forecast-For"]["icon-1-y"] = "240";
-//        dM["Forecast-For"]["icon-2"] = "Rain";
-//        dM["Forecast-For"]["icon-2-x"] = "290";
-//        dM["Forecast-For"]["icon-2-y"] = "270";
-//        dM["Forecast-For"]["icon-3"] = "Rain-Wind";
-//        dM["Forecast-For"]["icon-3-x"] = "350";
-//        dM["Forecast-For"]["icon-3-y"] = "300";
-//        dM["Forecast-For"]["icon-4"] = "Partly-Clear";
-//        dM["Forecast-For"]["icon-4-x"] = "460";
-//        dM["Forecast-For"]["icon-4-y"] = "130";
-//        dM["Forecast-For"]["city-0"] = "Tulsa";
-//        dM["Forecast-For"]["city-1"] = "Fort Smith";
-//        dM["Forecast-For"]["city-2"] = "OK City";
-//        dM["Forecast-For"]["city-3"] = "Amarillo";
-//        dM["Forecast-For"]["city-4"] = "Dallas";
-//        dM["Forecast-For"]["city-0-temp"] = "67";
-//        dM["Forecast-For"]["city-1-temp"] = "54";
-//        dM["Forecast-For"]["city-2-temp"] = "58";
-//        dM["Forecast-For"]["city-3-temp"] = "66";
-//        dM["Forecast-For"]["city-4-temp"] = "70";
-//
-//        dM["Travel-Forecast"]["forecast-day"] = "For Saturday";
-//        dM["Air-Quality"]["airq-day"] = "Friday";
-//        dM["Almanac"]["icon-0"] = "Full";
-//        dM["Almanac"]["icon-1"] = "Last";
-//        dM["Almanac"]["icon-2"] = "New";
-//        dM["Almanac"]["icon-3"] = "First";
-//
-//        dM["Extended-Forecast"]["icon-0"] = "Thunderstorms";
-//        dM["Extended-Forecast"]["icon-1"] = "Mostly-Cloudy";
-//        dM["Extended-Forecast"]["icon-2"] = "Snow-to-Rain";
-//        dM["Extended-Forecast"]["city"] = "Moline";
-//    }
 
 //    void WS4::drawText()
 //    {
@@ -202,20 +153,27 @@ namespace ws4
 
     void WS4::loadMusic()
     {
-        // TODO define list of songs, select random?
-        vector<string> songsPaths = 
+        // Open folder and load all songs
+        // Shuffle
+        // Play through
+        // Shuffle, repeat ...
+        songsPaths =
         { };
         
-        if (!musicPlayer.openFromFile(songsPaths[0]))
-            return;
+//        if (!musicPlayer.openFromFile(songsPaths[songIdx]))
+//            return;
 
-        musicPlayer.setVolume(20);
+//        musicPlayer.setVolume(volume);
     }
 
 
     void WS4::changeSong()
     {
-
+        songIdx++;
+        if (songIdx > songsPaths.size())
+        {
+            // shuffle, start over...
+        }
     }
 
 
@@ -250,13 +208,41 @@ namespace ws4
                     }
                 }
             }
-    
-            // Check if time for scene change
-            // if (sceneTimer.getElapsedTime().asSeconds() >= sceneTime)
-            // {
-            //     nextScreen();
-            //     elapsedScene = sceneTimer.restart();
-            // }
+
+
+            // Scene change timer
+            if (sceneTimer.getElapsedTime().asSeconds() >= sceneTime)
+            {
+                nextScreen();
+                sceneTimer.restart();
+            }
+
+            // Update LDL text string-by-string in display mode
+            if (!LDL.isUsingScroll() && LDLTimer.getElapsedTime().asSeconds() >= LDLTime)
+            {
+                LDLStrIdx++;
+                if (LDLStrIdx >= LDLStrings.size())
+                {
+                    LDL.displays++;
+                    LDLStrIdx = 0;
+                }
+                LDL.setText(LDLStrings.at(LDLStrIdx));
+                LDLTimer.restart();
+            }
+
+            // Switch between displaying and scrolling LDL text
+            if (!LDL.isUsingScroll() && LDL.displays >= dispLDLTimes)
+            {
+                LDL.useScroll(true);
+                LDL.setText(LDLScrollStr);
+            }
+            if (LDL.isUsingScroll() && LDL.scrolls >= scrLDLTimes)
+            {
+                LDL.useScroll(false);
+                LDLStrIdx = 0;
+                LDL.setText(LDLStrings.at(LDLStrIdx));
+                LDLTimer.restart();
+            }
 
 
             // Clear window

@@ -37,12 +37,15 @@ namespace ws4
         int iconFrame = 0;
         float iconFrameCounter = 0.f;
         float sceneTime = 10.f;
+        float LDLTime = 6.f;
+        int dispLDLTimes = 2;
+        int scrLDLTimes = 2;
         char timeStr[12]{};
         char timeAPStr[6]{};
         char dateStr[12]{};
         std::time_t epoch = std::time(nullptr);
         sf::Clock sceneTimer;
-        sf::Time elapsedScene;
+        sf::Clock LDLTimer;
 
 
         // Screens
@@ -74,12 +77,19 @@ namespace ws4
         vector<MapCity> forcMapCities;
         GfxClock clock;
         GfxLDL LDL;
-//        sf::Texture mainScreenTexture;
 
+
+        // Data
+        int LDLStrIdx = 0;
+        vector<string> LDLStrings;
+        string LDLScrollStr;
 
         // Music
-        sf::Music musicPlayer;
+        vector<string> songsPaths;
         bool musicStarted = false;
+        float volume = 20.f;
+        int songIdx = 0;
+        sf::Music musicPlayer;
         void changeSong();
 
 
@@ -87,6 +97,7 @@ namespace ws4
     public:
         WS4();
         void loadMusic();
+        void loadGraphics();
         void loadData();
         int runLoop();
     };

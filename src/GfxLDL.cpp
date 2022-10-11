@@ -1,7 +1,8 @@
 #include "GfxLDL.h"
-#include <utility>
 #include "GfxLoader.h"
 #include "TextLabel.h"
+#include <sstream>
+#include <utility>
 
 
 namespace ws4
@@ -15,21 +16,32 @@ namespace ws4
             buildQuad(0, 402, 640, 78, colorMap["#233270"])
         };
 
-        textLabel = TextLabel(std::move(text), fontMap["Star4000"], "#d7d7d7", 30, 1, 1.0f, x, y, colorMap, 0);
+        textLabel = TextLabel("", fontMap["Star4000"], "#d7d7d7", 30, 1, 1.0f, x, y, colorMap, 0);
+        setText(text);
     }
 
 
-    void GfxLDL::setText(string text)
+    void GfxLDL::setText(const string& text)
     {
         if (scrollMode)
         {
-            textLabel.updateText(std::move(text));
+            textLabel.updateText(text);
             return;
         }
 
-        // Split into words, add to queue
-        // set text label to first word
-        bufferCount = 300; // set as num of words * ...
+        wordBuf.clear();
+        bufStrFull = "";
+        stringstream lnStream("");
+        string seg;
+        lnStream << text;
+
+        while(getline(lnStream, seg, ' '))
+            wordBuf.push_back(seg);
+
+        bufIdx = 0;
+        bufStrFull = wordBuf.at(bufIdx);
+        textLabel.updateText(bufStrFull);
+        bufTimer.restart();
     }
 
 
@@ -38,13 +50,24 @@ namespace ws4
         scrollMode = scroll;
         if (scrollMode)
         {
+            scrolls = 0;
             textLabel.updateText("");
-            x = 640 + 50;
+            x = 640 + offsetPxRight;
+            textLabel.setPos(x, y);
         }
         else
         {
+            displays = 0;
+            bufIdx = -1;
             x = 62;
+            textLabel.setPos(x, y);
         }
+    }
+
+
+    bool GfxLDL::isUsingScroll()
+    {
+        return scrollMode;
     }
 
 
@@ -60,17 +83,22 @@ namespace ws4
             x -= scrSpeed;
             textLabel.setPos(x, y);
 
-            if (x + textLabel.getWidth() <= -50)
+            if (x + textLabel.getWidth() <= -offsetPxLeft)
             {
-                x = 640 + 50;
+                x = 640 + offsetPxRight;
                 scrolls++;
             }
         }
-        else if (bufferCount > 0)
+        else if (!wordBuf.empty() && bufIdx > -1 && bufIdx < wordBuf.size()-1)
         {
-            // Add next word from queue to textLabel
-            // Update text label
-            // decrement buffer count to wait
+            if (bufTimer.getElapsedTime().asMilliseconds() > lagTime)
+            {
+                bufIdx++;
+                bufStrFull += " ";
+                bufStrFull += wordBuf.at(bufIdx);
+                textLabel.updateText(bufStrFull);
+                bufTimer.restart();
+            }
         }
 
         // Drawing text

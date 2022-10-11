@@ -2,13 +2,11 @@
 #include "TextLabel.h"
 #include <vector>
 #include <array>
-#include <queue>
 #include <map>
 
 using std::vector;
 using std::string;
 using std::array;
-using std::queue;
 using std::map;
 
 
@@ -23,21 +21,30 @@ namespace ws4
         vector<array<sf::Vertex, 4>> vertexObjs;
         ws4::TextLabel textLabel;
         bool scrollMode = false;
-        queue<string> wordBuf;
-        int bufferCount = -1;
+        vector<string> wordBuf;
+        string bufStrFull;
+        sf::Clock bufTimer;
+        int bufIdx = -1;
         int scrSpeed = 2;
         int x = 62;
         int y = 398;
-        int scrolls = 0;
+        int offsetPxRight = 50.f;
+        int offsetPxLeft = 65.f;
+        float lagTime = 20.f;
+
 
 
     public:
         GfxLDL(string text, map<string, sf::Color> &colorMap, map<string, sf::Font> &fontMap);
         GfxLDL() = default;
 
-        void setText(string text);
+        void setText(const string& text);
         void useScroll(bool scroll);
         void renderTo(sf::RenderWindow &window);
+        bool isUsingScroll();
+
+        int scrolls = 0;
+        int displays = 0;
     };
 }
 

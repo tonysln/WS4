@@ -7,7 +7,7 @@ namespace ws4
     TextLabel::TextLabel(string text, sf::Font &font, string colorName, int charSize,
                             int shLevel, float spacing, int x, int y, map<string, sf::Color> colorMap, short dir)
     {
-        label = sf::Text(toUtf8String(std::move(text)), font, charSize * scaleFactor);
+        label = sf::Text(toUtf8String(text), font, charSize * scaleFactor);
         label.setFillColor(colorMap[std::move(colorName)]);
         label.setPosition(sf::Vector2f(x, y));
         label.setOutlineColor(colorMap["#0e0e0e"]);
@@ -24,7 +24,7 @@ namespace ws4
 
 
         shadowLevel = shLevel;
-        for (int i = 0; i < shadowLevel; ++i)
+        for (int i = 0; i < shadowLevel; i++)
         {
             sf::Text shadow(toUtf8String(text), font, charSize * scaleFactor);
             shadow.setFillColor(colorMap["#0e0e0e"]);
