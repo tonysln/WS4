@@ -1,8 +1,11 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
-#include "GfxManager.h"
+#include "GfxScreen.h"
+#include "GfxClock.h"
+#include "MapCity.h"
+#include "GfxLDL.h"
 #include <vector>
-#include <time.h>
+#include <ctime>
 #include <array>
 #include <map>
 
@@ -20,38 +23,31 @@ namespace ws4
 {
     class WS4 
     {
-        const float SCALE = 1.0f;
+        // Window & Rendered
+        const short ANIM_FRAMES = 7;
+        const short FPS = 30;
         const short WIN_WIDTH = 640;
         const short WIN_HEIGHT = 480;
-
+        const float SCALE = 1.0f;
         sf::RenderWindow window;
-        sf::ContextSettings sts;
         sf::View view;
 
+
+        // Clock & Timers
+        int iconFrame = 0;
+        float iconFrameCounter = 0.f;
+        float sceneTime = 10.f;
+        char timeStr[12]{};
+        char timeAPStr[6]{};
+        char dateStr[12]{};
         std::time_t epoch = std::time(nullptr);
-        char timeStr[12];
-        char timeAPStr[6];
-        char dateStr[12];
         sf::Clock sceneTimer;
         sf::Time elapsedScene;
 
-        map<string, sf::Font> fM;
-        map<string, vector<sf::Sprite>> iM;
 
-        ws4::GfxManager gfxManager;
-        
-        sf::Texture moonPhasesTexture;
-        sf::Texture curCondTexture;
-        sf::Texture extForcTexture;
-        sf::Texture regMapsTexture;
-        sf::Texture regBaseMapTexture;
-        int animFrame;
-        int animCounter;
-
-        
-        sf::Music musicPlayer;
-        map<string, map<string, string>> dM;
-        const vector<string> scr = 
+        // Screens
+        short scrIdx = 0;
+        const vector<string> scr =
         {
             "Current-Conditions",
             "Latest-Observations",
@@ -63,26 +59,35 @@ namespace ws4
             "Extended-Forecast",
             "Almanac",
         };
-        short cur = 0;
-        short icoCt = 0;
-        float sceneTime = 10.f;
-
         void nextScreen();
         void prevScreen();
         void nextScreenUpdate();
-        void drawText();
+
+
+        // Graphics
+        map<string, sf::Font> fontMap;
+        map<string, sf::Color> colorMap;
+        map<string, sf::Texture> textureMap;
+        map<string, vector<int>> iconPosMap;
+        vector<GfxScreen> screens;
+        vector<MapCity> regMapCities;
+        vector<MapCity> forcMapCities;
+        GfxClock clock;
+        GfxLDL LDL;
+//        sf::Texture mainScreenTexture;
+
+
+        // Music
+        sf::Music musicPlayer;
+        bool musicStarted = false;
         void changeSong();
 
 
-    public:
-        const static short ANIM_FRAMES = 7;
-        const static short FPS = 30;
 
+    public:
         WS4();
-        void loadTextures();
-        void loadGraphics();
-        void loadData();
         void loadMusic();
+        void loadData();
         int runLoop();
     };
 

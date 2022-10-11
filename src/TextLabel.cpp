@@ -1,16 +1,14 @@
 #include "TextLabel.h"
-
 #include <utility>
-#include "GfxManager.h"
 
 
 namespace ws4
 {
-    TextLabel::TextLabel(string text, sf::Font &font, string colorName, int charSize, 
+    TextLabel::TextLabel(string text, sf::Font &font, string colorName, int charSize,
                             int shLevel, float spacing, int x, int y, map<string, sf::Color> colorMap, short dir)
     {
-        label = sf::Text(toUtf8String(text), font, charSize * scaleFactor);
-        label.setFillColor(colorMap[colorName]);
+        label = sf::Text(toUtf8String(std::move(text)), font, charSize * scaleFactor);
+        label.setFillColor(colorMap[std::move(colorName)]);
         label.setPosition(sf::Vector2f(x, y));
         label.setOutlineColor(colorMap["#0e0e0e"]);
         label.setOutlineThickness(1);
@@ -60,15 +58,33 @@ namespace ws4
     }
 
 
-    void TextLabel::updateText(string text)
+    void TextLabel::setPos(float x, float y)
     {
-        label.setString(toUtf8String(std::move(text)));
+        label.setPosition(sf::Vector2f(x, y));
+        for (int i = 0; i < shadowLevel; ++i)
+        {
+            shadowVec.at(i).setPosition(sf::Vector2f(x + shadowLevel, y + shadowLevel));
+        }
+    }
+
+
+    void TextLabel::updateText(const string& text)
+    {
+        label.setString(toUtf8String(text));
+        for (auto& shadow : shadowVec)
+            shadow.setString(toUtf8String(text));
     }
 
 
     sf::String TextLabel::toUtf8String(string text)
     {
         return sf::String::fromUtf8(text.begin(), text.end());
+    }
+
+
+    float TextLabel::getWidth()
+    {
+        return label.getGlobalBounds().width;
     }
 
 

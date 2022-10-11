@@ -16,8 +16,8 @@ namespace ws4
         AnimIcon icon;
         TextLabel name;
         TextLabel temp;
-        int x;
-        int y;
+        int x = 0;
+        int y = 0;
 
     public:
         MapCity(string nameText, string tempText, int x, int y, map<string, sf::Font> &fontMap,

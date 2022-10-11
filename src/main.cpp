@@ -17,9 +17,8 @@ int main()
 
 
     ws4::WS4 ws4Engine;
-    ws4Engine.loadData();
-    ws4Engine.loadTextures();
-    ws4Engine.loadGraphics();
+
+
 
     return ws4Engine.runLoop();
 };

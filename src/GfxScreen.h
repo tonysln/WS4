@@ -25,14 +25,18 @@ namespace ws4
         vector<TextLabel> staticText;
         vector<AnimIcon> icons;
         vector<MapCity> cities;
+        sf::Sprite map;
+        bool mapScr = false;
 
 
     public:
-        GfxScreen(vector< array< sf::Vertex, 4 > > sbv, vector<TextLabel> st, vector<TextLabel> dt);
-        GfxScreen(vector< array< sf::Vertex, 4 > > sbv, vector<TextLabel> st);
+        GfxScreen(vector<array< sf::Vertex, 4>> sbv, vector<TextLabel> st, vector<TextLabel> dt);
+        GfxScreen(vector<array< sf::Vertex, 4>> sbv, vector<TextLabel> st);
         GfxScreen() = default;
 
         void updateText(const vector<string>& newText);
+        void updateIcons();
+        void loadMap(sf::Texture &texture, int xPos, int yPos);
         void loadIcons(vector<AnimIcon> iconVec);
         void loadCities(vector<MapCity> cityVec);
         void switchIconFrames(int iconFrame);

@@ -27,6 +27,22 @@ namespace ws4
     }
 
 
+    void GfxScreen::updateIcons()
+    {
+
+    }
+
+
+    void GfxScreen::loadMap(sf::Texture &texture, int xPos, int yPos)
+    {
+        map = sf::Sprite(texture);
+//        map.setScale(sf::Vector2f(1.8f, 1.8f));
+        map.setTextureRect(sf::IntRect(sf::Vector2i(xPos, yPos), sf::Vector2i(640, 308)));
+        map.setPosition(sf::Vector2f(0, 90));
+        mapScr = true;
+    }
+
+
     void GfxScreen::loadIcons(vector<AnimIcon> iconVec)
     {
         icons = std::move(iconVec);
@@ -53,6 +69,9 @@ namespace ws4
     {
         for (const auto& vObj : staticBgVertices)
             window.draw(vObj.data(), 4, sf::TriangleStrip);
+
+        if (mapScr)
+            window.draw(map);
 
         for (auto& cObj : cities)
             cObj.renderTo(window);

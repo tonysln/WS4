@@ -1,10 +1,5 @@
 #include "GfxLoader.h"
-
-#include <filesystem>
-#include <iostream>
-#include <fstream>
 #include <codecvt>
-#include <locale>
 
 
 using std::to_string;
@@ -124,12 +119,19 @@ namespace ws4
         
         if (!tM["Moon"].loadFromFile("../graphics/icons/Moon-Phases.png"))
             return tM;
+        tM["Moon"].setSmooth(false);
         if (!tM["CC"].loadFromFile("../graphics/icons/Current-Conditions.png"))
             return tM;
+        tM["CC"].setSmooth(false);
         if (!tM["EF"].loadFromFile("../graphics/icons/Extended-Forecast.png"))
             return tM;
+        tM["EF"].setSmooth(false);
         if (!tM["RF"].loadFromFile("../graphics/icons/Regional-Maps.png"))
             return tM;
+        tM["RF"].setSmooth(false);
+        if (!tM["Map"].loadFromFile("../graphics/maps/Basemap.png"))
+            return tM;
+        tM["Map"].setSmooth(false);
 
         return tM;
     }

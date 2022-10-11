@@ -26,16 +26,18 @@ namespace ws4
         
         
     public:
-        TextLabel(string text, sf::Font &font, string colorName, int charSize, int shLevel, 
+        TextLabel(string text, sf::Font &font, string colorName, int charSize, int shLevel,
                         float spacing, int x, int y, map<string, sf::Color> colorMap, short dir);
         TextLabel() = default;
 
         void renderTo(sf::RenderWindow &window);
-        void updateText(string text);
+        void updateText(const string& text);
         static sf::String toUtf8String(string text);
         void alignRight();
         void alignLeft();
         void alignCenter();
+        void setPos(float x, float y);
+        float getWidth();
     };
 }
 
