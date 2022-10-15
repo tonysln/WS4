@@ -1,7 +1,11 @@
 #include "GfxLoader.h"
 #include "DataProc.h"
+#include <filesystem>
+#include <algorithm>
+#include <random>
 #include "WS4.h"
 
+namespace fs =  std::filesystem;
 using std::to_string;
 using std::localtime;
 using std::strftime;
@@ -72,7 +76,6 @@ namespace ws4
     void WS4::loadData()
     {
         // NB! Graphics *MUST* be loaded before calling this method
-        // TODO use script to cut out and zoom correct map part, save it as img and load here
 
         // [0] Current Conditions
         screens.at(0).loadIcons({
@@ -125,26 +128,38 @@ namespace ws4
     void WS4::loadMusic()
     {
         // Open folder and load all songs
-        // Shuffle
-        // Play through
-        // Shuffle, repeat ...
-        songsPaths =
-        { };
-        
-//        if (!musicPlayer.openFromFile(songsPaths[songIdx]))
-//            return;
+        for (const auto& entry : fs::directory_iterator("../music"))
+        {
+            if (entry.path().extension() == ".mp3")
+                songsPaths.push_back(entry.path());
+        }
 
-//        musicPlayer.setVolume(volume);
+        if (songsPaths.empty())
+            return;
+
+        songIdx = -1;
+        musicPlayer.setVolume(volume);
+        musicStarted = true;
+        changeSong();
     }
 
 
     void WS4::changeSong()
     {
         songIdx++;
-        if (songIdx > songsPaths.size())
+        if (songIdx >= songsPaths.size())
         {
-            // shuffle, start over...
+            // Shuffle
+            std::random_device rd;
+            std::shuffle(songsPaths.begin(), songsPaths.end(),
+                                    std::default_random_engine(rd()));
+            songIdx = 0;
         }
+
+        if (!musicPlayer.openFromFile(songsPaths[songIdx]))
+            return;
+
+        musicPlayer.play();
     }
 
 
@@ -173,6 +188,9 @@ namespace ws4
                             break;
                         case sf::Keyboard::O:
                             prevScreen();
+                            break;
+                        case sf::Keyboard::S:
+                            changeSong();
                             break;
                         default:
                             break;
@@ -244,8 +262,8 @@ namespace ws4
 
 
             // Check if time to change song
-            // if (musicStarted && musicPlayer.getStatus() == sf::Music::Status::Stopped)
-            //     changeSong();
+             if (musicStarted && musicPlayer.getStatus() == sf::Music::Status::Stopped)
+                 changeSong();
 
         }
 
