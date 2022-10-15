@@ -1,6 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include "AnimIcon.h"
 #include "TextLabel.h"
+#include <string>
 
 using std::string;
 

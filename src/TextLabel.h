@@ -38,6 +38,7 @@ namespace ws4
         void alignCenter();
         void setPos(float x, float y);
         float getWidth();
+        float getHeight();
     };
 }
 

@@ -28,9 +28,9 @@ namespace ws4
         int scrSpeed = 2;
         int x = 62;
         int y = 398;
-        int offsetPxRight = 50.f;
-        int offsetPxLeft = 65.f;
-        float lagTime = 20.f;
+        int offsetPxRight = 60.f;
+        int offsetPxLeft = 75.f;
+        float lagTime = 18.f;
 
 
 

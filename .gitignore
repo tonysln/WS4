@@ -35,6 +35,7 @@
 /gallery/
 /obj/
 /bin/
+/venv/
 
 .idea/*
 ./.idea

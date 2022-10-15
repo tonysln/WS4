@@ -57,6 +57,7 @@ To be updated...
 
 * Star4000 Fonts by [TWC Classics](https://twcclassics.com/) contributor Nick Smith.
 * Icons by [TWC Classics](https://twcclassics.com/) contributors Charles A. and Nick S.
+* Basemap ...
 * LaTeX documentation template by [LianTze Lim](https://www.overleaf.com/articles/autorating-calculator-user-guide/fdfgkxkpqczv).
 
 ## License

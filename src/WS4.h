@@ -5,7 +5,6 @@
 #include "MapCity.h"
 #include "GfxLDL.h"
 #include <vector>
-#include <ctime>
 #include <array>
 #include <map>
 
@@ -33,17 +32,13 @@ namespace ws4
         sf::View view;
 
 
-        // Clock & Timers
+        // Timers & Counters
         int iconFrame = 0;
         float iconFrameCounter = 0.f;
         float sceneTime = 10.f;
         float LDLTime = 6.f;
         int dispLDLTimes = 2;
         int scrLDLTimes = 2;
-        char timeStr[12]{};
-        char timeAPStr[6]{};
-        char dateStr[12]{};
-        std::time_t epoch = std::time(nullptr);
         sf::Clock sceneTimer;
         sf::Clock LDLTimer;
 

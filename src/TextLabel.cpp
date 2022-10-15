@@ -24,7 +24,7 @@ namespace ws4
 
 
         shadowLevel = shLevel;
-        for (int i = 0; i < shadowLevel; i++)
+        for (int i = 0; i <= shadowLevel; i++)
         {
             sf::Text shadow(toUtf8String(text), font, charSize * scaleFactor);
             shadow.setFillColor(colorMap["#0e0e0e"]);
@@ -61,7 +61,7 @@ namespace ws4
     void TextLabel::setPos(float x, float y)
     {
         label.setPosition(sf::Vector2f(x, y));
-        for (int i = 0; i < shadowLevel; ++i)
+        for (int i = 0; i <= shadowLevel; ++i)
         {
             shadowVec.at(i).setPosition(sf::Vector2f(x + shadowLevel, y + shadowLevel));
         }
@@ -85,6 +85,11 @@ namespace ws4
     float TextLabel::getWidth()
     {
         return label.getGlobalBounds().width;
+    }
+
+    float TextLabel::getHeight()
+    {
+        return label.getGlobalBounds().height;
     }
 
 

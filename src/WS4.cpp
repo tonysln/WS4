@@ -33,27 +33,11 @@ namespace ws4
     void WS4::nextScreen()
     {
         scrIdx = (scrIdx + 1) % scr.size();
-        nextScreenUpdate();
     }
 
     void WS4::prevScreen()
     {
         scrIdx = (scrIdx - 1 + scr.size()) % scr.size();
-        nextScreenUpdate();
-    }
-
-
-    void WS4::nextScreenUpdate()
-    {
-        // Time clock Text alignment fix - do not let it jump around due to 
-        // different widths of symbols
-        for (u_long i = 0; i < scr.size(); i++)
-        {
-            double xCoordFix = 101.333;
-            if (localtime(&epoch)->tm_hour % 12 < 10 && 
-                localtime(&epoch)->tm_hour % 12 > 0)
-                xCoordFix = 92.333;
-        }
     }
 
 
@@ -87,7 +71,7 @@ namespace ws4
 
     void WS4::loadData()
     {
-        // NB! graphics *MUST* be loaded before calling this method
+        // NB! Graphics *MUST* be loaded before calling this method
         // TODO use script to cut out and zoom correct map part, save it as img and load here
 
         // [0] Current Conditions
@@ -136,19 +120,6 @@ namespace ws4
 
         LDL.setText(LDLStrings.at(LDLStrIdx));
     }
-
-//    void WS4::drawText()
-//    {
-//        // Update time/date strings
-//        epoch = std::time(nullptr);
-//        strftime(timeStr, sizeof(timeStr), "%-I:%M:%S", localtime(&epoch));
-//        strftime(timeAPStr, sizeof(timeAPStr), "%p", localtime(&epoch));
-//        strftime(dateStr, sizeof(dateStr), "%a %b %e", localtime(&epoch)); // %e is space-padded
-//
-//        // Check if clock positioning needs to be fixed (at 10 and 1)
-//        if ((localtime(&epoch)->tm_min == 0) && (localtime(&epoch)->tm_sec <= 3))
-//            nextScreenUpdate();
-//    }
 
 
     void WS4::loadMusic()
@@ -243,6 +214,7 @@ namespace ws4
                 LDL.setText(LDLStrings.at(LDLStrIdx));
                 LDLTimer.restart();
             }
+
 
 
             // Clear window

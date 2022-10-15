@@ -1,5 +1,6 @@
 #include <SFML/Graphics.hpp>
 #include "TextLabel.h"
+#include <ctime>
 
 
 #ifndef WS4_GFXCLOCK_H
@@ -10,8 +11,14 @@ namespace ws4
 {
     class GfxClock
     {
-        ws4::TextLabel time;
-        ws4::TextLabel date;
+        std::time_t epoch = std::time(nullptr);
+        char timeStr[12]{};
+        char timeAPStr[6]{};
+        char dateStr[12]{};
+        float xCoordFix = 101.333;
+        TextLabel time;
+        TextLabel ampm;
+        TextLabel date;
 
 
     public:
@@ -19,6 +26,7 @@ namespace ws4
         GfxClock() = default;
 
         void update();
+        void fixPosition();
         void renderTo(sf::RenderWindow &window);
     };
 }
