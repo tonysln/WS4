@@ -16,6 +16,7 @@ namespace ws4
         label.setScale(scale);
 
         // Set origin based on dir (0 = L, 1 = C, 2 = R)
+        this->dir = dir;
         alignLeft();
         if (dir > 1)
             alignRight();
@@ -71,8 +72,17 @@ namespace ws4
     void TextLabel::updateText(const string& text)
     {
         label.setString(toUtf8String(text));
+
+        alignLeft();
+        if (dir > 1)
+            alignRight();
+        else if (dir > 0)
+            alignCenter();
+
         for (auto& shadow : shadowVec)
+        {
             shadow.setString(toUtf8String(text));
+        }
     }
 
 

@@ -64,10 +64,21 @@ namespace ws4
     }
 
 
+    void GfxScreen::setPressureArrow(vector<array<sf::Vertex, 4>> presArrw) {
+        pressureArrow.clear();
+        pressureArrow = std::move(presArrw);
+    }
+
+
     void GfxScreen::renderTo(sf::RenderWindow &window)
     {
         for (const auto& vObj : staticBgVertices)
             window.draw(vObj.data(), 4, sf::TriangleStrip);
+
+        if (!pressureArrow.empty()) {
+            for (const auto& aObj : pressureArrow)
+                window.draw(aObj.data(), 4, sf::TriangleStrip);
+        }
 
         if (mapScr)
             window.draw(map);

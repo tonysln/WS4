@@ -41,6 +41,36 @@ namespace ws4
     }
 
 
+    vector<array<sf::Vertex, 4>> buildPressureArrow(bool dirUp, sf::Color col, sf::Color shadow)
+    {
+        vector<array<sf::Vertex, 4>> arrow;
+
+        if (dirUp)
+        {
+            arrow =
+            {
+                buildQuad(547-1, 316-2, 555+1, 306-2, 563+3, 316+1, 547-2, 316+1, shadow),
+                buildQuad(553-1, 315-1, 557+3, 315+2, 557+3, 330+2, 553-1, 330+2, shadow),
+                buildQuad(547, 316, 555, 306, 563, 316, 547, 316, col),
+                buildQuad(553, 315, 557, 315, 557, 330, 553, 330, col)
+            };
+        }
+        else
+        {
+            arrow =
+            {
+                buildQuad(547-1, 320-2, 555+2, 331+2, 563+3, 320+1, 547-2, 320+1, shadow),
+                buildQuad(553-1, 306-1, 557+3, 306+2, 557+3, 320+2, 553-1, 320+2, shadow),
+                buildQuad(547, 320, 555, 331, 563, 320, 547, 320, col),
+                buildQuad(553, 306, 557, 306, 557, 320, 553, 320, col)
+            };
+        }
+
+        return arrow;
+    }
+
+
+
     map<string, sf::Font> loadFontMap()
     {
         map<string, sf::Font> fM;
@@ -93,6 +123,7 @@ namespace ws4
             {"#cdb900", sf::Color(205,185,0)},
             {"#7d3c28", sf::Color(125,60,40)},
             {"#828af5", sf::Color(130,138,245)},
+            {"#8385cb", sf::Color(131,133,203)},
 
             {"#565bca", sf::Color(86,91,202)},
             {"#424eca", sf::Color(66,78,202)},
@@ -255,23 +286,25 @@ namespace ws4
                 vector {
                     TextLabel("Current", fontMap["Star4000"], "#cdb900", 34, 3, 0.9, 163, 21, colorMap, 0),
                     TextLabel("Conditions", fontMap["Star4000"], "#cdb900", 34, 3, 0.9, 163, 50, colorMap, 0),
-                    TextLabel("Humidity:", fontMap["Star4000"], "#d7d7d7", 33, 1, 0.55, 330, 141, colorMap, 0),
-                    TextLabel("Dewpoint:", fontMap["Star4000"], "#d7d7d7", 33, 1, 0.55, 330, 181, colorMap, 0),
-                    TextLabel("Ceiling:", fontMap["Star4000"], "#d7d7d7", 33, 1, 0.55, 330, 225, colorMap, 0),
-                    TextLabel("Visibility:", fontMap["Star4000"], "#d7d7d7", 33, 1, 0.55, 330, 267, colorMap, 0),
-                    TextLabel("Pressure:", fontMap["Star4000"], "#d7d7d7", 33, 1, 0.55, 330, 308, colorMap, 0),
+                    TextLabel("Humidity:", fontMap["Star4000"], "#d7d7d7", 33, 1, 0.5, 338, 131, colorMap, 0),
+                    TextLabel("Dewpoint:", fontMap["Star4000"], "#d7d7d7", 33, 1, 0.5, 338, 171, colorMap, 0),
+                    TextLabel("Ceiling:", fontMap["Star4000"], "#d7d7d7", 33, 1, 0.5, 338, 215, colorMap, 0),
+                    TextLabel("Visibility:", fontMap["Star4000"], "#d7d7d7", 33, 1, 0.4, 338, 257, colorMap, 0),
+                    TextLabel("Pressure:", fontMap["Star4000"], "#d7d7d7", 33, 1, 0.5, 338, 298, colorMap, 0),
                 },
                 vector {
-                    TextLabel("Moline", fontMap["Star4000"], "#cdb900", 34, 2, 0.55, 320, 92, colorMap, 0),
-                    TextLabel("56°", fontMap["Star4000-Large"], "#d7d7d7", 39, 1, 1.0, 190, 104, colorMap, 1),
-                    TextLabel("Ice Snow", fontMap["Star4000-Extended"], "#d7d7d7", 37, 1, 0.8, 180, 136, colorMap, 1),
-                    TextLabel("66%", fontMap["Star4000"], "#d7d7d7", 33, 1, 0.45, 565, 141, colorMap, 2),
-                    TextLabel("53°", fontMap["Star4000"], "#d7d7d7", 33, 1, 0.45, 565, 181, colorMap, 2),
-                    TextLabel("0.8 mi.", fontMap["Star4000"], "#d7d7d7", 33, 1, 0.45, 565, 267, colorMap, 2),
-                    TextLabel("3300 ft.", fontMap["Star4000"], "#d7d7d7", 33, 1, 0.45, 565, 225, colorMap, 2),
-                    TextLabel("29.93", fontMap["Star4000"], "#d7d7d7", 33, 1, 0.45, 565, 308, colorMap, 2),
-                    TextLabel("Wind:  WNW  38", fontMap["Star4000-Extended"], "#d7d7d7", 33, 1, 1.0, 75, 308, colorMap, 0),
-                    TextLabel("Gusts to  77", fontMap["Star4000-Extended"], "#d7d7d7", 33, 1, 1.0, 75, 346, colorMap, 0),
+                    TextLabel("", fontMap["Star4000"], "#cdb900", 34, 2, 0.55, 320, 92, colorMap, 0),
+                    TextLabel("", fontMap["Star4000-Large"], "#d7d7d7", 37, 1, 1.0, 190, 104, colorMap, 1),
+                    TextLabel("", fontMap["Star4000-Extended"], "#d7d7d7", 37, 1, 0.8, 180, 134, colorMap, 1),
+                    TextLabel("", fontMap["Star4000"], "#d7d7d7", 33, 1, 0.4, 568, 131, colorMap, 2),
+                    TextLabel("", fontMap["Star4000"], "#d7d7d7", 33, 1, 0.4, 568, 171, colorMap, 2),
+                    TextLabel("", fontMap["Star4000"], "#d7d7d7", 33, 1, 0.4, 568, 257, colorMap, 2),
+                    TextLabel("", fontMap["Star4000"], "#d7d7d7", 33, 1, 0.4, 568, 215, colorMap, 2),
+                    TextLabel("", fontMap["Star4000"], "#d7d7d7", 33, 1, 0.4, 542, 298, colorMap, 2),
+                    TextLabel("", fontMap["Star4000-Extended"], "#d7d7d7", 33, 1, 1.0, 75, 298, colorMap, 0),
+                    TextLabel("", fontMap["Star4000-Extended"], "#d7d7d7", 33, 1, 1.0, 75, 336, colorMap, 0),
+                    TextLabel("", fontMap["Star4000"], "#d7d7d7", 33, 1, 0.5, 338, 336, colorMap, 0),
+                    TextLabel("", fontMap["Star4000"], "#d7d7d7", 33, 1, 0.4, 568, 336, colorMap, 2),
                 }
             }
         );
@@ -582,28 +615,28 @@ namespace ws4
                 },
                 vector {
                     TextLabel("Extended Forecast", fontMap["Star4000"], "#cdb900", 34, 2, 0.5, 163, 50, colorMap, 0),
-                    TextLabel("Lo", fontMap["Star4000"], "#d7d7d7", 35, 1, 1.0, 86, 310, colorMap, 1),
-                    TextLabel("Hi", fontMap["Star4000"], "#cdb900", 35, 1, 1.0, 154, 310, colorMap, 1),
-                    TextLabel("Lo", fontMap["Star4000"], "#d7d7d7", 35, 1, 1.0, 286, 310, colorMap, 1),
-                    TextLabel("Hi", fontMap["Star4000"], "#cdb900", 35, 1, 1.0, 354, 310, colorMap, 1),
-                    TextLabel("Lo", fontMap["Star4000"], "#d7d7d7", 35, 1, 1.0, 476, 310, colorMap, 1),
-                    TextLabel("Hi", fontMap["Star4000"], "#cdb900", 35, 1, 1.0, 554, 310, colorMap, 1),
+                    TextLabel("Lo", fontMap["Star4000"], "#8385cb", 33, 1, 0.7, 86, 311, colorMap, 1),
+                    TextLabel("Hi", fontMap["Star4000"], "#cdb900", 33, 1, 0.7, 158, 311, colorMap, 1),
+                    TextLabel("Lo", fontMap["Star4000"], "#8385cb", 33, 1, 0.7, 284, 311, colorMap, 1),
+                    TextLabel("Hi", fontMap["Star4000"], "#cdb900", 33, 1, 0.7, 358, 311, colorMap, 1),
+                    TextLabel("Lo", fontMap["Star4000"], "#8385cb", 33, 1, 0.7, 476, 311, colorMap, 1),
+                    TextLabel("Hi", fontMap["Star4000"], "#cdb900", 33, 1, 0.7, 554, 311, colorMap, 1),
                 },
                 vector {
                     TextLabel("Moline", fontMap["Star4000"], "#d7d7d7", 34, 2, 0.5, 163, 21, colorMap, 0),
-                    TextLabel("TUE", fontMap["Star4000"], "#cdb900", 35, 1, 1.0, 120, 100, colorMap, 1),
+                    TextLabel("TUE", fontMap["Star4000"], "#cdb900", 35, 1, 1.0, 122, 100, colorMap, 1),
                     TextLabel("WED", fontMap["Star4000"], "#cdb900", 35, 1, 1.0, 320, 100, colorMap, 1),
-                    TextLabel("THU", fontMap["Star4000"], "#cdb900", 35, 1, 1.0, 510, 100, colorMap, 1),
-                    TextLabel("T'Storms", fontMap["Star4000"], "#d7d7d7", 35, 1, 1.0, 120, 238, colorMap, 1),
-                    TextLabel("", fontMap["Star4000"], "#d7d7d7", 35, 1, 1.0, 120, 276, colorMap, 1),
+                    TextLabel("THU", fontMap["Star4000"], "#cdb900", 35, 1, 1.0, 514, 100, colorMap, 1),
+                    TextLabel("T'Storms", fontMap["Star4000"], "#d7d7d7", 35, 1, 1.0, 122, 238, colorMap, 1),
+                    TextLabel("", fontMap["Star4000"], "#d7d7d7", 35, 1, 1.0, 122, 274, colorMap, 1),
                     TextLabel("Mostly", fontMap["Star4000"], "#d7d7d7", 35, 1, 1.0, 320, 238, colorMap, 1),
-                    TextLabel("Cloudy", fontMap["Star4000"], "#d7d7d7", 35, 1, 1.0, 320, 276, colorMap, 1),
-                    TextLabel("Showers", fontMap["Star4000"], "#d7d7d7", 35, 1, 1.0, 510, 238, colorMap, 1),
-                    TextLabel("", fontMap["Star4000"], "#d7d7d7", 35, 1, 1.0, 510, 276, colorMap, 1),
+                    TextLabel("Cloudy", fontMap["Star4000"], "#d7d7d7", 35, 1, 1.0, 320, 274, colorMap, 1),
+                    TextLabel("Showers", fontMap["Star4000"], "#d7d7d7", 35, 1, 1.0, 514, 238, colorMap, 1),
+                    TextLabel("", fontMap["Star4000"], "#d7d7d7", 35, 1, 1.0, 514, 274, colorMap, 1),
                     TextLabel("77", fontMap["Star4000-Large"], "#d7d7d7", 36, 1, 1.0, 86, 350, colorMap, 1),
-                    TextLabel("87", fontMap["Star4000-Large"], "#d7d7d7", 36, 1, 1.0, 154, 350, colorMap, 1),
-                    TextLabel("76", fontMap["Star4000-Large"], "#d7d7d7", 36, 1, 1.0, 286, 350, colorMap, 1),
-                    TextLabel("89", fontMap["Star4000-Large"], "#d7d7d7", 36, 1, 1.0, 354, 350, colorMap, 1),
+                    TextLabel("87", fontMap["Star4000-Large"], "#d7d7d7", 36, 1, 1.0, 158, 350, colorMap, 1),
+                    TextLabel("76", fontMap["Star4000-Large"], "#d7d7d7", 36, 1, 1.0, 284, 350, colorMap, 1),
+                    TextLabel("89", fontMap["Star4000-Large"], "#d7d7d7", 36, 1, 1.0, 358, 350, colorMap, 1),
                     TextLabel("76", fontMap["Star4000-Large"], "#d7d7d7", 36, 1, 1.0, 476, 350, colorMap, 1),
                     TextLabel("88", fontMap["Star4000-Large"], "#d7d7d7", 36, 1, 1.0, 554, 350, colorMap, 1),
                 }
@@ -635,25 +668,25 @@ namespace ws4
                 },
                 vector {
                     TextLabel("Almanac", fontMap["Star4000"], "#cdb900", 34, 3, 0.9, 163, 35, colorMap, 0),
-                    TextLabel("Sunrise:", fontMap["Star4000"], "#d7d7d7", 34, 1, 1.0, 200, 115, colorMap, 2),
-                    TextLabel("Sunset:", fontMap["Star4000"], "#d7d7d7", 34, 1, 1.0, 200, 147, colorMap, 2),
-                    TextLabel("Moon Data:", fontMap["Star4000"], "#cdb900", 34, 1, 0.9, 82, 190, colorMap, 0),
+                    TextLabel("Sunrise:", fontMap["Star4000"], "#d7d7d7", 34, 1, 1.0, 194, 116, colorMap, 2),
+                    TextLabel("Sunset:", fontMap["Star4000"], "#d7d7d7", 34, 1, 1.0, 194, 149, colorMap, 2),
+                    TextLabel("Moon Data:", fontMap["Star4000"], "#cdb900", 34, 1, 0.9, 78, 190, colorMap, 0),
                 },
                 vector {
-                    TextLabel("Saturday", fontMap["Star4000"], "#cdb900", 34, 1, 1.0, 320, 84, colorMap, 1),
-                    TextLabel("Sunday", fontMap["Star4000"], "#cdb900", 34, 1, 1.0, 500, 84, colorMap, 1),
-                    TextLabel("7:57 AM", fontMap["Star4000"], "#d7d7d7", 34, 1, 1.0, 320, 115, colorMap, 1),
-                    TextLabel("7:58 AM", fontMap["Star4000"], "#d7d7d7", 34, 1, 1.0, 500, 115, colorMap, 1),
-                    TextLabel("5:25 PM", fontMap["Star4000"], "#d7d7d7", 34, 1, 1.0, 320, 147, colorMap, 1),
-                    TextLabel("5:26 PM", fontMap["Star4000"], "#d7d7d7", 34, 1, 1.0, 500, 147, colorMap, 1),
-                    TextLabel("New", fontMap["Star4000"], "#d7d7d7", 34, 1, 1.0, 130, 226, colorMap, 1),
-                    TextLabel("First", fontMap["Star4000"], "#d7d7d7", 34, 1, 1.0, 250, 226, colorMap, 1),
-                    TextLabel("Full", fontMap["Star4000"], "#d7d7d7", 34, 1, 1.0, 370, 226, colorMap, 1),
-                    TextLabel("Last", fontMap["Star4000"], "#d7d7d7", 34, 1, 1.0, 490, 226, colorMap, 1),
-                    TextLabel("Jan 1", fontMap["Star4000"], "#d7d7d7", 34, 1, 1.0, 130, 356, colorMap, 1),
-                    TextLabel("Jan 8", fontMap["Star4000"], "#d7d7d7", 34, 1, 1.0, 250, 356, colorMap, 1),
-                    TextLabel("Jan 16", fontMap["Star4000"], "#d7d7d7", 34, 1, 1.0, 370, 356, colorMap, 1),
-                    TextLabel("Jan 24", fontMap["Star4000"], "#d7d7d7", 34, 1, 1.0, 490, 356, colorMap, 1),
+                    TextLabel("Saturday", fontMap["Star4000"], "#cdb900", 34, 2, 1.0, 320, 84, colorMap, 1),
+                    TextLabel("Sunday", fontMap["Star4000"], "#cdb900", 34, 2, 1.0, 500, 84, colorMap, 1),
+                    TextLabel("7:57 AM", fontMap["Star4000"], "#d7d7d7", 34, 1, 1.0, 320, 116, colorMap, 1),
+                    TextLabel("7:58 AM", fontMap["Star4000"], "#d7d7d7", 34, 1, 1.0, 500, 116, colorMap, 1),
+                    TextLabel("5:25 PM", fontMap["Star4000"], "#d7d7d7", 34, 1, 1.0, 320, 149, colorMap, 1),
+                    TextLabel("5:26 PM", fontMap["Star4000"], "#d7d7d7", 34, 1, 1.0, 500, 149, colorMap, 1),
+                    TextLabel("New", fontMap["Star4000"], "#d7d7d7", 34, 1, 1.0, 134, 226, colorMap, 1),
+                    TextLabel("First", fontMap["Star4000"], "#d7d7d7", 34, 1, 1.0, 256, 226, colorMap, 1),
+                    TextLabel("Full", fontMap["Star4000"], "#d7d7d7", 34, 1, 1.0, 378, 226, colorMap, 1),
+                    TextLabel("Last", fontMap["Star4000"], "#d7d7d7", 34, 1, 1.0, 504, 226, colorMap, 1),
+                    TextLabel("Jan 1", fontMap["Star4000"], "#d7d7d7", 34, 1, 1.0, 134, 356, colorMap, 1),
+                    TextLabel("Jan 8", fontMap["Star4000"], "#d7d7d7", 34, 1, 1.0, 256, 356, colorMap, 1),
+                    TextLabel("Jan 16", fontMap["Star4000"], "#d7d7d7", 34, 1, 1.0, 378, 356, colorMap, 1),
+                    TextLabel("Jan 24", fontMap["Star4000"], "#d7d7d7", 34, 1, 1.0, 504, 356, colorMap, 1),
                 }
             }
         );

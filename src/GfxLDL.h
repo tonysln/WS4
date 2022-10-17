@@ -26,8 +26,8 @@ namespace ws4
         sf::Clock bufTimer;
         int bufIdx = -1;
         int scrSpeed = 2;
-        int x = 62;
-        int y = 398;
+        int x = 64;
+        int y = 399;
         int offsetPxRight = 60.f;
         int offsetPxLeft = 75.f;
         float lagTime = 18.f;

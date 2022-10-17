@@ -15,7 +15,7 @@ namespace ws4
         char timeStr[12]{};
         char timeAPStr[6]{};
         char dateStr[12]{};
-        float xCoordFix = 101.333;
+        float xCoordFix = 522.f;
         TextLabel time;
         TextLabel ampm;
         TextLabel date;

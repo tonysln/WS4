@@ -6,9 +6,9 @@ namespace ws4
     GfxClock::GfxClock(map<string, sf::Color> &colorMap, map<string, sf::Font> &fontMap)
     {
         update();
-        time = TextLabel(timeStr, fontMap["Star4000-Small"], "#d7d7d7", 31, 0,  0.8f, 530, 33, colorMap, 2);
-        ampm = TextLabel(timeAPStr, fontMap["Star4000-Small"], "#d7d7d7", 31, 0,  0.8f, 575, 33, colorMap, 2);
-        date = TextLabel(dateStr, fontMap["Star4000-Small"], "#d7d7d7", 31, 0, 0.8f, 574, 53, colorMap, 2);
+        time = TextLabel(timeStr, fontMap["Star4000-Small"], "#d7d7d7", 31, 1,  0.8f, 530, 33, colorMap, 2);
+        ampm = TextLabel(timeAPStr, fontMap["Star4000-Small"], "#d7d7d7", 31, 1,  0.8f, 573, 33, colorMap, 2);
+        date = TextLabel(dateStr, fontMap["Star4000-Small"], "#d7d7d7", 31, 1, 0.8f, 574, 53, colorMap, 2);
     }
 
 
@@ -35,12 +35,14 @@ namespace ws4
     {
         // Time clock Text alignment fix - do not let it jump around due to
         // different widths of symbols
-        xCoordFix = 101.333;
-        if (localtime(&epoch)->tm_hour % 12 < 10 &&
-            localtime(&epoch)->tm_hour % 12 > 0)
-            xCoordFix = 92.333;
+        float prevFix = xCoordFix;
+        xCoordFix = 522;
 
-        time.setPos(xCoordFix, 33);
+        if (localtime(&epoch)->tm_hour % 12 < 10 && localtime(&epoch)->tm_hour % 12 > 0)
+            xCoordFix = 530;
+
+        if (prevFix != xCoordFix)
+            time.setPos(xCoordFix, 33);
     }
 
 

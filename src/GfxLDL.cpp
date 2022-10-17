@@ -59,7 +59,7 @@ namespace ws4
         {
             displays = 0;
             bufIdx = -1;
-            x = 62;
+            x = 64;
             textLabel.setPos(x, y);
         }
     }

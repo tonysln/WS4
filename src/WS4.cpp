@@ -2,6 +2,7 @@
 #include "DataProc.h"
 #include <filesystem>
 #include <algorithm>
+#include <chrono>
 #include <random>
 #include "WS4.h"
 
@@ -77,41 +78,14 @@ namespace ws4
     {
         // NB! Graphics *MUST* be loaded before calling this method
 
-        // [0] Current Conditions
-        screens.at(0).loadIcons({
-            AnimIcon(textureMap["CC"], iconPosMap["CC_Ice-Snow"], 178, 230)
-        });
-
-        // [2] Regional Observations
-        screens.at(2).loadMap(textureMap["Map"], 150, 200);
-        screens.at(2).loadCities({
-             MapCity("Oklahoma", "62", 100, 100, fontMap, colorMap, textureMap["RF"], iconPosMap["RF_Rain"]),
-             MapCity("Ponca City", "61", 140, 250, fontMap, colorMap, textureMap["RF"], iconPosMap["RF_Sunny"]),
-             MapCity("Tulsa", "65", 290, 110, fontMap, colorMap, textureMap["RF"], iconPosMap["RF_Cloudy"]),
-             MapCity("Altus", "71", 230, 180, fontMap, colorMap, textureMap["RF"], iconPosMap["RF_Mostly-Cloudy"]),
-             MapCity("Gage", "59", 410, 130, fontMap, colorMap, textureMap["RF"], iconPosMap["RF_Thunderstorm"]),
-             MapCity("Tinker AFB", "62", 400, 310, fontMap, colorMap, textureMap["RF"], iconPosMap["RF_Thunderstorm"])
-         });
-
-        // [6] Regional Forecast
-        screens.at(6).loadMap(textureMap["Map"], 150, 200);
-        // screens.at(6).loadCities({});
-
-        // [7] Extended Forecast
-        screens.at(7).loadIcons({
-            AnimIcon(textureMap["EF"], iconPosMap["EF_Thunderstorms"], 120, 200),
-            AnimIcon(textureMap["EF"], iconPosMap["EF_Mostly-Cloudy"], 320, 200),
-            AnimIcon(textureMap["EF"], iconPosMap["EF_Snow-to-Rain"], 510, 200),
-        });
-
-        // [8] Almanac
-        screens.at(8).loadIcons({
-            AnimIcon(textureMap["Moon"], iconPosMap["M_New"], 135, 320),
-            AnimIcon(textureMap["Moon"], iconPosMap["M_First"], 255, 320),
-            AnimIcon(textureMap["Moon"], iconPosMap["M_Full"], 375, 320),
-            AnimIcon(textureMap["Moon"], iconPosMap["M_Last"], 495, 320)
-        });
-
+        // Connection point with DataProc here
+        bool ccPressureArrowUp = true;
+        string ccIcon = "CC_Ice-Snow";
+        vector<string> roCities = {"Oklahoma", "Ponca City", "Tulsa", "Altus", "Gage", "Tinker AFB"};
+        vector<string> roTemps = {"62", "61", "65", "71", "59", "62"};
+        vector<string> roIcons = {"RF_Rain", "RF_Sunny", "RF_Cloudy", "RF_Mostly-Cloudy", "RF_Thunderstorm", "RF_Thunderstorm"};
+        vector<string> efIcons = {"EF_Thunderstorms", "EF_Mostly-Cloudy", "EF_Snow-to-Rain"};
+        vector<string> aMoons = {"M_New", "M_First", "M_Full", "M_Last"};
         LDLStrings = {"Conditions at Moline", "Ice Snow",
                       "Temp: 56°F",
                       "Humidity:  66%   Dewpoint: 53°",
@@ -120,6 +94,48 @@ namespace ws4
                       "Visib:   0.8 mi.  Ceiling:3300 ft.",
                       "October Precipitation: 0.09 in"};
         LDLScrollStr = "Ministry: Rail Baltica progress slowed by poor design work, bad management.";
+        vector<string> ccText = {"Moline", "56°", "Ice Snow", "66%", "53°", "0.8 mi.",
+                                 "3300 ft.", "29.93", "Wind:  WNW  38", "Gusts to  77", "Wind Chill:", "52°"};
+
+
+
+        // [0] Current Conditions
+        screens.at(0).updateText(ccText);
+        screens.at(0).setPressureArrow(buildPressureArrow(ccPressureArrowUp,
+                                                          colorMap["#cdb900"], colorMap["#0e0e0e"]));
+        screens.at(0).loadIcons({
+            AnimIcon(textureMap["CC"], iconPosMap[ccIcon], 178, 230)
+        });
+
+        // [2] Regional Observations
+        screens.at(2).loadMap(textureMap["Map"], 150, 200);
+        screens.at(2).loadCities({
+             MapCity(roCities[0], roTemps[0], 100, 100, fontMap, colorMap, textureMap["RF"], iconPosMap[roIcons[0]]),
+             MapCity(roCities[1], roTemps[1], 140, 250, fontMap, colorMap, textureMap["RF"], iconPosMap[roIcons[1]]),
+             MapCity(roCities[2], roTemps[2], 290, 110, fontMap, colorMap, textureMap["RF"], iconPosMap[roIcons[2]]),
+             MapCity(roCities[3], roTemps[3], 230, 180, fontMap, colorMap, textureMap["RF"], iconPosMap[roIcons[3]]),
+             MapCity(roCities[4], roTemps[4], 410, 130, fontMap, colorMap, textureMap["RF"], iconPosMap[roIcons[4]]),
+             MapCity(roCities[5], roTemps[5], 400, 310, fontMap, colorMap, textureMap["RF"], iconPosMap[roIcons[5]])
+         });
+
+        // [6] Regional Forecast
+        screens.at(6).loadMap(textureMap["Map"], 150, 200);
+        // screens.at(6).loadCities({});
+
+        // [7] Extended Forecast
+        screens.at(7).loadIcons({
+            AnimIcon(textureMap["EF"], iconPosMap[efIcons[0]], 122, 200),
+            AnimIcon(textureMap["EF"], iconPosMap[efIcons[1]], 320, 200),
+            AnimIcon(textureMap["EF"], iconPosMap[efIcons[2]], 514, 200),
+        });
+
+        // [8] Almanac
+        screens.at(8).loadIcons({
+            AnimIcon(textureMap["Moon"], iconPosMap[aMoons[0]], 134, 318),
+            AnimIcon(textureMap["Moon"], iconPosMap[aMoons[1]], 256, 318),
+            AnimIcon(textureMap["Moon"], iconPosMap[aMoons[2]], 378, 318),
+            AnimIcon(textureMap["Moon"], iconPosMap[aMoons[3]], 504, 318)
+        });
 
         LDL.setText(LDLStrings.at(LDLStrIdx));
     }
@@ -137,10 +153,10 @@ namespace ws4
         if (songsPaths.empty())
             return;
 
-        songIdx = -1;
+        songIdx = songsPaths.size();
         musicPlayer.setVolume(volume);
-        musicStarted = true;
         changeSong();
+        musicStarted = true;
     }
 
 
@@ -150,9 +166,8 @@ namespace ws4
         if (songIdx >= songsPaths.size())
         {
             // Shuffle
-            std::random_device rd;
-            std::shuffle(songsPaths.begin(), songsPaths.end(),
-                                    std::default_random_engine(rd()));
+            unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+            std::shuffle(songsPaths.begin(), songsPaths.end(),std::mt19937(seed));
             songIdx = 0;
         }
 

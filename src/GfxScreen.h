@@ -21,6 +21,7 @@ namespace ws4
     class GfxScreen
     {   
         vector<array<sf::Vertex, 4>> staticBgVertices;
+        vector<array<sf::Vertex, 4>> pressureArrow;
         vector<TextLabel> dynamicText;
         vector<TextLabel> staticText;
         vector<AnimIcon> icons;
@@ -36,6 +37,7 @@ namespace ws4
 
         void updateText(const vector<string>& newText);
         void updateIcons();
+        void setPressureArrow(vector<array<sf::Vertex, 4>> presArrw);
         void loadMap(sf::Texture &texture, int xPos, int yPos);
         void loadIcons(vector<AnimIcon> iconVec);
         void loadCities(vector<MapCity> cityVec);
