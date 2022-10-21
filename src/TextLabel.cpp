@@ -17,11 +17,11 @@ namespace ws4
 
         // Set origin based on dir (0 = L, 1 = C, 2 = R)
         this->dir = dir;
-        alignLeft();
+        alignLeft(label, 0);
         if (dir > 1)
-            alignRight();
+            alignRight(label, 0);
         else if (dir > 0)
-            alignCenter();
+            alignCenter(label, 0);
 
 
         shadowLevel = shLevel;
@@ -36,26 +36,32 @@ namespace ws4
             shadow.setScale(scale);
             shadow.setOrigin(label.getOrigin());
 
+            alignLeft(shadow, i-shadowLevel+2);
+            if (dir > 1)
+                alignRight(shadow, shadowLevel);
+            else if (dir > 0)
+                alignCenter(shadow, shadowLevel);
+
             shadowVec.push_back(shadow);
         }
     }
 
-    void TextLabel::alignRight()
+    void TextLabel::alignRight(sf::Text &lbl, int offset)
     {
-        sf::Vector2f orig(label.getLocalBounds().width, 0);
-        label.setOrigin(orig);
+        sf::Vector2f orig(lbl.getLocalBounds().width + offset, 0);
+        lbl.setOrigin(orig);
     }
 
-    void TextLabel::alignLeft()
+    void TextLabel::alignLeft(sf::Text &lbl, int offset)
     {
-        sf::Vector2f orig(0, 0);
-        label.setOrigin(orig);
+        sf::Vector2f orig(0 + offset, 0);
+        lbl.setOrigin(orig);
     }
 
-    void TextLabel::alignCenter()
+    void TextLabel::alignCenter(sf::Text &lbl, int offset)
     {
-        sf::Vector2f orig(label.getLocalBounds().width / 2, 0);
-        label.setOrigin(orig);
+        sf::Vector2f orig(lbl.getLocalBounds().width / 2 + offset, 0);
+        lbl.setOrigin(orig);
     }
 
 
@@ -73,16 +79,34 @@ namespace ws4
     {
         label.setString(toUtf8String(text));
 
-        alignLeft();
+        alignLeft(label, 0);
         if (dir > 1)
-            alignRight();
+            alignRight(label, 0);
         else if (dir > 0)
-            alignCenter();
+            alignCenter(label, 0);
 
+        int i = 0;
         for (auto& shadow : shadowVec)
         {
             shadow.setString(toUtf8String(text));
+
+            alignLeft(shadow, i-shadowLevel+2);
+            if (dir > 1)
+                alignRight(shadow, shadowLevel);
+            else if (dir > 0)
+                alignCenter(shadow, shadowLevel);
+
+            i++;
         }
+    }
+
+
+    void TextLabel::updateTextInPlace(const string& text)
+    {
+        label.setString(toUtf8String(text));
+
+        for (auto& shadow : shadowVec)
+            shadow.setString(toUtf8String(text));
     }
 
 

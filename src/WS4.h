@@ -28,6 +28,7 @@ namespace ws4
         const short WIN_WIDTH = 640;
         const short WIN_HEIGHT = 480;
         const float SCALE = 1.0f;
+        const bool winBorders = true;
         sf::RenderWindow window;
         sf::View view;
 

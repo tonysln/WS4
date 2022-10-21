@@ -25,12 +25,12 @@ namespace ws4
         string bufStrFull;
         sf::Clock bufTimer;
         int bufIdx = -1;
-        int scrSpeed = 2;
+        int scrSpeed = 3;
         int x = 64;
         int y = 399;
-        int offsetPxRight = 60.f;
-        int offsetPxLeft = 75.f;
-        float lagTime = 18.f;
+        int offsetPxRight = 70.f;
+        int offsetPxLeft = 90.f;
+        float lagTime = 17.f;
 
 
 

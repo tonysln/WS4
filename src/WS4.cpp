@@ -21,7 +21,7 @@ namespace ws4
 
         // RenderWindow
         window.create(sf::VideoMode(sf::Vector2u(WIN_WIDTH*SCALE, WIN_HEIGHT*SCALE)),
-                                                    TITLE, sf::Style::Titlebar | sf::Style::Close);
+                            TITLE, winBorders ? sf::Style::Titlebar | sf::Style::Close : sf::Style::None);
 
         window.setFramerateLimit(FPS);
         sf::VideoMode desktop = sf::VideoMode::getDesktopMode();
@@ -79,12 +79,21 @@ namespace ws4
         // NB! Graphics *MUST* be loaded before calling this method
 
         // Connection point with DataProc here
+        // TODO possibly place all into a dict or one vector
+        vector<string> ccText = {"Moline", "56°", "Ice Snow", "66%", "53°", "0.8 mi.",
+                                 "3300 ft.", "29.93", "Wind:  WNW  38", "Gusts to  77", "Wind Chill:", "52°"};
         bool ccPressureArrowUp = true;
         string ccIcon = "CC_Ice-Snow";
+        vector<string> loText = {};
         vector<string> roCities = {"Oklahoma", "Ponca City", "Tulsa", "Altus", "Gage", "Tinker AFB"};
         vector<string> roTemps = {"62", "61", "65", "71", "59", "62"};
         vector<string> roIcons = {"RF_Rain", "RF_Sunny", "RF_Cloudy", "RF_Mostly-Cloudy", "RF_Thunderstorm", "RF_Thunderstorm"};
+        vector<string> lf1Text = {};
+        vector<string> lf2Text = {};
+        vector<string> lf3Text = {};
+        vector<string> efText = {};
         vector<string> efIcons = {"EF_Thunderstorms", "EF_Mostly-Cloudy", "EF_Snow-to-Rain"};
+        vector<string> aText = {};
         vector<string> aMoons = {"M_New", "M_First", "M_Full", "M_Last"};
         LDLStrings = {"Conditions at Moline", "Ice Snow",
                       "Temp: 56°F",
@@ -94,8 +103,6 @@ namespace ws4
                       "Visib:   0.8 mi.  Ceiling:3300 ft.",
                       "October Precipitation: 0.09 in"};
         LDLScrollStr = "Ministry: Rail Baltica progress slowed by poor design work, bad management.";
-        vector<string> ccText = {"Moline", "56°", "Ice Snow", "66%", "53°", "0.8 mi.",
-                                 "3300 ft.", "29.93", "Wind:  WNW  38", "Gusts to  77", "Wind Chill:", "52°"};
 
 
 
@@ -183,7 +190,7 @@ namespace ws4
         while (window.isOpen())
         {
             // EVENTS
-            sf::Event event;
+            sf::Event event{};
             while (window.pollEvent(event))
             {
                 if (event.type == sf::Event::Closed)

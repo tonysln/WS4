@@ -22,7 +22,7 @@ namespace ws4
         // 0 - None, 1 - A bit larger than outline, 2.. 3..
         int shadowLevel = 1;
         double scaleFactor = 0.67;
-        int dir;
+        int dir = 0;
         sf::Vector2f scale = sf::Vector2f(1.5f, 1.5f);
         
         
@@ -33,10 +33,11 @@ namespace ws4
 
         void renderTo(sf::RenderWindow &window);
         void updateText(const string& text);
+        void updateTextInPlace(const string& text);
         static sf::String toUtf8String(string text);
-        void alignRight();
-        void alignLeft();
-        void alignCenter();
+        void alignRight(sf::Text &lbl, int offset);
+        void alignLeft(sf::Text &lbl, int offset);
+        void alignCenter(sf::Text &lbl, int offset);
         void setPos(float x, float y);
         float getWidth();
         float getHeight();
