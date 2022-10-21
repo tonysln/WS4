@@ -1,5 +1,16 @@
+#include <vector>
+#include <string>
+
+using std::vector;
+using std::string;
+
+#ifndef WS4_DATAPROC_H
+#define WS4_DATAPROC_H
+
+
 namespace ws4p
 {
+    vector<vector<string>> readyFormatLatestData();
     double tempCtoF(double tempC);
     double tempFtoC(double tempF);
     double windMstoMph(double windMs);
@@ -10,5 +21,9 @@ namespace ws4p
     double calcWindChill(double tempC, double windMs);
     double calcHeatIndex(double tempC, double relHum);
     bool todayHasMoonEvent();
+    void fetchNewData();
+    void createMapRegion();
     void nextMoonPhases();
 }
+
+#endif //WS4_DATAPROC_H

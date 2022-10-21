@@ -1,0 +1,18 @@
+# LaTeX files
+*.aux
+*.bit
+*.blg
+*.bbl
+*.lof
+*.log
+*.lot
+*.glo
+*.glx
+*.gxg
+*.gxs
+*.idx
+*.ilg
+*.ind
+*.url
+*.svn
+*.toc

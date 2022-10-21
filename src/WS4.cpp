@@ -1,16 +1,12 @@
-#include <SFML/Graphics.hpp>
-#include <SFML/Audio.hpp>
-#include <vector>
-#include <array>
-#include <map>
-#include <time.h>
-#include <iostream>
-
+#include "GfxLoader.h"
+#include "DataProc.h"
+#include <filesystem>
+#include <algorithm>
+#include <chrono>
+#include <random>
 #include "WS4.h"
-#include "gfx_init.h"
-#include "data_proc.h"
 
-using namespace ws4;
+namespace fs =  std::filesystem;
 using std::to_string;
 using std::localtime;
 using std::strftime;
@@ -22,13 +18,10 @@ namespace ws4
     {
         // Setup vars
         char TITLE[] = "WS4 Build " __DATE__;
-        sts.antialiasingLevel = 0.0;
-        sts.depthBits = 8;
-        sts.sRgbCapable = false;
 
         // RenderWindow
         window.create(sf::VideoMode(sf::Vector2u(WIN_WIDTH*SCALE, WIN_HEIGHT*SCALE)),
-                                        TITLE, sf::Style::Titlebar | sf::Style::Close, sts);
+                            TITLE, winBorders ? sf::Style::Titlebar | sf::Style::Close : sf::Style::None);
 
         window.setFramerateLimit(FPS);
         sf::VideoMode desktop = sf::VideoMode::getDesktopMode();
@@ -39,304 +32,267 @@ namespace ws4
         view.setSize(sf::Vector2f(window.getSize().x/SCALE, window.getSize().y/SCALE));
         view.setCenter(sf::Vector2f(view.getSize().x/2, view.getSize().y/2));
         window.setView(view);
-
-        animFrame = 0;
     }
 
 
     void WS4::nextScreen()
     {
-        cur = (cur + 1) % scr.size();
-        nextScreenUpdate();
+        scrIdx = (scrIdx + 1) % scr.size();
     }
 
     void WS4::prevScreen()
     {
-        cur = (cur - 1 + scr.size()) % scr.size();
-        nextScreenUpdate();
-    }
-
-
-    void WS4::nextScreenUpdate()
-    {
-        // Time clock Text alignment fix - do not let it jump around due to 
-        // different widths of symbols
-        for (u_long i = 0; i < scr.size(); i++)
-        {
-            double xCoordFix = 101.333;
-            if (localtime(&epoch)->tm_hour % 12 < 10 && 
-                localtime(&epoch)->tm_hour % 12 > 0)
-                xCoordFix = 92.333;
-
-            tM[scr[i]][1].setOrigin(sf::Vector2f(xCoordFix, 0));
-        }
-    }
-
-
-    void WS4::loadFonts()
-    {
-        if(!fM["fStar4000"].loadFromFile("../fonts/Star4000.ttf"))
-            return;
-        if(!fM["fStar4000Ext"].loadFromFile("../fonts/Star4000-Extended.ttf"))
-            return;
-        if(!fM["fStar4000Lg"].loadFromFile("../fonts/Star4000-Large.ttf"))
-            return;
-        if(!fM["fStar4000LgC"].loadFromFile("../fonts/Star4000-Large-Compressed.ttf"))
-            return;
-        if(!fM["fStar4000Sm"].loadFromFile("../fonts/Star4000-Small.ttf"))
-            return;
-
-        // for (auto &fontEl : fM)
-            // fontEl.second.setSmooth(false);
-    }
-
-    void WS4::loadTextures()
-    {
-        if (!moonPhasesTexture.loadFromFile("../icons/Moon-Phases.png"))
-            return;
-        if (!curCondTexture.loadFromFile("../icons/Current-Conditions.png"))
-            return;
-        if (!extForcTexture.loadFromFile("../icons/Extended-Forecast.png"))
-            return;
-        if (!regMapsTexture.loadFromFile("../icons/Regional-Maps.png"))
-            return;
-        if (!regBaseMapTexture.loadFromFile("../graphics/maps/basemap-2.png"))
-            return;
+        scrIdx = (scrIdx - 1 + scr.size()) % scr.size();
     }
 
 
     void WS4::loadGraphics()
     {
-        cM = parseColorData();
-        tM = parseTextData(cM, fM, dM);
-        vM = parseVertexData(cM);
-        iconPos = loadIconPos();
-        iM = loadIcons(iconPos, dM, moonPhasesTexture, curCondTexture, extForcTexture, regMapsTexture);
-        nextScreenUpdate();
+        // Load mappings for all graphics
+        fontMap = loadFontMap();
+        colorMap = loadColorMap();
+        textureMap = loadTextureMap();
+        iconPosMap = loadIconPositionsMap();
+
+        // [0] Current Conditions
+        loadCurrentConditions(screens, fontMap, colorMap);
+        // [1] Latest Observations
+        loadLatestObservations(screens, fontMap, colorMap);
+        // [2] Regional Observations
+        loadRegionalObservations(screens, fontMap, colorMap);
+        // [3,4,5] Local (36-Hour) Forecast
+        loadLocalForecast(screens, fontMap, colorMap);
+        // [6] Regional Forecast
+        loadRegionalForecast(screens, fontMap, colorMap);
+        // [7] Extended Forecast
+        loadExtendedForecast(screens, fontMap, colorMap);
+        // [8] Almanac
+        loadAlmanac(screens, fontMap, colorMap);
+
+        LDL = GfxLDL(" ", colorMap, fontMap);
+        clock = GfxClock(colorMap, fontMap);
+
+        if (showLogo)
+        {
+            logo = sf::Sprite(textureMap["Logo"]);
+            logo.setPosition(sf::Vector2f(45.f, 24.f));
+        }
+    }
+
+
+    void WS4::getNewData()
+    {
+        ws4p::fetchNewData();
+        ws4p::createMapRegion();
+        data = ws4p::readyFormatLatestData();
     }
 
 
     void WS4::loadData()
     {
-        dM["Current-Conditions"]["city"] = "Moline";
-        dM["Current-Conditions"]["temp"] = "56";
-        dM["Current-Conditions"]["cond"] = "Ice Snow";
-        dM["Current-Conditions"]["icon-0"] = "Ice-Snow";
-        dM["Current-Conditions"]["humidity"] = "66%";
-        dM["Current-Conditions"]["dewpoint"] = "53";
-        dM["Current-Conditions"]["ceiling"] = "0.8 mi.";
-        dM["Current-Conditions"]["visib"] = "3300 ft.";
-        dM["Current-Conditions"]["pressure"] = "29.93";
-        dM["Current-Conditions"]["pressure-arrow"] = "up";
-        dM["Current-Conditions"]["wind"] = "Wind:  WNW  38";
-        dM["Current-Conditions"]["gusts"] = "Gusts to  77"; 
-        dM["Current-Conditions"]["scroller"] = "Conditions at Moline";
+        // Create MapCity icon vectors
+        vector<MapCity> roMapCities = {};
+        for (int i = 0; i < data[4].size(); i++)
+            roMapCities.emplace_back(data[4][i], data[5][i], data[7][i], data[8][i],
+                                     fontMap, colorMap, textureMap["RF"], iconPosMap[data[6][i]]);
 
-        // TODO Text positions
-        dM["Forecast-For"]["forecast-day"] = "Saturday";
-        dM["Forecast-For"]["num-cities"] = "5";
-        dM["Forecast-For"]["map-x"] = "400";
-        dM["Forecast-For"]["map-y"] = "1900";
-        dM["Forecast-For"]["icon-0"] = "Mostly-Clear";
-        dM["Forecast-For"]["icon-0-x"] = "100";
-        dM["Forecast-For"]["icon-0-y"] = "120";
-        dM["Forecast-For"]["icon-1"] = "Mostly-Cloudy";
-        dM["Forecast-For"]["icon-1-x"] = "220";
-        dM["Forecast-For"]["icon-1-y"] = "240";
-        dM["Forecast-For"]["icon-2"] = "Rain";
-        dM["Forecast-For"]["icon-2-x"] = "290";
-        dM["Forecast-For"]["icon-2-y"] = "270";
-        dM["Forecast-For"]["icon-3"] = "Rain-Wind";
-        dM["Forecast-For"]["icon-3-x"] = "350";
-        dM["Forecast-For"]["icon-3-y"] = "300";
-        dM["Forecast-For"]["icon-4"] = "Partly-Clear";
-        dM["Forecast-For"]["icon-4-x"] = "460";
-        dM["Forecast-For"]["icon-4-y"] = "130";
-        dM["Forecast-For"]["city-0"] = "Tulsa";
-        dM["Forecast-For"]["city-1"] = "Fort Smith";
-        dM["Forecast-For"]["city-2"] = "OK City";
-        dM["Forecast-For"]["city-3"] = "Amarillo";
-        dM["Forecast-For"]["city-4"] = "Dallas";
-        dM["Forecast-For"]["city-0-temp"] = "67";
-        dM["Forecast-For"]["city-1-temp"] = "54";
-        dM["Forecast-For"]["city-2-temp"] = "58";
-        dM["Forecast-For"]["city-3-temp"] = "66";
-        dM["Forecast-For"]["city-4-temp"] = "70";
-        
-        dM["Travel-Forecast"]["forecast-day"] = "For Saturday";
-        dM["Air-Quality"]["airq-day"] = "Friday";
-        dM["Almanac"]["icon-0"] = "Full";
-        dM["Almanac"]["icon-1"] = "Last";
-        dM["Almanac"]["icon-2"] = "New";
-        dM["Almanac"]["icon-3"] = "First";
-
-        dM["Extended-Forecast"]["icon-0"] = "Thunderstorms";
-        dM["Extended-Forecast"]["icon-1"] = "Mostly-Cloudy";
-        dM["Extended-Forecast"]["icon-2"] = "Snow-to-Rain";
-        dM["Extended-Forecast"]["city"] = "Moline";
-    }
-
-    void WS4::drawGraphics()
-    {
-        window.clear(cM["cDkBlue1"]);
-
-        // Vertices and Shapes
-        for (const auto& vObj : vM[scr[cur]])
-            window.draw(vObj.data(), vObj.size(), sf::TriangleStrip);
-
-        // Icons & Animation
-        animFrame = (animFrame + 1) % ANIM_FRAMES;
-        icoCt = 0;
-        for (auto& iObj : iM[scr[cur]])
-        {
-            window.draw(iObj);
-            iObj.setTextureRect(sf::IntRect(
-                sf::Vector2i(animFrame * iconPos[scr[cur]][dM[scr[cur]]["icon-" + to_string(icoCt)]][0], 
-                                         iconPos[scr[cur]][dM[scr[cur]]["icon-" + to_string(icoCt)]][1]), 
-                sf::Vector2i(iconPos[scr[cur]][dM[scr[cur]]["icon-" + to_string(icoCt)]][0], 
-                             iconPos[scr[cur]][dM[scr[cur]]["icon-" + to_string(icoCt)]][2])
-            ));
-            icoCt++;
-        }
-    }
+        vector<MapCity> rfMapCities = {};
+        for (int i = 0; i < data[13].size(); i++)
+            rfMapCities.emplace_back(data[13][i], data[14][i], data[16][i], data[17][i],
+                                     fontMap, colorMap, textureMap["RF"], iconPosMap[data[15][i]]);
 
 
-    void WS4::drawText()
-    {
-        // Update time/date strings
-        epoch = std::time(nullptr);
-        strftime(timeStr, sizeof(timeStr), "%-I:%M:%S", localtime(&epoch));
-        strftime(timeAPStr, sizeof(timeAPStr), "%p", localtime(&epoch));
-        strftime(dateStr, sizeof(dateStr), "%a %b %e", localtime(&epoch)); // %e is space-padded
+        // [0] Current Conditions
+        screens.at(0).updateText(data[0]);
+        screens.at(0).setPressureArrow(buildPressureArrow(data[1][0],
+                                                          colorMap["#cdb900"], colorMap["#0e0e0e"]));
+        screens.at(0).loadIcons({
+            AnimIcon(textureMap["CC"], iconPosMap[data[2][0]], 178, 230)
+        });
 
-        // Check if clock positioning needs to be fixed (at 10 and 1)
-        if ((localtime(&epoch)->tm_min == 0) && (localtime(&epoch)->tm_sec <= 3))
-            nextScreenUpdate();
+        screens.at(1).updateText(data[3]);
 
-        tM[scr[cur]][1].setString(timeStr);
-        tM[scr[cur]][3].setString(dateStr);
-        tM[scr[cur]][3].setOrigin(sf::Vector2f(tM[scr[cur]][3].getLocalBounds().width, 0));
-        tM[scr[cur]][5].setString(timeAPStr);
-        tM[scr[cur]][5].setOrigin(sf::Vector2f(tM[scr[cur]][5].getLocalBounds().width, 0));
+        // [2] Regional Observations
+        screens.at(2).loadMap(textureMap["Map"], 150, 200);
+        screens.at(2).loadCities(roMapCities);
 
-        // Draw text
-        for (const auto& tObj : tM[scr[cur]])
-            window.draw(tObj);
+        screens.at(3).updateText(data[9]);
+        screens.at(4).updateText(data[10]);
+        screens.at(5).updateText(data[11]);
+
+        // [6] Regional Forecast
+        screens.at(6).loadMap(textureMap["Map"], 150, 200);
+        screens.at(6).loadCities(rfMapCities);
+        screens.at(6).updateText(data[12]);
+
+        // [7] Extended Forecast
+        screens.at(7).updateText(data[18]);
+        screens.at(7).loadIcons({
+            AnimIcon(textureMap["EF"], iconPosMap[data[19][0]], 122, 200),
+            AnimIcon(textureMap["EF"], iconPosMap[data[19][1]], 320, 200),
+            AnimIcon(textureMap["EF"], iconPosMap[data[19][2]], 514, 200),
+        });
+
+        // [8] Almanac
+        screens.at(8).updateText(data[20]);
+        screens.at(8).loadIcons({
+            AnimIcon(textureMap["Moon"], iconPosMap[data[21][0]], 134, 318),
+            AnimIcon(textureMap["Moon"], iconPosMap[data[21][1]], 256, 318),
+            AnimIcon(textureMap["Moon"], iconPosMap[data[21][2]], 378, 318),
+            AnimIcon(textureMap["Moon"], iconPosMap[data[21][3]], 504, 318)
+        });
+
+        LDLStrings = data[22];
+        LDLScrollStr = data[23];
+        LDL.setText(LDLStrings.at(LDLStrIdx));
     }
 
 
     void WS4::loadMusic()
     {
-        // TODO define list of songs, select random?
-        vector<string> songsPaths = 
+        // Open folder and load all songs
+        for (const auto& entry : fs::directory_iterator("../music"))
         {
-            "../audio/001.mp3",
-            "../audio/002.mp3",
-            "../audio/003.mp3",
-            "../audio/004.mp3",
-            "../audio/005.mp3"
-        };
-        
-        if (!musicPlayer.openFromFile(songsPaths[0]))
+            if (entry.path().extension() == ".mp3")
+                songsPaths.push_back(entry.path());
+        }
+
+        if (songsPaths.empty())
             return;
 
-        musicPlayer.setVolume(20);
+        songIdx = songsPaths.size();
+        musicPlayer.setVolume(volume);
+        changeSong();
+        musicStarted = true;
     }
 
 
     void WS4::changeSong()
     {
-
-    }
-}
-
-
-
-int main()
-{
-    // Print version info
-    #ifdef __clang__
-    std::cout << "Clang Version: ";
-    std::cout << __clang__ << std::endl;
-    std::cout << "LLVM Version: ";
-    std::cout << __llvm__ << std::endl;
-    #else
-    std::cout << "GCC Version: ";
-    std::cout << __VERSION__ << std::endl;
-    #endif
-
-
-    WS4 ws4Engine;
-    ws4Engine.loadData();
-    ws4Engine.loadFonts();
-    ws4Engine.loadTextures();
-    ws4Engine.loadGraphics();
-    
-    // ws4Engine.musicPlayer.play();
-
-    // sf::Clock sceneTimer;
-    // sf::Time elapsedScene;
-    float sceneTime = 10.f;
-
-
-
-
-    /*
-     * MAIN LOOP
-     */
-    while (ws4Engine.window.isOpen())
-    {
-        // EVENTS
-        sf::Event event;
-        while (ws4Engine.window.pollEvent(event))
+        songIdx++;
+        if (songIdx >= songsPaths.size())
         {
-            if (event.type == sf::Event::Closed)
-                ws4Engine.window.close();
+            // Shuffle
+            unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+            std::shuffle(songsPaths.begin(), songsPaths.end(),std::mt19937(seed));
+            songIdx = 0;
+        }
 
-            if (event.type == sf::Event::KeyPressed)
+        if (!musicPlayer.openFromFile(songsPaths[songIdx]))
+            return;
+
+        musicPlayer.play();
+    }
+
+
+    int WS4::runLoop()
+    {
+        while (window.isOpen())
+        {
+            // EVENTS
+            sf::Event event{};
+            while (window.pollEvent(event))
             {
-                switch(event.key.code)
+                if (event.type == sf::Event::Closed)
+                    window.close();
+
+                if (event.type == sf::Event::KeyPressed)
                 {
-                    case sf::Keyboard::Escape:
-                    case sf::Keyboard::Q:
-                    case sf::Keyboard::Space:
-                        ws4Engine.window.close(); 
-                        break;
-                    case sf::Keyboard::P:
-                        ws4Engine.nextScreen();
-                        break;
-                    case sf::Keyboard::O:
-                        ws4Engine.prevScreen();
-                        break;
-                    case sf::Keyboard::R:
-                        ws4Engine.loadData();
-                        ws4Engine.loadGraphics();
-                        break;
-                    default:
-                        break;
+                    switch(event.key.code)
+                    {
+                        case sf::Keyboard::Escape:
+                        case sf::Keyboard::Q:
+                        case sf::Keyboard::Space:
+                            window.close(); 
+                            break;
+                        case sf::Keyboard::P:
+                            nextScreen();
+                            break;
+                        case sf::Keyboard::O:
+                            prevScreen();
+                            break;
+                        case sf::Keyboard::S:
+                            changeSong();
+                            break;
+                        default:
+                            break;
+                    }
                 }
             }
+
+
+            // Scene change timer
+            if (sceneTimer.getElapsedTime().asSeconds() >= sceneTime)
+            {
+                nextScreen();
+                sceneTimer.restart();
+            }
+
+            // Update LDL text string-by-string in display mode
+            if (!LDL.isUsingScroll() && LDLTimer.getElapsedTime().asSeconds() >= LDLTime)
+            {
+                LDLStrIdx++;
+                if (LDLStrIdx >= LDLStrings.size())
+                {
+                    LDL.displays++;
+                    LDLStrIdx = 0;
+                }
+                LDL.setText(LDLStrings.at(LDLStrIdx));
+                LDLTimer.restart();
+            }
+
+            // Switch between displaying and scrolling LDL text
+            if (!LDL.isUsingScroll() && LDL.displays >= dispLDLTimes)
+            {
+                LDL.useScroll(true);
+                LDL.setText(LDLScrollStr[0]);
+            }
+            if (LDL.isUsingScroll() && LDL.scrolls >= scrLDLTimes)
+            {
+                LDL.useScroll(false);
+                LDLStrIdx = 0;
+                LDL.setText(LDLStrings.at(LDLStrIdx));
+                LDLTimer.restart();
+            }
+
+
+
+            // Clear window
+            window.clear(colorMap["#1c0a57"]);
+
+            // Advance through icon animation
+            iconFrameCounter++;
+            if (iconFrameCounter >= FPS / ANIM_FRAMES)
+            {
+                iconFrame = (iconFrame + 1) % ANIM_FRAMES;
+                screens.at(scrIdx).switchIconFrames(iconFrame);
+                iconFrameCounter = 0;
+            }
+
+            // Render current scene
+            screens.at(scrIdx).renderTo(window);
+
+            // Render time & date
+            clock.update();
+            clock.renderTo(window);
+
+            // Render LDL
+            LDL.renderTo(window);
+
+            // Render the logo (if enabled)
+            if (showLogo)
+                window.draw(logo);
+
+            // Display window
+            window.display();
+
+
+            // Check if time to change song
+             if (musicStarted && musicPlayer.getStatus() == sf::Music::Status::Stopped)
+                 changeSong();
+
         }
- 
-        // Check if time for scene change
-        // if (sceneTimer.getElapsedTime().asSeconds() >= sceneTime)
-        // {
-        //     ws4Engine.nextScreen();
-        //     elapsedScene = sceneTimer.restart();
-        // }
 
-
-        // DRAWING GRAPHICS
-        ws4Engine.drawGraphics();
-        ws4Engine.drawText();
-        ws4Engine.window.display();
-
-
-        // Check if time to change song
-        // if (ws4Engine.musicPlayer.getStatus() == sf::Music::Status::Stopped)
-        //     ws4Engine.changeSong();
-
+        return EXIT_SUCCESS;
     }
-
-    return EXIT_SUCCESS;
-};
+}

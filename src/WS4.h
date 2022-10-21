@@ -1,75 +1,107 @@
+#include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
+#include "GfxScreen.h"
+#include "GfxClock.h"
+#include "MapCity.h"
+#include "GfxLDL.h"
+#include <vector>
+#include <array>
+#include <map>
+
 using std::vector;
 using std::string;
 using std::array;
 using std::map;
 
 
+#ifndef WS4_WS4_H
+#define WS4_WS4_H
+
+
 namespace ws4 
 {
     class WS4 
     {
-        const short FPS = 7;
-        const float SCALE = 1.0f;
+        // Window & Rendered
+        const short ANIM_FRAMES = 7;
+        const short FPS = 30;
         const short WIN_WIDTH = 640;
         const short WIN_HEIGHT = 480;
-        const short ANIM_FRAMES = 7;
-
-        sf::ContextSettings sts;
+        const float SCALE = 1.0f;
+        const bool winBorders = true;
+        sf::RenderWindow window;
         sf::View view;
 
-        std::time_t epoch = std::time(nullptr);
-        char timeStr[12];
-        char timeAPStr[6];
-        char dateStr[12];
 
-        map<string, sf::Font> fM;
-        map<string, sf::Color> cM;
-        map<string, vector<sf::Text>> tM;
-        map<string, vector<array<sf::Vertex, 4>>> vM;
-        map<string, map<string, vector<int>>> iconPos;
-        map<string, vector<sf::Sprite>> iM;
-        
-        sf::Texture moonPhasesTexture;
-        sf::Texture curCondTexture;
-        sf::Texture extForcTexture;
-        sf::Texture regMapsTexture;
-        sf::Texture regBaseMapTexture;
-        int animFrame;
+        // Timers & Counters
+        int iconFrame = 0;
+        float iconFrameCounter = 0.f;
+        float sceneTime = 10.f;
+        float LDLTime = 6.f;
+        int dispLDLTimes = 2;
+        int scrLDLTimes = 2;
+        sf::Clock sceneTimer;
+        sf::Clock LDLTimer;
 
 
-    public:
-        sf::RenderWindow window;
-        sf::Music musicPlayer;
-        map<string, map<string, string>> dM;
-        
-        const vector<string> scr = 
+        // Screens
+        short scrIdx = 0;
+        const vector<string> scr =
         {
             "Current-Conditions",
             "Latest-Observations",
+            "Regional-Observations",
             "Local-Forecast-1",
             "Local-Forecast-2",
+            "Local-Forecast-3",
+            "Forecast-For",
             "Extended-Forecast",
             "Almanac",
-            "Forecast-For",
-            // "Travel-Forecast",
-            // "Air-Quality",
         };
-        short cur = 0;
-        short icoCt = 0;
-
-        WS4();
         void nextScreen();
         void prevScreen();
-        void nextScreenUpdate();
-        void loadFonts();
-        void loadTextures();
-        void loadGraphics();
-        void loadData();
-        void drawGraphics();
-        void drawText();
-        void loadMusic();
+
+
+        // Graphics
+        map<string, sf::Font> fontMap;
+        map<string, sf::Color> colorMap;
+        map<string, sf::Texture> textureMap;
+        map<string, vector<int>> iconPosMap;
+        vector<GfxScreen> screens;
+        vector<MapCity> regMapCities;
+        vector<MapCity> forcMapCities;
+        bool showLogo = true;
+        sf::Sprite logo;
+        GfxClock clock;
+        GfxLDL LDL;
+
+
+        // Data
+        int LDLStrIdx = 0;
+        vector<string> LDLStrings;
+        vector<string> LDLScrollStr;
+        vector<vector<string>> data;
+
+
+        // Music
+        vector<string> songsPaths;
+        bool musicStarted = false;
+        float volume = 20.f;
+        int songIdx = 0;
+        sf::Music musicPlayer;
         void changeSong();
+
+
+
+    public:
+        WS4();
+        void loadMusic();
+        void loadGraphics();
+        void getNewData();
+        void loadData();
+        int runLoop();
     };
 
-    
 }
+
+#endif //WS4_WS4_H
