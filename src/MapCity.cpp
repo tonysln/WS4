@@ -1,12 +1,13 @@
 #include "MapCity.h"
 
+
 namespace ws4
 {
-    MapCity::MapCity(string nameText, string tempText, int x, int y, map<string, sf::Font> &fontMap,
+    MapCity::MapCity(string nameText, string tempText, string xs, string ys, map<string, sf::Font> &fontMap,
                             map<string, sf::Color> &colorMap, sf::Texture &icoTxt, vector<int> icoPos)
     {
-        this->x = x;
-        this->y = y;
+        x = std::stoi(xs);
+        y = std::stoi(ys);
 
         name = TextLabel(std::move(nameText), fontMap["Star4000"], "#d7d7d7", 30, 1, 0.6f, x, y, colorMap, 1);
         temp = TextLabel(std::move(tempText), fontMap["Star4000-Large-Compressed"], "#cdb900", 34, 1, 1.0f, x, y, colorMap, 1);

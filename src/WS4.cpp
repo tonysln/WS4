@@ -71,79 +71,79 @@ namespace ws4
 
         LDL = GfxLDL(" ", colorMap, fontMap);
         clock = GfxClock(colorMap, fontMap);
+
+        if (showLogo)
+        {
+            logo = sf::Sprite(textureMap["Logo"]);
+            logo.setPosition(sf::Vector2f(45.f, 24.f));
+        }
+    }
+
+
+    void WS4::getNewData()
+    {
+        ws4p::fetchNewData();
+        ws4p::createMapRegion();
+        data = ws4p::readyFormatLatestData();
     }
 
 
     void WS4::loadData()
     {
-        // NB! Graphics *MUST* be loaded before calling this method
+        // Create MapCity icon vectors
+        vector<MapCity> roMapCities = {};
+        for (int i = 0; i < data[4].size(); i++)
+            roMapCities.emplace_back(data[4][i], data[5][i], data[7][i], data[8][i],
+                                     fontMap, colorMap, textureMap["RF"], iconPosMap[data[6][i]]);
 
-        // Connection point with DataProc here
-        // TODO possibly place all into a dict or one vector
-        vector<string> ccText = {"Moline", "56°", "Ice Snow", "66%", "53°", "0.8 mi.",
-                                 "3300 ft.", "29.93", "Wind:  WNW  38", "Gusts to  77", "Wind Chill:", "52°"};
-        bool ccPressureArrowUp = true;
-        string ccIcon = "CC_Ice-Snow";
-        vector<string> loText = {};
-        vector<string> roCities = {"Oklahoma", "Ponca City", "Tulsa", "Altus", "Gage", "Tinker AFB"};
-        vector<string> roTemps = {"62", "61", "65", "71", "59", "62"};
-        vector<string> roIcons = {"RF_Rain", "RF_Sunny", "RF_Cloudy", "RF_Mostly-Cloudy", "RF_Thunderstorm", "RF_Thunderstorm"};
-        vector<string> lf1Text = {};
-        vector<string> lf2Text = {};
-        vector<string> lf3Text = {};
-        vector<string> efText = {};
-        vector<string> efIcons = {"EF_Thunderstorms", "EF_Mostly-Cloudy", "EF_Snow-to-Rain"};
-        vector<string> aText = {};
-        vector<string> aMoons = {"M_New", "M_First", "M_Full", "M_Last"};
-        LDLStrings = {"Conditions at Moline", "Ice Snow",
-                      "Temp: 56°F",
-                      "Humidity:  66%   Dewpoint: 53°",
-                      "Barometric Pressure: 29.93 F",
-                      "Wind: WNW  38 MPH",
-                      "Visib:   0.8 mi.  Ceiling:3300 ft.",
-                      "October Precipitation: 0.09 in"};
-        LDLScrollStr = "Ministry: Rail Baltica progress slowed by poor design work, bad management.";
-
+        vector<MapCity> rfMapCities = {};
+        for (int i = 0; i < data[13].size(); i++)
+            rfMapCities.emplace_back(data[13][i], data[14][i], data[16][i], data[17][i],
+                                     fontMap, colorMap, textureMap["RF"], iconPosMap[data[15][i]]);
 
 
         // [0] Current Conditions
-        screens.at(0).updateText(ccText);
-        screens.at(0).setPressureArrow(buildPressureArrow(ccPressureArrowUp,
+        screens.at(0).updateText(data[0]);
+        screens.at(0).setPressureArrow(buildPressureArrow(data[1][0],
                                                           colorMap["#cdb900"], colorMap["#0e0e0e"]));
         screens.at(0).loadIcons({
-            AnimIcon(textureMap["CC"], iconPosMap[ccIcon], 178, 230)
+            AnimIcon(textureMap["CC"], iconPosMap[data[2][0]], 178, 230)
         });
+
+        screens.at(1).updateText(data[3]);
 
         // [2] Regional Observations
         screens.at(2).loadMap(textureMap["Map"], 150, 200);
-        screens.at(2).loadCities({
-             MapCity(roCities[0], roTemps[0], 100, 100, fontMap, colorMap, textureMap["RF"], iconPosMap[roIcons[0]]),
-             MapCity(roCities[1], roTemps[1], 140, 250, fontMap, colorMap, textureMap["RF"], iconPosMap[roIcons[1]]),
-             MapCity(roCities[2], roTemps[2], 290, 110, fontMap, colorMap, textureMap["RF"], iconPosMap[roIcons[2]]),
-             MapCity(roCities[3], roTemps[3], 230, 180, fontMap, colorMap, textureMap["RF"], iconPosMap[roIcons[3]]),
-             MapCity(roCities[4], roTemps[4], 410, 130, fontMap, colorMap, textureMap["RF"], iconPosMap[roIcons[4]]),
-             MapCity(roCities[5], roTemps[5], 400, 310, fontMap, colorMap, textureMap["RF"], iconPosMap[roIcons[5]])
-         });
+        screens.at(2).loadCities(roMapCities);
+
+        screens.at(3).updateText(data[9]);
+        screens.at(4).updateText(data[10]);
+        screens.at(5).updateText(data[11]);
 
         // [6] Regional Forecast
         screens.at(6).loadMap(textureMap["Map"], 150, 200);
-        // screens.at(6).loadCities({});
+        screens.at(6).loadCities(rfMapCities);
+        screens.at(6).updateText(data[12]);
 
         // [7] Extended Forecast
+        screens.at(7).updateText(data[18]);
         screens.at(7).loadIcons({
-            AnimIcon(textureMap["EF"], iconPosMap[efIcons[0]], 122, 200),
-            AnimIcon(textureMap["EF"], iconPosMap[efIcons[1]], 320, 200),
-            AnimIcon(textureMap["EF"], iconPosMap[efIcons[2]], 514, 200),
+            AnimIcon(textureMap["EF"], iconPosMap[data[19][0]], 122, 200),
+            AnimIcon(textureMap["EF"], iconPosMap[data[19][1]], 320, 200),
+            AnimIcon(textureMap["EF"], iconPosMap[data[19][2]], 514, 200),
         });
 
         // [8] Almanac
+        screens.at(8).updateText(data[20]);
         screens.at(8).loadIcons({
-            AnimIcon(textureMap["Moon"], iconPosMap[aMoons[0]], 134, 318),
-            AnimIcon(textureMap["Moon"], iconPosMap[aMoons[1]], 256, 318),
-            AnimIcon(textureMap["Moon"], iconPosMap[aMoons[2]], 378, 318),
-            AnimIcon(textureMap["Moon"], iconPosMap[aMoons[3]], 504, 318)
+            AnimIcon(textureMap["Moon"], iconPosMap[data[21][0]], 134, 318),
+            AnimIcon(textureMap["Moon"], iconPosMap[data[21][1]], 256, 318),
+            AnimIcon(textureMap["Moon"], iconPosMap[data[21][2]], 378, 318),
+            AnimIcon(textureMap["Moon"], iconPosMap[data[21][3]], 504, 318)
         });
 
+        LDLStrings = data[22];
+        LDLScrollStr = data[23];
         LDL.setText(LDLStrings.at(LDLStrIdx));
     }
 
@@ -245,7 +245,7 @@ namespace ws4
             if (!LDL.isUsingScroll() && LDL.displays >= dispLDLTimes)
             {
                 LDL.useScroll(true);
-                LDL.setText(LDLScrollStr);
+                LDL.setText(LDLScrollStr[0]);
             }
             if (LDL.isUsingScroll() && LDL.scrolls >= scrLDLTimes)
             {
@@ -278,6 +278,10 @@ namespace ws4
 
             // Render LDL
             LDL.renderTo(window);
+
+            // Render the logo (if enabled)
+            if (showLogo)
+                window.draw(logo);
 
             // Display window
             window.display();

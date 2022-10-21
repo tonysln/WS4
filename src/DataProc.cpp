@@ -1,5 +1,6 @@
 #include "DataProc.h"
-#include <math.h>
+#include <cmath>
+
 
 /*
  * Calculation Sources:
@@ -87,6 +88,120 @@ namespace ws4p {
 
     void nextMoonPhases()
     {
-        return;
+
+    }
+
+
+    void createMapRegion()
+    {
+
+    }
+
+    void fetchNewData()
+    {
+
+    }
+
+    vector<vector<string>> readyFormatLatestData()
+    {
+        /*
+         * data:
+         *    00 - ccText               [city, temp, cond, hum, dewp, ceil, visib, press, Wind:  DIR XX,
+         *                                                  Gusts to  XX?, Wind Chill:/Heat Index:?, WC/HI value]
+         *    01 - ccPressureArrowUp    [up/down]
+         *    02 - ccIcon               [CC_XXXX]
+         *    03 - loText               [(city, temp, cond, wind) * 7]
+         *    04 - roCities             [city, city, ...]
+         *    05 - roTemps              [temp, temp, ...]
+         *    06 - roIcons              [RF_XXX, RF_XXX, ...]
+         *    07 - roXCoords            [X, X, ...]
+         *    08 - roYCoords            [Y, Y, ...]
+         *    09 - lf1Text              ["LINE 1", "LINE 2", ..., "LINE 7"]
+         *    10 - lf2Text              ["LINE 1", "LINE 2", ..., "LINE 7"]
+         *    11 - lf3Text              ["LINE 1", "LINE 2", ..., "LINE 7"]
+         *    12 - rfText               [forecast weekday]
+         *    13 - rfCities             [city, city, ...]
+         *    14 - rfTemps              [temp, temp, ...]
+         *    15 - rfIcons              [RF_XXX, RF_XXX, ...]
+         *    16 - rfXCoords            [X, X, ...]
+         *    17 - rfYCoords            [Y, Y, ...]
+         *    18 - efText               [city, DAY1, DAY2, DAY3, cond11, cond12, cond21, cond22, cond31, cond32, lo1, hi1, lo2, h2, lo3, h3]
+         *    19 - efIcons              [EF_XXX, EF_XXX, EF_XXX]
+         *    20 - aText                [day1, day2, sunrise1, sunrise2, sunset1, sunset2, mphase1, mphase2, mphase3, mphase4, mday1, mday2, mday3, mday4]
+         *    21 - aMoons               [M_Phase1, M_Phase2, M_Phase3, M_Phase4]
+         *    22 - LDLStrings           ["Conditions at city", cond, "Temp: XX°F", "Humidity:  XX%,
+         *                                     Dewpoint: XX°", "Barometric Pressure: XX.XX F", "Wind: DIR  XX MPH",
+         *                                     "Visib: X.X mi.  Ceiling: XXXX ft.", "MONTH Precipitation: X.XX in"]
+         *    23 - LDLScrollStr         ["Scrolling text..."]
+         */
+
+        vector<vector<string>> data =
+        {
+            {"Moline", "56°", "Ice Snow", "66%", "53°", "0.8 mi.", "3300 ft.", "29.93", "Wind:  WNW  38", "Gusts to  77", "Wind Chill:", "52°"},
+            {"up"},
+            {"CC_Ice-Snow"},
+            {"Altus", "71", "M Cloudy", "SE16",
+             "Enid", "59", "T Shower", "NE22",
+             "Gage", "59", "T Shower", "NE22",
+             "Oklahoma City", "62", "Lgt Rain", "SE17",
+             "Ponca City", "61", "Fair", "E 24",
+             "Tinker AFB", "62", "T Shower", "SE10",
+             "Tulsa", "65", "Cloudy", "NE14"},
+            {"Oklahoma", "Ponca City", "Tulsa", "Altus", "Gage", "Tinker AFB"},
+            {"62", "61", "65", "71", "59", "62"},
+            {"RF_Rain", "RF_Sunny", "RF_Cloudy", "RF_Mostly-Cloudy", "RF_Thunderstorm", "RF_Thunderstorm"},
+            {"80", "140", "290", "230", "410", "400"},
+            {"330", "250", "110", "180", "130", "310"},
+            {"RAIN IN THE AFTERNOON. HIGHS IN",
+              "THE UPPER 70S. SOUTHEAST WINDS",
+              "10 TO 15 MPH. CHANCE OF RAIN 50",
+              "PERCENT.",
+              "",
+              "TONIGHT...PARTLY CLOUDY IN THE",
+              "EVENING, THEN BECOMING MOSTLY"},
+            {"CLOUDY. LOWS IN THE UPPER 60S.",
+              "SOUTH WINDS 5 TO 10 MPH.",
+              "",
+              "WEDNESDAY...MOSTLY CLOUDY.",
+              "CHANCE OF RAIN IN THE MORNING",
+              "THEN SHOWERS LIKELY AND CHANCE",
+              "OF THUNDERSTORMS IN THE"},
+            {"EVENING.",
+              "",
+              "",
+              "",
+              "",
+              "",
+              ""},
+            {"Monday"},
+            {"Oklahoma", "Ponca City", "Tulsa", "Altus", "Gage", "Tinker AFB"},
+            {"68", "69", "62", "63", "51", "65"},
+            {"RF_Sunny", "RF_Sunny", "RF_Cloudy", "RF_Cloudy", "RF_Rain-Wind", "RF_Rain"},
+            {"80", "140", "290", "230", "410", "400"},
+            {"330", "250", "110", "180", "130", "310"},
+            {"Moline", "TUE", "WED", "THU",
+             "T'Storms", "",
+             "Mostly", "Cloudy",
+             "Showers", "",
+             "77", "87",
+             "76", "89",
+             "76", "88"},
+            {"EF_Thunderstorms", "EF_Mostly-Cloudy", "EF_Snow-to-Rain"},
+            {"Saturday", "Sunday",
+            "7:57 am", "7:58 am",
+            "5:25 pm", "5:26 pm",
+            "New", "First", "Full", "Last",
+            "Jan 1", "Jan 8", "Jan 16", "Jan 24"},
+            {"M_New", "M_First", "M_Full", "M_Last"},
+            {"Conditions at Moline", "Ice Snow",
+              "Temp: 56°F",
+              "Humidity:  66%   Dewpoint: 53°",
+              "Barometric Pressure: 29.93 F",
+              "Wind: WNW  38 MPH",
+              "Visib:   0.8 mi.  Ceiling:3300 ft.",
+              "October Precipitation: 0.09 in"},
+            {"Ministry: Rail Baltica progress slowed by poor design work, bad management."}
+        };
+        return data;
     }
 }

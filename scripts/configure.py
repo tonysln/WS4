@@ -21,6 +21,8 @@ Values:
   - Music volume
   - Color definitions!
   - Font & icon locations
+  - Logo on/off 
+  - Window borders on/off
 """
 
 

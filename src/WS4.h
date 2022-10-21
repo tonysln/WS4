@@ -70,6 +70,8 @@ namespace ws4
         vector<GfxScreen> screens;
         vector<MapCity> regMapCities;
         vector<MapCity> forcMapCities;
+        bool showLogo = true;
+        sf::Sprite logo;
         GfxClock clock;
         GfxLDL LDL;
 
@@ -77,7 +79,9 @@ namespace ws4
         // Data
         int LDLStrIdx = 0;
         vector<string> LDLStrings;
-        string LDLScrollStr;
+        vector<string> LDLScrollStr;
+        vector<vector<string>> data;
+
 
         // Music
         vector<string> songsPaths;
@@ -93,6 +97,7 @@ namespace ws4
         WS4();
         void loadMusic();
         void loadGraphics();
+        void getNewData();
         void loadData();
         int runLoop();
     };

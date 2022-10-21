@@ -21,7 +21,7 @@ namespace ws4
         int y = 0;
 
     public:
-        MapCity(string nameText, string tempText, int x, int y, map<string, sf::Font> &fontMap,
+        MapCity(string nameText, string tempText, string xs, string ys, map<string, sf::Font> &fontMap,
                         map<string, sf::Color> &colorMap, sf::Texture &icoTxt, vector<int> icoPos);
         MapCity() = default;
 

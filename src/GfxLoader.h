@@ -24,7 +24,7 @@ namespace ws4
     map<string, sf::Font> loadFontMap();
     map<string, sf::Color> loadColorMap();
     map<string, sf::Texture> loadTextureMap();
-    vector<array<sf::Vertex, 4>> buildPressureArrow(bool dirUp, sf::Color col, sf::Color shadow);
+    vector<array<sf::Vertex, 4>> buildPressureArrow(string dir, sf::Color col, sf::Color shadow);
     map<string, vector<int>> loadIconPositionsMap();
 
     // Create vectors of vertices, textlabels and animicons for all screens.
