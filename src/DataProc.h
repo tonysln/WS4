@@ -22,7 +22,8 @@ namespace ws4p
     double calcHeatIndex(double tempC, double relHum);
     bool todayHasMoonEvent();
     void fetchNewData();
-    void createMapRegion();
+    int runValidator();
+    void createMapRegion(int x, int y);
     void nextMoonPhases();
 }
 

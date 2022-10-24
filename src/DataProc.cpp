@@ -1,4 +1,5 @@
 #include "DataProc.h"
+#include <cstdlib>
 #include <cmath>
 
 
@@ -92,9 +93,20 @@ namespace ws4p {
     }
 
 
-    void createMapRegion()
+    int runValidator()
     {
+        int valid = std::system("python3 ../scripts/validate.py");
+        return valid;
+    }
 
+    void createMapRegion(int x, int y)
+    {
+        char *cmd = new char[100];
+        sprintf(cmd, "python3 ../scripts/map_region.py %d %d", x, y);
+        cmd[99] = '\0';
+
+        std::system(cmd);
+        delete[] cmd;
     }
 
     void fetchNewData()

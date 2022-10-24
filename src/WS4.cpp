@@ -2,6 +2,7 @@
 #include "DataProc.h"
 #include <filesystem>
 #include <algorithm>
+#include <iostream>
 #include <chrono>
 #include <random>
 #include "WS4.h"
@@ -83,7 +84,14 @@ namespace ws4
     void WS4::getNewData()
     {
         ws4p::fetchNewData();
-        ws4p::createMapRegion();
+        int valid = ws4p::runValidator();
+        if (valid != 0)
+        {
+            std::cout << "NB! Validator value: " << valid << '\n';
+            // Run corrector / handle somehow
+        }
+
+        ws4p::createMapRegion(420, 660);
         data = ws4p::readyFormatLatestData();
     }
 
@@ -113,7 +121,7 @@ namespace ws4
         screens.at(1).updateText(data[3]);
 
         // [2] Regional Observations
-        screens.at(2).loadMap(textureMap["Map"], 150, 200);
+        screens.at(2).loadMap(textureMap["Map"], 0, 0);
         screens.at(2).loadCities(roMapCities);
 
         screens.at(3).updateText(data[9]);
@@ -121,7 +129,7 @@ namespace ws4
         screens.at(5).updateText(data[11]);
 
         // [6] Regional Forecast
-        screens.at(6).loadMap(textureMap["Map"], 150, 200);
+        screens.at(6).loadMap(textureMap["Map"], 0, 0);
         screens.at(6).loadCities(rfMapCities);
         screens.at(6).updateText(data[12]);
 

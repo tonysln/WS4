@@ -160,7 +160,7 @@ namespace ws4
         if (!tM["RF"].loadFromFile("../graphics/icons/Regional-Maps.png"))
             return tM;
         tM["RF"].setSmooth(false);
-        if (!tM["Map"].loadFromFile("../graphics/maps/Basemap.png"))
+        if (!tM["Map"].loadFromFile("../data/map.png"))
             return tM;
         tM["Map"].setSmooth(false);
         if (!tM["Logo"].loadFromFile("../graphics/logo.png"))
@@ -287,8 +287,8 @@ namespace ws4
                     buildQuad(0, 85, 461, 85, 457, 90, 0, 90, colorMap["#472240"]),
                 },
                 vector {
-                    TextLabel("Current", fontMap["Star4000"], "#cdb900", 34, 3, 0.9, 158, 21, colorMap, 0),
-                    TextLabel("Conditions", fontMap["Star4000"], "#cdb900", 34, 3, 0.9, 158, 50, colorMap, 0),
+                    TextLabel("Current", fontMap["Star4000"], "#cdb900", 34, 3, 0.9, 157, 21, colorMap, 0),
+                    TextLabel("Conditions", fontMap["Star4000"], "#cdb900", 34, 3, 0.9, 157, 50, colorMap, 0),
                     TextLabel("Humidity:", fontMap["Star4000"], "#d7d7d7", 33, 1, 0.5, 338, 131, colorMap, 0),
                     TextLabel("Dewpoint:", fontMap["Star4000"], "#d7d7d7", 33, 1, 0.5, 338, 171, colorMap, 0),
                     TextLabel("Ceiling:", fontMap["Star4000"], "#d7d7d7", 33, 1, 0.5, 338, 215, colorMap, 0),
@@ -342,7 +342,7 @@ namespace ws4
                     buildQuad(0, 85, 461, 85, 457, 90, 0, 90, colorMap["#472240"]),
                 },
                 vector {
-                    TextLabel("Latest Observations", fontMap["Star4000"], "#cdb900", 34, 3, 0.4, 158, 35, colorMap, 0),
+                    TextLabel("Latest Observations", fontMap["Star4000"], "#cdb900", 34, 3, 0.4, 157, 35, colorMap, 0),
                     TextLabel("F°", fontMap["Star4000-Small"], "#d7d7d7", 30, 0, 1.0, 306, 78, colorMap, 0),
                     TextLabel("WEATHER", fontMap["Star4000-Small"], "#d7d7d7", 30, 0, 1.0, 365, 78, colorMap, 0),
                     TextLabel("WIND", fontMap["Star4000-Small"], "#d7d7d7", 30, 0, 1.0, 505, 78, colorMap, 0),
@@ -399,8 +399,8 @@ namespace ws4
                     buildQuad(0, 85, 461, 85, 457, 90, 0, 90, colorMap["#472240"]),
                 },
                 vector {
-                    TextLabel("Regional", fontMap["Star4000"], "#cdb900", 34, 3, 0.6, 158, 21, colorMap, 0),
-                    TextLabel("Observations", fontMap["Star4000"], "#cdb900", 34, 3, 0.6, 158, 50, colorMap, 0),
+                    TextLabel("Regional", fontMap["Star4000"], "#cdb900", 34, 3, 0.6, 157, 21, colorMap, 0),
+                    TextLabel("Observations", fontMap["Star4000"], "#cdb900", 34, 3, 0.6, 157, 50, colorMap, 0),
                 }
             }
         );
@@ -437,7 +437,7 @@ namespace ws4
                     buildQuad(0, 85, 461, 85, 457, 90, 0, 90, colorMap["#472240"]),
                 },
                 vector {
-                    TextLabel("Local Forecast", fontMap["Star4000"], "#cdb900", 34, 3, 0.6, 158, 35, colorMap, 0),
+                    TextLabel("Local Forecast", fontMap["Star4000"], "#cdb900", 34, 3, 0.6, 157, 35, colorMap, 0),
                 },
                 vector {
                     TextLabel("", fontMap["Star4000"], "#d7d7d7", 33, 1, 1.0, 70, 105, colorMap, 0),
@@ -478,7 +478,7 @@ namespace ws4
                     buildQuad(0, 85, 461, 85, 457, 90, 0, 90, colorMap["#472240"]),
                 },
                 vector {
-                    TextLabel("Local Forecast", fontMap["Star4000"], "#cdb900", 34, 3, 0.6, 158, 35, colorMap, 0),
+                    TextLabel("Local Forecast", fontMap["Star4000"], "#cdb900", 34, 3, 0.6, 157, 35, colorMap, 0),
                 },
                 vector {
                     TextLabel("", fontMap["Star4000"], "#d7d7d7", 33, 1, 1.0, 70, 105, colorMap, 0),
@@ -519,7 +519,7 @@ namespace ws4
                     buildQuad(0, 85, 461, 85, 457, 90, 0, 90, colorMap["#472240"]),
                 },
                 vector {
-                    TextLabel("Local Forecast", fontMap["Star4000"], "#cdb900", 34, 3, 0.6, 158, 35, colorMap, 0),
+                    TextLabel("Local Forecast", fontMap["Star4000"], "#cdb900", 34, 3, 0.6, 157, 35, colorMap, 0),
                 },
                 vector {
                     TextLabel("", fontMap["Star4000"], "#d7d7d7", 33, 1, 1.0, 70, 105, colorMap, 0),
@@ -552,10 +552,10 @@ namespace ws4
                     buildQuad(0, 85, 461, 85, 457, 90, 0, 90, colorMap["#472240"]),
                 },
                 vector {
-                    TextLabel("Forecast For", fontMap["Star4000"], "#cdb900", 34, 3, 0.6, 158, 21, colorMap, 0),
+                    TextLabel("Forecast For", fontMap["Star4000"], "#cdb900", 34, 3, 0.6, 157, 21, colorMap, 0),
                 },
                 vector {
-                    TextLabel("", fontMap["Star4000"], "#cdb900", 34, 3, 0.6, 158, 50, colorMap, 0),
+                    TextLabel("", fontMap["Star4000"], "#cdb900", 34, 3, 0.6, 157, 50, colorMap, 0),
                 }
             }
         );
@@ -617,7 +617,7 @@ namespace ws4
                     buildQuad(0, 85, 461, 85, 457, 90, 0, 90, colorMap["#472240"]),
                 },
                 vector {
-                    TextLabel("Extended Forecast", fontMap["Star4000"], "#cdb900", 34, 2, 0.5, 158, 50, colorMap, 0),
+                    TextLabel("Extended Forecast", fontMap["Star4000"], "#cdb900", 34, 2, 0.5, 157, 50, colorMap, 0),
                     TextLabel("Lo", fontMap["Star4000"], "#8385cb", 33, 1, 0.7, 86, 311, colorMap, 1),
                     TextLabel("Hi", fontMap["Star4000"], "#cdb900", 33, 1, 0.7, 158, 311, colorMap, 1),
                     TextLabel("Lo", fontMap["Star4000"], "#8385cb", 33, 1, 0.7, 284, 311, colorMap, 1),
@@ -626,7 +626,7 @@ namespace ws4
                     TextLabel("Hi", fontMap["Star4000"], "#cdb900", 33, 1, 0.7, 554, 311, colorMap, 1),
                 },
                 vector {
-                    TextLabel("", fontMap["Star4000"], "#d7d7d7", 34, 2, 0.5, 158, 21, colorMap, 0),
+                    TextLabel("", fontMap["Star4000"], "#d7d7d7", 34, 2, 0.5, 156, 21, colorMap, 0),
                     TextLabel("", fontMap["Star4000"], "#cdb900", 35, 2, 1.0, 122, 100, colorMap, 1),
                     TextLabel("", fontMap["Star4000"], "#cdb900", 35, 2, 1.0, 320, 100, colorMap, 1),
                     TextLabel("", fontMap["Star4000"], "#cdb900", 35, 2, 1.0, 514, 100, colorMap, 1),
@@ -670,7 +670,7 @@ namespace ws4
                     buildQuad(0, 85, 461, 85, 457, 90, 0, 90, colorMap["#472240"]),
                 },
                 vector {
-                    TextLabel("Almanac", fontMap["Star4000"], "#cdb900", 34, 3, 0.9, 158, 35, colorMap, 0),
+                    TextLabel("Almanac", fontMap["Star4000"], "#cdb900", 34, 3, 0.9, 156, 35, colorMap, 0),
                     TextLabel("Sunrise:", fontMap["Star4000"], "#d7d7d7", 34, 2, 1.0, 194, 116, colorMap, 2),
                     TextLabel("Sunset:", fontMap["Star4000"], "#d7d7d7", 34, 2, 1.0, 194, 149, colorMap, 2),
                     TextLabel("Moon Data:", fontMap["Star4000"], "#cdb900", 34, 2, 0.9, 78, 190, colorMap, 0),
