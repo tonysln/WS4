@@ -25,7 +25,6 @@ namespace ws4
         GfxClock() = default;
 
         void update();
-        void fixPosition();
         void renderTo(sf::RenderWindow &window);
     };
 }

@@ -6,9 +6,9 @@ namespace ws4
     GfxClock::GfxClock(map<string, sf::Color> &colorMap, map<string, sf::Font> &fontMap)
     {
         update();
-        time = TextLabel(timeStr, fontMap["Star4000-Small"], "#d7d7d7", 31, 1,  0.9f, 531, 33, colorMap, 2);
-        ampm = TextLabel(timeAPStr, fontMap["Star4000-Small"], "#d7d7d7", 31, 1,  0.9f, 576, 33, colorMap, 2);
-        date = TextLabel(dateStr, fontMap["Star4000-Small"], "#d7d7d7", 31, 1, 0.9f, 574, 53, colorMap, 2);
+        time = TextLabel(timeStr, fontMap["Star4000-Small"], "#d7d7d7", 32, 1,  0.9f, 412, 33, colorMap, 0);
+        ampm = TextLabel(timeAPStr, fontMap["Star4000-Small"], "#d7d7d7", 32, 1,  0.9f, 575, 33, colorMap, 2);
+        date = TextLabel(dateStr, fontMap["Star4000-Small"], "#d7d7d7", 32, 1, 0.9f, 575, 53, colorMap, 2);
     }
 
 
