@@ -1,0 +1,28 @@
+{
+  "fps": 30,
+  "scale": 1.0,
+  "win_borders": true,
+  "full_screen": false,
+  "scene_time": 12.0,
+  "ldl_time": 5.0,
+  "disp_ldl_times": 2,
+  "scr_ldl_times": 1,
+  "screens": [
+    "Current-Conditions",
+    "Latest-Observations",
+    "Regional-Observations",
+    "Local-Forecast-1",
+    "Local-Forecast-2",
+    "Local-Forecast-3",
+    "Forecast-For",
+    "Extended-Forecast",
+    "Almanac"
+  ],
+  "show_logo": true,
+  "music_enabled": true,
+  "music_volume": 20.0,
+  "fonts_dir": "./fonts/",
+  "icons_dir": "./graphics/icons/",
+  "data_dir": "./data/",
+  "music_dir": "./music/"
+}

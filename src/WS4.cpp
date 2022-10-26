@@ -93,6 +93,8 @@ namespace ws4
 
         ws4p::createMapRegion(420, 660);
         data = ws4p::readyFormatLatestData();
+        cityXValues = {"80", "140", "290", "230", "410", "400", "430"};
+        cityYValues = {"330", "250", "110", "180", "130", "310", "230"};
     }
 
 
@@ -101,12 +103,12 @@ namespace ws4
         // Create MapCity icon vectors
         vector<MapCity> roMapCities = {};
         for (int i = 0; i < data[4].size(); i++)
-            roMapCities.emplace_back(data[4][i], data[5][i], data[7][i], data[8][i],
+            roMapCities.emplace_back(data[4][i], data[5][i], cityXValues[i], cityYValues[i],
                                      fontMap, colorMap, textureMap["RF"], iconPosMap[data[6][i]]);
 
         vector<MapCity> rfMapCities = {};
         for (int i = 0; i < data[13].size(); i++)
-            rfMapCities.emplace_back(data[13][i], data[14][i], data[16][i], data[17][i],
+            rfMapCities.emplace_back(data[13][i], data[14][i], cityXValues[i], cityYValues[i],
                                      fontMap, colorMap, textureMap["RF"], iconPosMap[data[15][i]]);
 
 
@@ -115,7 +117,7 @@ namespace ws4
         screens.at(0).setPressureArrow(buildPressureArrow(data[1][0],
                                                           colorMap["#cdb900"], colorMap["#0e0e0e"]));
         screens.at(0).loadIcons({
-            AnimIcon(textureMap["CC"], iconPosMap[data[2][0]], 178, 230)
+            AnimIcon(textureMap["CC"], iconPosMap[data[2][0]], 184, 216)
         });
 
         screens.at(1).updateText(data[3]);
@@ -158,6 +160,9 @@ namespace ws4
 
     void WS4::loadMusic()
     {
+        if (!musicEnabled)
+            return;
+
         // Open folder and load all songs
         for (const auto& entry : fs::directory_iterator("../music"))
         {
@@ -296,7 +301,7 @@ namespace ws4
 
 
             // Check if time to change song
-             if (musicStarted && musicPlayer.getStatus() == sf::Music::Status::Stopped)
+             if (musicEnabled && musicStarted && musicPlayer.getStatus() == sf::Music::Status::Stopped)
                  changeSong();
 
         }

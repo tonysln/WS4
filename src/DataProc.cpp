@@ -1,5 +1,5 @@
 #include "DataProc.h"
-#include <cstdlib>
+#include <stdio.h>
 #include <cmath>
 
 
@@ -102,7 +102,7 @@ namespace ws4p {
     void createMapRegion(int x, int y)
     {
         char *cmd = new char[100];
-        sprintf(cmd, "python3 ../scripts/map_region.py %d %d", x, y);
+        snprintf(cmd, 100, "python3 ../scripts/map_region.py %d %d", x, y);
         cmd[99] = '\0';
 
         std::system(cmd);
@@ -126,8 +126,7 @@ namespace ws4p {
          *    04 - roCities             [city, city, ...]
          *    05 - roTemps              [temp, temp, ...]
          *    06 - roIcons              [RF_XXX, RF_XXX, ...]
-         *    07 - roXCoords            [X, X, ...]
-         *    08 - roYCoords            [Y, Y, ...]
+         *
          *    09 - lf1Text              ["LINE 1", "LINE 2", ..., "LINE 7"]
          *    10 - lf2Text              ["LINE 1", "LINE 2", ..., "LINE 7"]
          *    11 - lf3Text              ["LINE 1", "LINE 2", ..., "LINE 7"]
@@ -135,8 +134,7 @@ namespace ws4p {
          *    13 - rfCities             [city, city, ...]
          *    14 - rfTemps              [temp, temp, ...]
          *    15 - rfIcons              [RF_XXX, RF_XXX, ...]
-         *    16 - rfXCoords            [X, X, ...]
-         *    17 - rfYCoords            [Y, Y, ...]
+         *
          *    18 - efText               [city, DAY1, DAY2, DAY3, cond11, cond12, cond21, cond22, cond31, cond32, lo1, hi1, lo2, h2, lo3, h3]
          *    19 - efIcons              [EF_XXX, EF_XXX, EF_XXX]
          *    20 - aText                [day1, day2, sunrise1, sunrise2, sunset1, sunset2, mphase1, mphase2, mphase3, mphase4, mday1, mday2, mday3, mday4]
@@ -149,70 +147,69 @@ namespace ws4p {
 
         vector<vector<string>> data =
         {
-            {"Moline", "56°", "Ice Snow", "66%", "53°", "0.8 mi.", "3300 ft.", "29.93", "Wind:  WNW  38", "Gusts to  77", "Wind Chill:", "52°"},
-            {"up"},
-            {"CC_Ice-Snow"},
-            {"Altus", "71", "M Cloudy", "SE16",
-             "Enid", "59", "T Shower", "NE22",
-             "Gage", "59", "T Shower", "NE22",
-             "Oklahoma City", "62", "Lgt Rain", "SE17",
-             "Ponca City", "61", "Fair", "E 24",
-             "Tinker AFB", "62", "T Shower", "SE10",
-             "Tulsa", "65", "Cloudy", "NE14"},
-            {"Oklahoma", "Ponca City", "Tulsa", "Altus", "Gage", "Tinker AFB"},
-            {"62", "61", "65", "71", "59", "62"},
-            {"RF_Rain", "RF_Sunny", "RF_Cloudy", "RF_Mostly-Cloudy", "RF_Thunderstorm", "RF_Thunderstorm"},
-            {"80", "140", "290", "230", "410", "400"},
-            {"330", "250", "110", "180", "130", "310"},
-            {"RAIN IN THE AFTERNOON. HIGHS IN",
-              "THE UPPER 70S. SOUTHEAST WINDS",
-              "10 TO 15 MPH. CHANCE OF RAIN 50",
-              "PERCENT.",
-              "",
-              "TONIGHT...PARTLY CLOUDY IN THE",
-              "EVENING, THEN BECOMING MOSTLY"},
-            {"CLOUDY. LOWS IN THE UPPER 60S.",
-              "SOUTH WINDS 5 TO 10 MPH.",
-              "",
-              "WEDNESDAY...MOSTLY CLOUDY.",
-              "CHANCE OF RAIN IN THE MORNING",
-              "THEN SHOWERS LIKELY AND CHANCE",
-              "OF THUNDERSTORMS IN THE"},
-            {"EVENING.",
-              "",
-              "",
-              "",
-              "",
-              "",
-              ""},
-            {"Monday"},
-            {"Oklahoma", "Ponca City", "Tulsa", "Altus", "Gage", "Tinker AFB"},
-            {"68", "69", "62", "63", "51", "65"},
-            {"RF_Sunny", "RF_Sunny", "RF_Cloudy", "RF_Cloudy", "RF_Rain-Wind", "RF_Rain"},
-            {"80", "140", "290", "230", "410", "400"},
-            {"330", "250", "110", "180", "130", "310"},
-            {"Moline", "TUE", "WED", "THU",
-             "T'Storms", "",
-             "Mostly", "Cloudy",
-             "Showers", "",
-             "77", "87",
-             "76", "89",
-             "76", "88"},
-            {"EF_Thunderstorms", "EF_Mostly-Cloudy", "EF_Snow-to-Rain"},
-            {"Saturday", "Sunday",
-            "7:57 am", "7:58 am",
-            "5:25 pm", "5:26 pm",
-            "New", "First", "Full", "Last",
-            "Jan 1", "Jan 8", "Jan 16", "Jan 24"},
-            {"M_New", "M_First", "M_Full", "M_Last"},
-            {"Conditions at Moline", "Ice Snow",
-              "Temp: 56°F",
-              "Humidity:  66%   Dewpoint: 53°",
-              "Barometric Pressure: 29.93 F",
-              "Wind: WNW  38 MPH",
-              "Visib:   0.8 mi.  Ceiling:3300 ft.",
-              "October Precipitation: 0.09 in"},
-            {"Ministry: Rail Baltica progress slowed by poor design work, bad management."}
+            {"Wilmington", "31°", "Cloudy", "43%", "11°", "10mi.", "6500 ft.", "30.41", "Wind:  ENE  5", " ", "Wind Chill:", "29°"},
+            {"down"},
+            {"CC_Cloudy"},
+            {"Atlantic City", "35", "M Cloudy", "E  8",
+             "Baltimore", "31", "Cloudy", "ENE7",
+             "Dover", "33", "Cloudy", "NNE1",
+             "Philadelphia", "32", "Cloudy", "NE 6",
+             "Salisbury", "40", "M Cloudy", "N  6",
+             "Wash/National", "36", "Cloudy", "NNE3",
+             "Wilmington", "31", "Cloudy", "ENE5"},
+            {"Pittsburgh", "New York", "Harrisburg", "Atl City", "Washington DC", "Charleston", "Richmond"},
+            {"25", "32", "27", "35", "36", "39", "43"},
+            {"RF_Rain", "RF_Sunny", "RF_Cloudy", "RF_Mostly-Cloudy", "RF_Thunderstorm", "RF_Thunderstorm", "RF_Thunderstorm"},
+            {""},
+            {""},
+            {"THIS AFTERNOON...MOSTLY CLOUDY.",
+              "HIGHS IN THE MID 30S. NORTHEAST",
+              "WINDS 10 MPH.",
+              " ",
+              " ",
+              " ",
+              " "},
+            {"TONIGHT...CLOUDY WITH CHANCE OF",
+              "FLURRIES. LOWS 20 TO 25. LIGHT",
+              "NORTHEAST WINDS.",
+              " ",
+              " ",
+              " ",
+              " "},
+            {"WEDNESDAY...CLOUDY WITH A 30",
+              "PERCENT CHANCE OF LIGHT RAIN OR",
+              "FREEZING RAIN. HIGHS IN THE",
+              "UPPER 30S. LIGHT EAST WINDS.",
+              " ",
+              " ",
+              " "},
+            {"Wednesday"},
+            {"Pittsburgh", "New York", "Harrisburg", "Atl City", "Washington DC", "Charleston", "Richmond"},
+            {"42", "34", "36", "41", "45", "54", "50"},
+            {"RF_Sunny", "RF_Sunny", "RF_Cloudy", "RF_Cloudy", "RF_Rain-Wind", "RF_Rain", "RF_Thunderstorm"},
+            {""},
+            {""},
+            {"New Castle County", "THU", "FRI", "SAT",
+             "Showers", " ",
+             "Scattered", "Showers",
+             "Scattered", "Showers",
+             "35", "45",
+             "44", "55",
+             "44", "54"},
+            {"EF_Showers", "EF_Scattered-Showers", "EF_Scattered-Showers"},
+            {"Tuesday", "Wednesday",
+            "7:19 am", "7:19 am",
+            "4:59 pm", "5:00 pm",
+            "Full", "Last", "New", "First",
+            "Jan 16", "Jan 23", "Jan 30", "Feb 7"},
+            {"M_Full", "M_Last", "M_New", "M_First"},
+            {"Conditions at Wilmington", "Cloudy",
+              "Temp: 31°F     Wind Chill: 29°F",
+              "Humidity:  43%    Dewpoint: 11°F",
+              "Barometric Pressure: 30.41 F",
+              "Wind: ENE  5 MPH",
+              "Visib:  10 mi.   Ceiling: 6500 ft."},
+            {"TURN TO CHANNEL 22-THE CLASSIFIED CHANNEL FOR THE BEST DEALS IN REAL ESTATE, AUTOMOBILES AND RETAIL SERVICES.  FOR ADVERTISING INFO CALL 575-0100.  CHANNEL 22-THE CLASSIFIED CHANNEL...MADE FOR YOU!"}
         };
         return data;
     }

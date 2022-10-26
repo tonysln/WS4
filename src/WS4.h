@@ -29,6 +29,7 @@ namespace ws4
         const short WIN_HEIGHT = 480;
         const float SCALE = 1.0f;
         const bool winBorders = true;
+        const bool fullScreen = false;
         sf::RenderWindow window;
         sf::View view;
 
@@ -36,10 +37,10 @@ namespace ws4
         // Timers & Counters
         int iconFrame = 0;
         float iconFrameCounter = 0.f;
-        float sceneTime = 10.f;
-        float LDLTime = 6.f;
+        float sceneTime = 12.f;
+        float LDLTime = 5.f;
         int dispLDLTimes = 2;
-        int scrLDLTimes = 2;
+        int scrLDLTimes = 1;
         sf::Clock sceneTimer;
         sf::Clock LDLTimer;
 
@@ -80,12 +81,15 @@ namespace ws4
         int LDLStrIdx = 0;
         vector<string> LDLStrings;
         vector<string> LDLScrollStr;
+        vector<string> cityXValues;
+        vector<string> cityYValues;
         vector<vector<string>> data;
 
 
         // Music
         vector<string> songsPaths;
         bool musicStarted = false;
+        bool musicEnabled = true;
         float volume = 20.f;
         int songIdx = 0;
         sf::Music musicPlayer;
