@@ -91,10 +91,12 @@ namespace ws4
             // Run corrector / handle somehow
         }
 
-        ws4p::createMapRegion(420, 660);
+        ws4p::createMapRegion(1780, 430);
         data = ws4p::readyFormatLatestData();
-        cityXValues = {"80", "140", "290", "230", "410", "400", "430"};
-        cityYValues = {"330", "250", "110", "180", "130", "310", "230"};
+        cityROXValues = {"160", "530", "350", "490", "340", "90", "320"};
+        cityROYValues = {"140", "120", "170", "220", "270", "300", "340"};
+        cityRFXValues = {"160", "530", "350", "490", "340", "90", "320"};
+        cityRFYValues = {"140", "120", "170", "220", "270", "300", "340"};
     }
 
 
@@ -102,14 +104,14 @@ namespace ws4
     {
         // Create MapCity icon vectors
         vector<MapCity> roMapCities = {};
-        for (int i = 0; i < data[4].size(); i++)
-            roMapCities.emplace_back(data[4][i], data[5][i], cityXValues[i], cityYValues[i],
+        for (int i = 0; i < cityROXValues.size(); i++)
+            roMapCities.emplace_back(data[4][i], data[5][i], cityROXValues[i], cityROYValues[i],
                                      fontMap, colorMap, textureMap["RF"], iconPosMap[data[6][i]]);
 
         vector<MapCity> rfMapCities = {};
-        for (int i = 0; i < data[13].size(); i++)
-            rfMapCities.emplace_back(data[13][i], data[14][i], cityXValues[i], cityYValues[i],
-                                     fontMap, colorMap, textureMap["RF"], iconPosMap[data[15][i]]);
+        for (int i = 0; i < cityRFXValues.size(); i++)
+            rfMapCities.emplace_back(data[11][i], data[12][i], cityRFXValues[i], cityRFYValues[i],
+                                     fontMap, colorMap, textureMap["RF"], iconPosMap[data[13][i]]);
 
 
         // [0] Current Conditions
@@ -117,7 +119,7 @@ namespace ws4
         screens.at(0).setPressureArrow(buildPressureArrow(data[1][0],
                                                           colorMap["#cdb900"], colorMap["#0e0e0e"]));
         screens.at(0).loadIcons({
-            AnimIcon(textureMap["CC"], iconPosMap[data[2][0]], 184, 216)
+            AnimIcon(textureMap["CC"], iconPosMap[data[2][0]], 184, 210)
         });
 
         screens.at(1).updateText(data[3]);
@@ -126,34 +128,34 @@ namespace ws4
         screens.at(2).loadMap(textureMap["Map"], 0, 0);
         screens.at(2).loadCities(roMapCities);
 
-        screens.at(3).updateText(data[9]);
-        screens.at(4).updateText(data[10]);
-        screens.at(5).updateText(data[11]);
+        screens.at(3).updateText(data[7]);
+        screens.at(4).updateText(data[8]);
+        screens.at(5).updateText(data[9]);
 
         // [6] Regional Forecast
         screens.at(6).loadMap(textureMap["Map"], 0, 0);
         screens.at(6).loadCities(rfMapCities);
-        screens.at(6).updateText(data[12]);
+        screens.at(6).updateText(data[10]);
 
         // [7] Extended Forecast
-        screens.at(7).updateText(data[18]);
+        screens.at(7).updateText(data[14]);
         screens.at(7).loadIcons({
-            AnimIcon(textureMap["EF"], iconPosMap[data[19][0]], 122, 200),
-            AnimIcon(textureMap["EF"], iconPosMap[data[19][1]], 320, 200),
-            AnimIcon(textureMap["EF"], iconPosMap[data[19][2]], 514, 200),
+            AnimIcon(textureMap["EF"], iconPosMap[data[15][0]], 122, 200),
+            AnimIcon(textureMap["EF"], iconPosMap[data[15][1]], 320, 200),
+            AnimIcon(textureMap["EF"], iconPosMap[data[15][2]], 514, 200),
         });
 
         // [8] Almanac
-        screens.at(8).updateText(data[20]);
+        screens.at(8).updateText(data[16]);
         screens.at(8).loadIcons({
-            AnimIcon(textureMap["Moon"], iconPosMap[data[21][0]], 134, 318),
-            AnimIcon(textureMap["Moon"], iconPosMap[data[21][1]], 256, 318),
-            AnimIcon(textureMap["Moon"], iconPosMap[data[21][2]], 378, 318),
-            AnimIcon(textureMap["Moon"], iconPosMap[data[21][3]], 504, 318)
+            AnimIcon(textureMap["Moon"], iconPosMap[data[17][0]], 134, 318),
+            AnimIcon(textureMap["Moon"], iconPosMap[data[17][1]], 256, 318),
+            AnimIcon(textureMap["Moon"], iconPosMap[data[17][2]], 378, 318),
+            AnimIcon(textureMap["Moon"], iconPosMap[data[17][3]], 504, 318)
         });
 
-        LDLStrings = data[22];
-        LDLScrollStr = data[23];
+        LDLStrings = data[18];
+        LDLScrollStr = data[19];
         LDL.setText(LDLStrings.at(LDLStrIdx));
     }
 

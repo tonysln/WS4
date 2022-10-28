@@ -126,23 +126,21 @@ namespace ws4p {
          *    04 - roCities             [city, city, ...]
          *    05 - roTemps              [temp, temp, ...]
          *    06 - roIcons              [RF_XXX, RF_XXX, ...]
-         *
-         *    09 - lf1Text              ["LINE 1", "LINE 2", ..., "LINE 7"]
-         *    10 - lf2Text              ["LINE 1", "LINE 2", ..., "LINE 7"]
-         *    11 - lf3Text              ["LINE 1", "LINE 2", ..., "LINE 7"]
-         *    12 - rfText               [forecast weekday]
-         *    13 - rfCities             [city, city, ...]
-         *    14 - rfTemps              [temp, temp, ...]
-         *    15 - rfIcons              [RF_XXX, RF_XXX, ...]
-         *
-         *    18 - efText               [city, DAY1, DAY2, DAY3, cond11, cond12, cond21, cond22, cond31, cond32, lo1, hi1, lo2, h2, lo3, h3]
-         *    19 - efIcons              [EF_XXX, EF_XXX, EF_XXX]
-         *    20 - aText                [day1, day2, sunrise1, sunrise2, sunset1, sunset2, mphase1, mphase2, mphase3, mphase4, mday1, mday2, mday3, mday4]
-         *    21 - aMoons               [M_Phase1, M_Phase2, M_Phase3, M_Phase4]
-         *    22 - LDLStrings           ["Conditions at city", cond, "Temp: XX°F", "Humidity:  XX%,
+         *    07 - lf1Text              ["LINE 1", "LINE 2", ..., "LINE 7"]
+         *    08 - lf2Text              ["LINE 1", "LINE 2", ..., "LINE 7"]
+         *    09 - lf3Text              ["LINE 1", "LINE 2", ..., "LINE 7"]
+         *    10 - rfText               [forecast weekday]
+         *    11 - rfCities             [city, city, ...]
+         *    12 - rfTemps              [temp, temp, ...]
+         *    13 - rfIcons              [RF_XXX, RF_XXX, ...]
+         *    14 - efText               [city, DAY1, DAY2, DAY3, cond11, cond12, cond21, cond22, cond31, cond32, lo1, hi1, lo2, h2, lo3, h3]
+         *    15 - efIcons              [EF_XXX, EF_XXX, EF_XXX]
+         *    16 - aText                [day1, day2, sunrise1, sunrise2, sunset1, sunset2, mphase1, mphase2, mphase3, mphase4, mday1, mday2, mday3, mday4]
+         *    17 - aMoons               [M_Phase1, M_Phase2, M_Phase3, M_Phase4]
+         *    18 - LDLStrings           ["Conditions at city", cond, "Temp: XX°F", "Humidity:  XX%,
          *                                     Dewpoint: XX°", "Barometric Pressure: XX.XX F", "Wind: DIR  XX MPH",
          *                                     "Visib: X.X mi.  Ceiling: XXXX ft.", "MONTH Precipitation: X.XX in"]
-         *    23 - LDLScrollStr         ["Scrolling text..."]
+         *    19 - LDLScrollStr         ["Scrolling text..."]
          */
 
         vector<vector<string>> data =
@@ -159,9 +157,7 @@ namespace ws4p {
              "Wilmington", "31", "Cloudy", "ENE5"},
             {"Pittsburgh", "New York", "Harrisburg", "Atl City", "Washington DC", "Charleston", "Richmond"},
             {"25", "32", "27", "35", "36", "39", "43"},
-            {"RF_Rain", "RF_Sunny", "RF_Cloudy", "RF_Mostly-Cloudy", "RF_Thunderstorm", "RF_Thunderstorm", "RF_Thunderstorm"},
-            {""},
-            {""},
+            {"RF_Light-Snow", "RF_Mostly-Cloudy", "RF_Cloudy", "RF_Mostly-Cloudy", "RF_Cloudy", "RF_Partly-Cloudy", "RF_Partly-Cloudy"},
             {"THIS AFTERNOON...MOSTLY CLOUDY.",
               "HIGHS IN THE MID 30S. NORTHEAST",
               "WINDS 10 MPH.",
@@ -186,9 +182,7 @@ namespace ws4p {
             {"Wednesday"},
             {"Pittsburgh", "New York", "Harrisburg", "Atl City", "Washington DC", "Charleston", "Richmond"},
             {"42", "34", "36", "41", "45", "54", "50"},
-            {"RF_Sunny", "RF_Sunny", "RF_Cloudy", "RF_Cloudy", "RF_Rain-Wind", "RF_Rain", "RF_Thunderstorm"},
-            {""},
-            {""},
+            {"RF_Rain", "RF_Light-Snow", "RF_Rain-Snow", "RF_Mostly-Cloudy", "RF_Mostly-Cloudy", "RF_Rain", "RF_Mostly-Cloudy"},
             {"New Castle County", "THU", "FRI", "SAT",
              "Showers", " ",
              "Scattered", "Showers",

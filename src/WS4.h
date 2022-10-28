@@ -81,8 +81,10 @@ namespace ws4
         int LDLStrIdx = 0;
         vector<string> LDLStrings;
         vector<string> LDLScrollStr;
-        vector<string> cityXValues;
-        vector<string> cityYValues;
+        vector<string> cityROXValues;
+        vector<string> cityROYValues;
+        vector<string> cityRFXValues;
+        vector<string> cityRFYValues;
         vector<vector<string>> data;
 
 
