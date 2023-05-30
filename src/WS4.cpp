@@ -119,7 +119,7 @@ namespace ws4
         screens.at(0).setPressureArrow(buildPressureArrow(data[1][0],
                                                           colorMap["#cdb900"], colorMap["#0e0e0e"]));
         screens.at(0).loadIcons({
-            AnimIcon(textureMap["CC"], iconPosMap[data[2][0]], 184, 210)
+            AnimIcon(textureMap["CC"], iconPosMap[data[2][0]], 184, 218)
         });
 
         screens.at(1).updateText(data[3]);
