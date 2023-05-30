@@ -6,13 +6,13 @@ TARGET = WS4
 
 # Which object files that the executable consists of
 OBJS  = $(OBJDIR)/main.o
-OBJS += $(OBJDIR)/GfxClock.o
-OBJS += $(OBJDIR)/GfxLoader.o
-OBJS += $(OBJDIR)/GfxScreen.o
-OBJS += $(OBJDIR)/AnimIcon.o
-OBJS += $(OBJDIR)/TextLabel.o
-OBJS += $(OBJDIR)/MapCity.o
-OBJS += $(OBJDIR)/GfxLDL.o
+#OBJS += $(OBJDIR)/GfxClock.o
+#OBJS += $(OBJDIR)/GfxLoader.o
+#OBJS += $(OBJDIR)/GfxScreen.o
+#OBJS += $(OBJDIR)/AnimIcon.o
+#OBJS += $(OBJDIR)/TextLabel.o
+#OBJS += $(OBJDIR)/MapCity.o
+#OBJS += $(OBJDIR)/GfxLDL.o
 OBJS += $(OBJDIR)/WS4.o
 OBJS += $(OBJDIR)/DataProc.o
 
@@ -23,13 +23,13 @@ CC = g++
 CFLAGS = -c -Wall -std=c++17 -g
 
 # Directories containing header files other than /usr/include
-INCLUDES = #-I/extlibs/include/
+INCLUDES = -I include
 
 # Directory with SFML libs (non-standard)
-LDFLAGS = #-L/extlibs/
+LDFLAGS = -L lib
 
 # SFML components
-LIBS = -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
+LIBS = -l SDL2-2.0.0
 
 
 all: $(TARGET)

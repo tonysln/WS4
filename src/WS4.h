@@ -1,10 +1,10 @@
-#include <SFML/Graphics.hpp>
-#include <SFML/Audio.hpp>
-#include "GfxScreen.h"
-#include "GfxClock.h"
-#include "MapCity.h"
-#include "GfxLDL.h"
+#include <SDL2/SDL.h>
+//#include "GfxScreen.h"
+//#include "GfxClock.h"
+//#include "MapCity.h"
+//#include "GfxLDL.h"
 #include <vector>
+#include <string>
 #include <array>
 #include <map>
 
@@ -28,10 +28,8 @@ namespace ws4
         const short WIN_WIDTH = 640;
         const short WIN_HEIGHT = 480;
         const float SCALE = 1.0f;
-        const bool winBorders = true;
-        const bool fullScreen = false;
-        sf::RenderWindow window;
-        sf::View view;
+        SDL_Window* window = nullptr;
+        SDL_Renderer* renderer = nullptr;
 
 
         // Timers & Counters
@@ -41,40 +39,30 @@ namespace ws4
         float LDLTime = 5.f;
         int dispLDLTimes = 2;
         int scrLDLTimes = 1;
-        sf::Clock sceneTimer;
-        sf::Clock LDLTimer;
+        SDL_TimerID sceneTimer;
+        SDL_TimerID LDLTimer;
 
 
         // Screens
         short scrIdx = 0;
-        const vector<string> scr =
-        {
-            "Current-Conditions",
-            "Latest-Observations",
-            "Regional-Observations",
-            "Local-Forecast-1",
-            "Local-Forecast-2",
-            "Local-Forecast-3",
-            "Forecast-For",
-            "Extended-Forecast",
-            "Almanac",
-        };
-        void nextScreen();
-        void prevScreen();
+        vector<string> scr;
+        int nextScreen();
+        int nextLDL();
+        int prevScreen();
 
 
         // Graphics
-        map<string, sf::Font> fontMap;
-        map<string, sf::Color> colorMap;
-        map<string, sf::Texture> textureMap;
+//        map<string, sf::Font> fontMap;
+//        map<string, sf::Color> colorMap;
+//        map<string, sf::Texture> textureMap;
         map<string, vector<int>> iconPosMap;
-        vector<GfxScreen> screens;
-        vector<MapCity> regMapCities;
-        vector<MapCity> forcMapCities;
+//        vector<GfxScreen> screens;
+//        vector<MapCity> regMapCities;
+//        vector<MapCity> forcMapCities;
         bool showLogo = true;
-        sf::Sprite logo;
-        GfxClock clock;
-        GfxLDL LDL;
+//        sf::Sprite logo;
+//        GfxClock clock;
+//        GfxLDL LDL;
 
 
         // Data
@@ -94,7 +82,7 @@ namespace ws4
         bool musicEnabled = true;
         float volume = 20.f;
         int songIdx = 0;
-        sf::Music musicPlayer;
+//        sf::Music musicPlayer;
         void changeSong();
 
 

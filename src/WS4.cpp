@@ -1,4 +1,4 @@
-#include "GfxLoader.h"
+//#include "GfxLoader.h"
 #include "DataProc.h"
 #include <filesystem>
 #include <algorithm>
@@ -19,67 +19,59 @@ namespace ws4
     {
         // Setup vars
         char TITLE[] = "WS4 Build " __DATE__;
+        SDL_Init(SDL_INIT_VIDEO || SDL_INIT_TIMER || SDL_INIT_AUDIO);
+        window = SDL_CreateWindow
+                (
+                        TITLE,
+                        SDL_WINDOWPOS_CENTERED,
+                        SDL_WINDOWPOS_CENTERED,
+                        WIN_WIDTH,
+                        WIN_HEIGHT,
+                        SDL_WINDOW_SHOWN
+                );
+        renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 
-        // RenderWindow
-        window.create(sf::VideoMode(sf::Vector2u(WIN_WIDTH*SCALE, WIN_HEIGHT*SCALE)),
-                            TITLE, winBorders ? sf::Style::Titlebar | sf::Style::Close : sf::Style::None);
-
-        window.setFramerateLimit(FPS);
-        sf::VideoMode desktop = sf::VideoMode::getDesktopMode();
-        window.setPosition(sf::Vector2i(desktop.size.x/4 - WIN_WIDTH*SCALE/2, 
-                                        desktop.size.y/4 - WIN_HEIGHT*SCALE/2));
-
-        // View settings for scaling 
-        view.setSize(sf::Vector2f(window.getSize().x/SCALE, window.getSize().y/SCALE));
-        view.setCenter(sf::Vector2f(view.getSize().x/2, view.getSize().y/2));
-        window.setView(view);
+        scr = {
+            "Current-Conditions",
+            "Latest-Observations",
+            "Regional-Observations",
+            "Local-Forecast-1",
+            "Local-Forecast-2",
+            "Local-Forecast-3",
+            "Forecast-For",
+            "Extended-Forecast",
+            "Almanac",
+        };
+//        sceneTimer = SDL_AddTimer(sceneTime, nextScreen, const_cast<char*>("scene"));
+//        LDLTimer = SDL_AddTimer(LDLTime, nextLDL, const_cast<char*>("LDL"));
     }
 
 
-    void WS4::nextScreen()
+    int WS4::nextScreen()
     {
         scrIdx = (scrIdx + 1) % scr.size();
+        return 1;
     }
 
-    void WS4::prevScreen()
+    int WS4::prevScreen()
     {
         scrIdx = (scrIdx - 1 + scr.size()) % scr.size();
+        return 1;
     }
 
+    int WS4::nextLDL()
+    {
+        return 1;
+    }
 
     void WS4::loadGraphics()
     {
         // Load mappings for all graphics
-        fontMap = loadFontMap();
-        colorMap = loadColorMap();
-        textureMap = loadTextureMap();
-        iconPosMap = loadIconPositionsMap();
-
-        // [0] Current Conditions
-        loadCurrentConditions(screens, fontMap, colorMap);
-        // [1] Latest Observations
-        loadLatestObservations(screens, fontMap, colorMap);
-        // [2] Regional Observations
-        loadRegionalObservations(screens, fontMap, colorMap);
-        // [3,4,5] Local (36-Hour) Forecast
-        loadLocalForecast(screens, fontMap, colorMap);
-        // [6] Regional Forecast
-        loadRegionalForecast(screens, fontMap, colorMap);
-        // [7] Extended Forecast
-        loadExtendedForecast(screens, fontMap, colorMap);
-        // [8] Almanac
-        loadAlmanac(screens, fontMap, colorMap);
-
-        LDL = GfxLDL(" ", colorMap, fontMap);
-        clock = GfxClock(colorMap, fontMap);
-
-        if (showLogo)
-        {
-            logo = sf::Sprite(textureMap["Logo"]);
-            logo.setPosition(sf::Vector2f(45.f, 24.f));
-        }
+//        fontMap = loadFontMap();
+//        colorMap = loadColorMap();
+//        textureMap = loadTextureMap();
+//        iconPosMap = loadIconPositionsMap();
     }
-
 
     void WS4::getNewData()
     {
@@ -99,66 +91,10 @@ namespace ws4
         cityRFYValues = {"140", "120", "170", "220", "270", "300", "340"};
     }
 
-
     void WS4::loadData()
     {
-        // Create MapCity icon vectors
-        vector<MapCity> roMapCities = {};
-        for (int i = 0; i < cityROXValues.size(); i++)
-            roMapCities.emplace_back(data[4][i], data[5][i], cityROXValues[i], cityROYValues[i],
-                                     fontMap, colorMap, textureMap["RF"], iconPosMap[data[6][i]]);
 
-        vector<MapCity> rfMapCities = {};
-        for (int i = 0; i < cityRFXValues.size(); i++)
-            rfMapCities.emplace_back(data[11][i], data[12][i], cityRFXValues[i], cityRFYValues[i],
-                                     fontMap, colorMap, textureMap["RF"], iconPosMap[data[13][i]]);
-
-
-        // [0] Current Conditions
-        screens.at(0).updateText(data[0]);
-        screens.at(0).setPressureArrow(buildPressureArrow(data[1][0],
-                                                          colorMap["#cdb900"], colorMap["#0e0e0e"]));
-        screens.at(0).loadIcons({
-            AnimIcon(textureMap["CC"], iconPosMap[data[2][0]], 184, 218)
-        });
-
-        screens.at(1).updateText(data[3]);
-
-        // [2] Regional Observations
-        screens.at(2).loadMap(textureMap["Map"], 0, 0);
-        screens.at(2).loadCities(roMapCities);
-
-        screens.at(3).updateText(data[7]);
-        screens.at(4).updateText(data[8]);
-        screens.at(5).updateText(data[9]);
-
-        // [6] Regional Forecast
-        screens.at(6).loadMap(textureMap["Map"], 0, 0);
-        screens.at(6).loadCities(rfMapCities);
-        screens.at(6).updateText(data[10]);
-
-        // [7] Extended Forecast
-        screens.at(7).updateText(data[14]);
-        screens.at(7).loadIcons({
-            AnimIcon(textureMap["EF"], iconPosMap[data[15][0]], 122, 200),
-            AnimIcon(textureMap["EF"], iconPosMap[data[15][1]], 320, 200),
-            AnimIcon(textureMap["EF"], iconPosMap[data[15][2]], 514, 200),
-        });
-
-        // [8] Almanac
-        screens.at(8).updateText(data[16]);
-        screens.at(8).loadIcons({
-            AnimIcon(textureMap["Moon"], iconPosMap[data[17][0]], 134, 318),
-            AnimIcon(textureMap["Moon"], iconPosMap[data[17][1]], 256, 318),
-            AnimIcon(textureMap["Moon"], iconPosMap[data[17][2]], 378, 318),
-            AnimIcon(textureMap["Moon"], iconPosMap[data[17][3]], 504, 318)
-        });
-
-        LDLStrings = data[18];
-        LDLScrollStr = data[19];
-        LDL.setText(LDLStrings.at(LDLStrIdx));
     }
-
 
     void WS4::loadMusic()
     {
@@ -176,11 +112,10 @@ namespace ws4
             return;
 
         songIdx = songsPaths.size();
-        musicPlayer.setVolume(volume);
+//        musicPlayer.setVolume(volume);
         changeSong();
-        musicStarted = true;
+//        musicStarted = true;
     }
-
 
     void WS4::changeSong()
     {
@@ -193,120 +128,61 @@ namespace ws4
             songIdx = 0;
         }
 
-        if (!musicPlayer.openFromFile(songsPaths[songIdx]))
-            return;
-
-        musicPlayer.play();
+//        if (!musicPlayer.openFromFile(songsPaths[songIdx]))
+//            return;
+//
+//        musicPlayer.play();
     }
 
 
     int WS4::runLoop()
     {
-        while (window.isOpen())
-        {
-            // EVENTS
-            sf::Event event{};
-            while (window.pollEvent(event))
-            {
-                if (event.type == sf::Event::Closed)
-                    window.close();
-
-                if (event.type == sf::Event::KeyPressed)
+        SDL_Event e;
+        bool running = true;
+        while (running) {
+            SDL_PollEvent(&e);
+            if (e.type == SDL_QUIT) {
+                running = false;
+            } else if (e.type == SDL_KEYDOWN) {
+                switch(e.key.keysym.scancode)
                 {
-                    switch(event.key.code)
-                    {
-                        case sf::Keyboard::Escape:
-                        case sf::Keyboard::Q:
-                        case sf::Keyboard::Space:
-                            window.close(); 
-                            break;
-                        case sf::Keyboard::P:
-                            nextScreen();
-                            break;
-                        case sf::Keyboard::O:
-                            prevScreen();
-                            break;
-                        case sf::Keyboard::S:
-                            changeSong();
-                            break;
-                        default:
-                            break;
-                    }
+                    case SDL_SCANCODE_Q:
+                    case SDL_SCANCODE_ESCAPE:
+                    case SDL_SCANCODE_SPACE:
+                        running = false;
+                        break;
+                    case SDL_SCANCODE_P:
+                        nextScreen();
+                        break;
+                    case SDL_SCANCODE_O:
+                        prevScreen();
+                        break;
+                    case SDL_SCANCODE_S:
+                        changeSong();
+                        break;
+                    default:
+                        break;
                 }
             }
 
+            SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+            SDL_RenderClear(renderer);
 
-            // Scene change timer
-            if (sceneTimer.getElapsedTime().asSeconds() >= sceneTime)
-            {
-                nextScreen();
-                sceneTimer.restart();
-            }
+            SDL_Rect r;
+            r.x = 50;
+            r.y = 50;
+            r.w = 50;
+            r.h = 50;
 
-            // Update LDL text string-by-string in display mode
-            if (!LDL.isUsingScroll() && LDLTimer.getElapsedTime().asSeconds() >= LDLTime)
-            {
-                LDLStrIdx++;
-                if (LDLStrIdx >= LDLStrings.size())
-                {
-                    LDL.displays++;
-                    LDLStrIdx = 0;
-                }
-                LDL.setText(LDLStrings.at(LDLStrIdx));
-                LDLTimer.restart();
-            }
-
-            // Switch between displaying and scrolling LDL text
-            if (!LDL.isUsingScroll() && LDL.displays >= dispLDLTimes)
-            {
-                LDL.useScroll(true);
-                LDL.setText(LDLScrollStr[0]);
-            }
-            if (LDL.isUsingScroll() && LDL.scrolls >= scrLDLTimes)
-            {
-                LDL.useScroll(false);
-                LDLStrIdx = 0;
-                LDL.setText(LDLStrings.at(LDLStrIdx));
-                LDLTimer.restart();
-            }
-
-
-
-            // Clear window
-            window.clear(colorMap["#1c0a57"]);
-
-            // Advance through icon animation
-            iconFrameCounter++;
-            if (iconFrameCounter >= FPS / ANIM_FRAMES)
-            {
-                iconFrame = (iconFrame + 1) % ANIM_FRAMES;
-                screens.at(scrIdx).switchIconFrames(iconFrame);
-                iconFrameCounter = 0;
-            }
-
-            // Render current scene
-            screens.at(scrIdx).renderTo(window);
-
-            // Render time & date
-            clock.update();
-            clock.renderTo(window);
-
-            // Render LDL
-            LDL.renderTo(window);
-
-            // Render the logo (if enabled)
-            if (showLogo)
-                window.draw(logo);
-
-            // Display window
-            window.display();
-
-
-            // Check if time to change song
-             if (musicEnabled && musicStarted && musicPlayer.getStatus() == sf::Music::Status::Stopped)
-                 changeSong();
-
+            SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255);
+            SDL_RenderFillRect(renderer, &r);
+            SDL_RenderPresent(renderer);
         }
+
+        SDL_DestroyWindow(window);
+//        SDL_RemoveTimer(sceneTimer);
+//        SDL_RemoveTimer(LDLTimer);
+        SDL_Quit();
 
         return EXIT_SUCCESS;
     }
