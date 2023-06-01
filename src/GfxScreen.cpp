@@ -4,20 +4,6 @@
 
 namespace ws4
 {
-    GfxScreen::GfxScreen(vector<array<sf::Vertex, 4>> sbv, vector<TextLabel> st, vector<TextLabel> dt)
-    {
-        staticBgVertices = std::move(sbv);
-        staticText = std::move(st);
-        dynamicText = std::move(dt);
-    }
-
-    GfxScreen::GfxScreen(vector<array<sf::Vertex, 4>> sbv, vector<TextLabel> st)
-    {
-        staticBgVertices = std::move(sbv);
-        staticText = std::move(st);
-    }
-
-
     void GfxScreen::updateText(const vector<string>& newText)
     {
         int i = 0;
@@ -73,11 +59,11 @@ namespace ws4
     void GfxScreen::renderTo(sf::RenderWindow &window)
     {
         for (const auto& vObj : staticBgVertices)
-            window.draw(vObj.data(), 4, sf::TriangleStrip);
+            window.draw(vObj.data(), 4, sf::PrimitiveType::TriangleStrip);
 
         if (!pressureArrow.empty()) {
             for (const auto& aObj : pressureArrow)
-                window.draw(aObj.data(), 4, sf::TriangleStrip);
+                window.draw(aObj.data(), 4, sf::PrimitiveType::TriangleStrip);
         }
 
         if (mapScr)

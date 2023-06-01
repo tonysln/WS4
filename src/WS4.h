@@ -28,8 +28,6 @@ namespace ws4
         const short WIN_WIDTH = 640;
         const short WIN_HEIGHT = 480;
         const float SCALE = 1.0f;
-        const bool winBorders = true;
-        const bool fullScreen = false;
         sf::RenderWindow window;
         sf::View view;
 
@@ -64,14 +62,12 @@ namespace ws4
 
 
         // Graphics
-        map<string, sf::Font> fontMap;
-        map<string, sf::Color> colorMap;
         map<string, sf::Texture> textureMap;
         map<string, vector<int>> iconPosMap;
         vector<GfxScreen> screens;
         vector<MapCity> regMapCities;
         vector<MapCity> forcMapCities;
-        bool showLogo = true;
+        bool showLogo = false;
         sf::Sprite logo;
         GfxClock clock;
         GfxLDL LDL;

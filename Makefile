@@ -23,10 +23,10 @@ CC = g++
 CFLAGS = -c -Wall -std=c++17 -g
 
 # Directories containing header files other than /usr/include
-INCLUDES = #-I/extlibs/include/
+INCLUDES = -I
 
 # Directory with SFML libs (non-standard)
-LDFLAGS = #-L/extlibs/
+LDFLAGS = -L
 
 # SFML components
 LIBS = -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
@@ -36,7 +36,8 @@ all: $(TARGET)
 
 # Link the target with all objects and libraries
 $(TARGET) : $(OBJS)
-	$(CC) -o $(BINDIR)/$(TARGET) $(OBJS) $(LDFLAGS) $(INCLUDES) $(LIBS)
+	$(CC) -o $(BINDIR)/$(TARGET) $(OBJS) $(LIBS)
+#	$(CC) -o $(BINDIR)/$(TARGET) $(OBJS) $(LDFLAGS) $(INCLUDES) $(LIBS)
 
 # Compile the source files into object files
 $(OBJDIR)/%.o : $(SRCDIR)/%.cpp

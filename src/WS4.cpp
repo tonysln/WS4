@@ -15,19 +15,20 @@ using std::strftime;
 
 namespace ws4
 {
+
     WS4::WS4()
     {
         // Setup vars
         char TITLE[] = "WS4 Build " __DATE__;
 
         // RenderWindow
-        window.create(sf::VideoMode(sf::Vector2u(WIN_WIDTH*SCALE, WIN_HEIGHT*SCALE)),
-                            TITLE, winBorders ? sf::Style::Titlebar | sf::Style::Close : sf::Style::None);
+        window.create(sf::VideoMode(WIN_WIDTH*SCALE, WIN_HEIGHT*SCALE),
+                            TITLE, sf::Style::None); // sf::Style::Titlebar | sf::Style::Close
 
         window.setFramerateLimit(FPS);
         sf::VideoMode desktop = sf::VideoMode::getDesktopMode();
-        window.setPosition(sf::Vector2i(desktop.size.x/4 - WIN_WIDTH*SCALE/2, 
-                                        desktop.size.y/4 - WIN_HEIGHT*SCALE/2));
+        window.setPosition(sf::Vector2i(desktop.width/4 - WIN_WIDTH*SCALE/2,
+                                        desktop.height/4 - WIN_HEIGHT*SCALE/2));
 
         // View settings for scaling 
         view.setSize(sf::Vector2f(window.getSize().x/SCALE, window.getSize().y/SCALE));
@@ -50,28 +51,26 @@ namespace ws4
     void WS4::loadGraphics()
     {
         // Load mappings for all graphics
-        fontMap = loadFontMap();
-        colorMap = loadColorMap();
         textureMap = loadTextureMap();
         iconPosMap = loadIconPositionsMap();
 
         // [0] Current Conditions
-        loadCurrentConditions(screens, fontMap, colorMap);
+        loadCurrentConditions(screens);
         // [1] Latest Observations
-        loadLatestObservations(screens, fontMap, colorMap);
+        loadLatestObservations(screens);
         // [2] Regional Observations
-        loadRegionalObservations(screens, fontMap, colorMap);
+        loadRegionalObservations(screens);
         // [3,4,5] Local (36-Hour) Forecast
-        loadLocalForecast(screens, fontMap, colorMap);
+        loadLocalForecast(screens);
         // [6] Regional Forecast
-        loadRegionalForecast(screens, fontMap, colorMap);
+        loadRegionalForecast(screens);
         // [7] Extended Forecast
-        loadExtendedForecast(screens, fontMap, colorMap);
+        loadExtendedForecast(screens);
         // [8] Almanac
-        loadAlmanac(screens, fontMap, colorMap);
+        loadAlmanac(screens);
 
-        LDL = GfxLDL(" ", colorMap, fontMap);
-        clock = GfxClock(colorMap, fontMap);
+        LDL = GfxLDL(" ");
+        clock = GfxClock();
 
         if (showLogo)
         {
@@ -106,18 +105,17 @@ namespace ws4
         vector<MapCity> roMapCities = {};
         for (int i = 0; i < cityROXValues.size(); i++)
             roMapCities.emplace_back(data[4][i], data[5][i], cityROXValues[i], cityROYValues[i],
-                                     fontMap, colorMap, textureMap["RF"], iconPosMap[data[6][i]]);
+                                     textureMap["RF"], iconPosMap[data[6][i]]);
 
         vector<MapCity> rfMapCities = {};
         for (int i = 0; i < cityRFXValues.size(); i++)
             rfMapCities.emplace_back(data[11][i], data[12][i], cityRFXValues[i], cityRFYValues[i],
-                                     fontMap, colorMap, textureMap["RF"], iconPosMap[data[13][i]]);
+                                     textureMap["RF"], iconPosMap[data[13][i]]);
 
 
         // [0] Current Conditions
         screens.at(0).updateText(data[0]);
-        screens.at(0).setPressureArrow(buildPressureArrow(data[1][0],
-                                                          colorMap["#cdb900"], colorMap["#0e0e0e"]));
+        screens.at(0).setPressureArrow(buildPressureArrow(data[1][0], "#cdb900", "#0e0e0e"));
         screens.at(0).loadIcons({
             AnimIcon(textureMap["CC"], iconPosMap[data[2][0]], 184, 218)
         });
@@ -273,7 +271,7 @@ namespace ws4
 
 
             // Clear window
-            window.clear(colorMap["#1c0a57"]);
+            window.clear(sf::Color(28,10,87));
 
             // Advance through icon animation
             iconFrameCounter++;

@@ -7,16 +7,16 @@
 
 namespace ws4
 {
-    GfxLDL::GfxLDL(string text, map<string, sf::Color> &colorMap, map<string, sf::Font> &fontMap)
+    GfxLDL::GfxLDL(string text)
     {
         vertexObjs = 
         {
-            buildQuad(0, 399, 640, 81, colorMap["#141414"]),
-            buildQuad(0, 400, 640, 80, colorMap["#afafaf"]),
-            buildQuad(0, 402, 640, 78, colorMap["#233270"])
+            buildQuad(0, 399, 640, 81, "#141414"),
+            buildQuad(0, 400, 640, 80, "#afafaf"),
+            buildQuad(0, 402, 640, 78, "#233270")
         };
 
-        textLabel = TextLabel("", fontMap["Star4000"], "#d7d7d7", 30, 1, 1.0f, x, y, colorMap, 0);
+        textLabel = TextLabel("", "Star4000", "#d7d7d7", 30, 1, 1.0f, x, y, 0);
         setText(text);
     }
 
@@ -75,7 +75,7 @@ namespace ws4
     {
         // Drawing vertex objects
         for (const auto& vObj : vertexObjs)
-            window.draw(vObj.data(), 4, sf::TriangleStrip);
+            window.draw(vObj.data(), 4, sf::PrimitiveType::TriangleStrip);
 
         // Animating text
         if (scrollMode)

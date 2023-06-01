@@ -21,9 +21,9 @@ namespace ws4
     }
 
 
-    array<sf::Vertex, 4> buildQuad(int x, int y, int w, int h, sf::Color col)
+    array<sf::Vertex, 4> buildQuad(int x, int y, int w, int h, string col)
     {
-        return buildQuad(x, y, w, h, col, col);
+        return buildQuad(x, y, w, h, colorMap[col], colorMap[col]);
     }
 
 
@@ -41,7 +41,7 @@ namespace ws4
     }
 
 
-    vector<array<sf::Vertex, 4>> buildPressureArrow(string dir, sf::Color col, sf::Color shadow)
+    vector<array<sf::Vertex, 4>> buildPressureArrow(string dir, string col, string shadow)
     {
         vector<array<sf::Vertex, 4>> arrow;
 
@@ -49,20 +49,20 @@ namespace ws4
         {
             arrow =
             {
-                buildQuad(547-1, 317-2, 555+1, 307-2, 563+3, 317+1, 547-2, 316+1, shadow),
-                buildQuad(553-1, 315-1, 557+3, 315+2, 557+3, 330+2, 553-1, 330+2, shadow),
-                buildQuad(547, 317, 555, 307, 563, 317, 547, 316, col),
-                buildQuad(553, 315, 557, 315, 557, 330, 553, 330, col)
+                buildQuad(547-1, 317-2, 555+1, 307-2, 563+3, 317+1, 547-2, 316+1, colorMap[shadow]),
+                buildQuad(553-1, 315-1, 557+3, 315+2, 557+3, 330+2, 553-1, 330+2, colorMap[shadow]),
+                buildQuad(547, 317, 555, 307, 563, 317, 547, 316, colorMap[col]),
+                buildQuad(553, 315, 557, 315, 557, 330, 553, 330, colorMap[col])
             };
         }
         else if (dir == "down")
         {
             arrow =
             {
-                buildQuad(547-1, 320-2, 555+2, 331+2, 563+3, 320+1, 547-2, 320+1, shadow),
-                buildQuad(553-1, 307-1, 557+3, 307+2, 557+3, 320+2, 553-1, 320+2, shadow),
-                buildQuad(547, 320, 555, 331, 563, 320, 547, 320, col),
-                buildQuad(553, 307, 557, 307, 557, 320, 553, 320, col)
+                buildQuad(547-1, 320-2, 555+2, 331+2, 563+3, 320+1, 547-2, 320+1, colorMap[shadow]),
+                buildQuad(553-1, 307-1, 557+3, 307+2, 557+3, 320+2, 553-1, 320+2, colorMap[shadow]),
+                buildQuad(547, 320, 555, 331, 563, 320, 547, 320, colorMap[col]),
+                buildQuad(553, 307, 557, 307, 557, 320, 553, 320, colorMap[col])
             };
         }
 
@@ -258,7 +258,7 @@ namespace ws4
     }
 
 
-    void loadCurrentConditions(vector<GfxScreen> &vec, map<string, sf::Font> &fontMap, map<string, sf::Color> &colorMap)
+    void loadCurrentConditions(vector<GfxScreen> &vec)
     {
         vec.push_back
         (
@@ -267,15 +267,15 @@ namespace ws4
                     // Background gradient
                     buildQuad(0, 90, 640, 308, colorMap["#2e1251"], colorMap["#c05d02"]),
                     // Center blue panel
-                    buildQuad(52, 90, 531, 308, colorMap["#2652b2"]),
-                    buildQuad(55, 94, 527, 302, colorMap["#254ba3"]),
-                    buildQuad(57, 96, 523, 298, colorMap["#254698"]),
-                    buildQuad(59, 98, 519, 294, colorMap["#24408c"]),
-                    buildQuad(61, 100, 515, 290, colorMap["#233a80"]),
-                    buildQuad(63, 102, 511, 286, colorMap["#223474"]),
-                    buildQuad(65, 104, 507, 282, colorMap["#222f69"]),
-                    buildQuad(66, 105, 506, 281, colorMap["#212b60"]),
-                    buildQuad(67, 106, 505, 280, colorMap["#21285a"]),
+                    buildQuad(52, 90, 531, 308, "#2652b2"),
+                    buildQuad(55, 94, 527, 302, "#254ba3"),
+                    buildQuad(57, 96, 523, 298, "#254698"),
+                    buildQuad(59, 98, 519, 294, "#24408c"),
+                    buildQuad(61, 100, 515, 290, "#233a80"),
+                    buildQuad(63, 102, 511, 286, "#223474"),
+                    buildQuad(65, 104, 507, 282, "#222f69"),
+                    buildQuad(66, 105, 506, 281, "#212b60"),
+                    buildQuad(67, 106, 505, 280, "#21285a"),
                     // Top bar
                     buildQuad(0, 29, 499, 29, 494, 37, 0, 37, colorMap["#c35b00"]),
                     buildQuad(0, 37, 494, 37, 489, 45, 0, 45, colorMap["#b25200"]),
@@ -287,33 +287,33 @@ namespace ws4
                     buildQuad(0, 85, 461, 85, 457, 90, 0, 90, colorMap["#472240"]),
                 },
                 vector {
-                    TextLabel("Current", fontMap["Star4000"], "#cdb900", 34, 3, 0.9, 157, 21, colorMap, 0),
-                    TextLabel("Conditions", fontMap["Star4000"], "#cdb900", 34, 3, 0.9, 157, 50, colorMap, 0),
-                    TextLabel("Humidity:", fontMap["Star4000"], "#d7d7d7", 33, 1, 0.5, 338, 131, colorMap, 0),
-                    TextLabel("Dewpoint:", fontMap["Star4000"], "#d7d7d7", 33, 1, 0.5, 338, 171, colorMap, 0),
-                    TextLabel("Ceiling:", fontMap["Star4000"], "#d7d7d7", 33, 1, 0.5, 338, 215, colorMap, 0),
-                    TextLabel("Visibility:", fontMap["Star4000"], "#d7d7d7", 33, 1, 0.4, 338, 257, colorMap, 0),
-                    TextLabel("Pressure:", fontMap["Star4000"], "#d7d7d7", 33, 1, 0.5, 338, 298, colorMap, 0),
+                    TextLabel("Current", "Star4000", "#cdb900", 34, 3, 0.9, 157, 21, 0),
+                    TextLabel("Conditions", "Star4000", "#cdb900", 34, 3, 0.9, 157, 50, 0),
+                    TextLabel("Humidity:", "Star4000", "#d7d7d7", 33, 1, 0.5, 338, 131, 0),
+                    TextLabel("Dewpoint:", "Star4000", "#d7d7d7", 33, 1, 0.5, 338, 171, 0),
+                    TextLabel("Ceiling:", "Star4000", "#d7d7d7", 33, 1, 0.5, 338, 215, 0),
+                    TextLabel("Visibility:", "Star4000", "#d7d7d7", 33, 1, 0.4, 338, 257, 0),
+                    TextLabel("Pressure:", "Star4000", "#d7d7d7", 33, 1, 0.5, 338, 298, 0),
                 },
                 vector {
-                    TextLabel("", fontMap["Star4000"], "#cdb900", 34, 2, 0.55, 320, 92, colorMap, 0),
-                    TextLabel("", fontMap["Star4000-Large"], "#d7d7d7", 35, 1, 1.0, 200, 100, colorMap, 1),
-                    TextLabel("", fontMap["Star4000-Extended"], "#d7d7d7", 34, 1, 0.8, 185, 128, colorMap, 1),
-                    TextLabel("", fontMap["Star4000"], "#d7d7d7", 33, 1, 0.4, 568, 131, colorMap, 2),
-                    TextLabel("", fontMap["Star4000"], "#d7d7d7", 33, 1, 0.4, 568, 171, colorMap, 2),
-                    TextLabel("", fontMap["Star4000"], "#d7d7d7", 33, 1, 0.4, 568, 257, colorMap, 2),
-                    TextLabel("", fontMap["Star4000"], "#d7d7d7", 33, 1, 0.4, 568, 215, colorMap, 2),
-                    TextLabel("", fontMap["Star4000"], "#d7d7d7", 33, 1, 0.4, 542, 298, colorMap, 2),
-                    TextLabel("", fontMap["Star4000-Extended"], "#d7d7d7", 32, 1, 1.0, 75, 298, colorMap, 0),
-                    TextLabel("", fontMap["Star4000-Extended"], "#d7d7d7", 33, 1, 1.0, 75, 336, colorMap, 0),
-                    TextLabel("", fontMap["Star4000"], "#d7d7d7", 33, 1, 0.5, 338, 336, colorMap, 0),
-                    TextLabel("", fontMap["Star4000"], "#d7d7d7", 33, 1, 0.4, 568, 336, colorMap, 2),
+                    TextLabel("", "Star4000", "#cdb900", 34, 2, 0.55, 320, 92, 0),
+                    TextLabel("", "Star4000-Large", "#d7d7d7", 35, 1, 1.0, 200, 100, 1),
+                    TextLabel("", "Star4000-Extended", "#d7d7d7", 34, 1, 0.8, 185, 128, 1),
+                    TextLabel("", "Star4000", "#d7d7d7", 33, 1, 0.4, 568, 131, 2),
+                    TextLabel("", "Star4000", "#d7d7d7", 33, 1, 0.4, 568, 171, 2),
+                    TextLabel("", "Star4000", "#d7d7d7", 33, 1, 0.4, 568, 257, 2),
+                    TextLabel("", "Star4000", "#d7d7d7", 33, 1, 0.4, 568, 215, 2),
+                    TextLabel("", "Star4000", "#d7d7d7", 33, 1, 0.4, 542, 298, 2),
+                    TextLabel("", "Star4000-Extended", "#d7d7d7", 32, 1, 1.0, 75, 298, 0),
+                    TextLabel("", "Star4000-Extended", "#d7d7d7", 33, 1, 1.0, 75, 336, 0),
+                    TextLabel("", "Star4000", "#d7d7d7", 33, 1, 0.5, 338, 336, 0),
+                    TextLabel("", "Star4000", "#d7d7d7", 33, 1, 0.4, 568, 336, 2),
                 }
             }
         );
     }
 
-    void loadLatestObservations(vector<GfxScreen> &vec, map<string, sf::Font> &fontMap, map<string, sf::Color> &colorMap)
+    void loadLatestObservations(vector<GfxScreen> &vec)
     {
         vec.push_back
         (
@@ -322,15 +322,15 @@ namespace ws4
                     // Background gradient
                     buildQuad(0, 90, 640, 308, colorMap["#2e1251"], colorMap["#c05d02"]),
                     // Center blue panel
-                    buildQuad(52, 90, 531, 308, colorMap["#2652b2"]),
-                    buildQuad(55, 94, 527, 302, colorMap["#254ba3"]),
-                    buildQuad(57, 96, 523, 298, colorMap["#254698"]),
-                    buildQuad(59, 98, 519, 294, colorMap["#24408c"]),
-                    buildQuad(61, 100, 515, 290, colorMap["#233a80"]),
-                    buildQuad(63, 102, 511, 286, colorMap["#223474"]),
-                    buildQuad(65, 104, 507, 282, colorMap["#222f69"]),
-                    buildQuad(66, 105, 506, 281, colorMap["#212b60"]),
-                    buildQuad(67, 106, 505, 280, colorMap["#21285a"]),
+                    buildQuad(52, 90, 531, 308, "#2652b2"),
+                    buildQuad(55, 94, 527, 302, "#254ba3"),
+                    buildQuad(57, 96, 523, 298, "#254698"),
+                    buildQuad(59, 98, 519, 294, "#24408c"),
+                    buildQuad(61, 100, 515, 290, "#233a80"),
+                    buildQuad(63, 102, 511, 286, "#223474"),
+                    buildQuad(65, 104, 507, 282, "#222f69"),
+                    buildQuad(66, 105, 506, 281, "#212b60"),
+                    buildQuad(67, 106, 505, 280, "#21285a"),
                     // Top bar
                     buildQuad(0, 29, 499, 29, 494, 37, 0, 37, colorMap["#c35b00"]),
                     buildQuad(0, 37, 494, 37, 489, 45, 0, 45, colorMap["#b25200"]),
@@ -342,47 +342,47 @@ namespace ws4
                     buildQuad(0, 85, 461, 85, 457, 90, 0, 90, colorMap["#472240"]),
                 },
                 vector {
-                    TextLabel("Latest Observations", fontMap["Star4000"], "#cdb900", 34, 3, 0.4, 157, 35, colorMap, 0),
-                    TextLabel("F°", fontMap["Star4000-Small"], "#d7d7d7", 30, 0, 1.0, 306, 78, colorMap, 0),
-                    TextLabel("WEATHER", fontMap["Star4000-Small"], "#d7d7d7", 30, 0, 1.0, 365, 78, colorMap, 0),
-                    TextLabel("WIND", fontMap["Star4000-Small"], "#d7d7d7", 30, 0, 1.0, 505, 78, colorMap, 0),
+                    TextLabel("Latest Observations", "Star4000", "#cdb900", 34, 3, 0.4, 157, 35, 0),
+                    TextLabel("F°", "Star4000-Small", "#d7d7d7", 30, 0, 1.0, 306, 78, 0),
+                    TextLabel("WEATHER", "Star4000-Small", "#d7d7d7", 30, 0, 1.0, 365, 78, 0),
+                    TextLabel("WIND", "Star4000-Small", "#d7d7d7", 30, 0, 1.0, 505, 78, 0),
                 },
                 vector {
-                    TextLabel("", fontMap["Star4000"], "#d7d7d7", 33, 1, 0.8, 72, 110, colorMap, 0),
-                    TextLabel("", fontMap["Star4000"], "#d7d7d7", 33, 1, 0.8, 305, 110, colorMap, 0),
-                    TextLabel("", fontMap["Star4000"], "#d7d7d7", 33, 1, 0.8, 365, 110, colorMap, 0),
-                    TextLabel("", fontMap["Star4000"], "#d7d7d7", 33, 1, 0.8, 505, 110, colorMap, 0),
-                    TextLabel("", fontMap["Star4000"], "#d7d7d7", 33, 1, 0.8, 72, 150, colorMap, 0),
-                    TextLabel("", fontMap["Star4000"], "#d7d7d7", 33, 1, 0.8, 305, 150, colorMap, 0),
-                    TextLabel("", fontMap["Star4000"], "#d7d7d7", 33, 1, 0.8, 365, 150, colorMap, 0),
-                    TextLabel("", fontMap["Star4000"], "#d7d7d7", 33, 1, 0.8, 505, 150, colorMap, 0),
-                    TextLabel("", fontMap["Star4000"], "#d7d7d7", 33, 1, 0.8, 72, 190, colorMap, 0),
-                    TextLabel("", fontMap["Star4000"], "#d7d7d7", 33, 1, 0.8, 305, 190, colorMap, 0),
-                    TextLabel("", fontMap["Star4000"], "#d7d7d7", 33, 1, 0.8, 365, 190, colorMap, 0),
-                    TextLabel("", fontMap["Star4000"], "#d7d7d7", 33, 1, 0.8, 505, 190, colorMap, 0),
-                    TextLabel("", fontMap["Star4000"], "#d7d7d7", 33, 1, 0.8, 72, 230, colorMap, 0),
-                    TextLabel("", fontMap["Star4000"], "#d7d7d7", 33, 1, 0.8, 305, 230, colorMap, 0),
-                    TextLabel("", fontMap["Star4000"], "#d7d7d7", 33, 1, 0.8, 365, 230, colorMap, 0),
-                    TextLabel("", fontMap["Star4000"], "#d7d7d7", 33, 1, 0.8, 505, 230, colorMap, 0),
-                    TextLabel("", fontMap["Star4000"], "#d7d7d7", 33, 1, 0.8, 72, 270, colorMap, 0),
-                    TextLabel("", fontMap["Star4000"], "#d7d7d7", 33, 1, 0.8, 305, 270, colorMap, 0),
-                    TextLabel("", fontMap["Star4000"], "#d7d7d7", 33, 1, 0.8, 365, 270, colorMap, 0),
-                    TextLabel("", fontMap["Star4000"], "#d7d7d7", 33, 1, 0.8, 505, 270, colorMap, 0),
-                    TextLabel("", fontMap["Star4000"], "#d7d7d7", 33, 1, 0.8, 72, 310, colorMap, 0),
-                    TextLabel("", fontMap["Star4000"], "#d7d7d7", 33, 1, 0.8, 305, 310, colorMap, 0),
-                    TextLabel("", fontMap["Star4000"], "#d7d7d7", 33, 1, 0.8, 365, 310, colorMap, 0),
-                    TextLabel("", fontMap["Star4000"], "#d7d7d7", 33, 1, 0.8, 505, 310, colorMap, 0),
-                    TextLabel("", fontMap["Star4000"], "#d7d7d7", 33, 1, 0.8, 72, 350, colorMap, 0),
-                    TextLabel("", fontMap["Star4000"], "#d7d7d7", 33, 1, 0.8, 305, 350, colorMap, 0),
-                    TextLabel("", fontMap["Star4000"], "#d7d7d7", 33, 1, 0.8, 365, 350, colorMap, 0),
-                    TextLabel("", fontMap["Star4000"], "#d7d7d7", 33, 1, 0.8, 505, 350, colorMap, 0),
+                    TextLabel("", "Star4000", "#d7d7d7", 33, 1, 0.8, 72, 110, 0),
+                    TextLabel("", "Star4000", "#d7d7d7", 33, 1, 0.8, 305, 110, 0),
+                    TextLabel("", "Star4000", "#d7d7d7", 33, 1, 0.8, 365, 110, 0),
+                    TextLabel("", "Star4000", "#d7d7d7", 33, 1, 0.8, 505, 110, 0),
+                    TextLabel("", "Star4000", "#d7d7d7", 33, 1, 0.8, 72, 150, 0),
+                    TextLabel("", "Star4000", "#d7d7d7", 33, 1, 0.8, 305, 150, 0),
+                    TextLabel("", "Star4000", "#d7d7d7", 33, 1, 0.8, 365, 150, 0),
+                    TextLabel("", "Star4000", "#d7d7d7", 33, 1, 0.8, 505, 150, 0),
+                    TextLabel("", "Star4000", "#d7d7d7", 33, 1, 0.8, 72, 190, 0),
+                    TextLabel("", "Star4000", "#d7d7d7", 33, 1, 0.8, 305, 190, 0),
+                    TextLabel("", "Star4000", "#d7d7d7", 33, 1, 0.8, 365, 190, 0),
+                    TextLabel("", "Star4000", "#d7d7d7", 33, 1, 0.8, 505, 190, 0),
+                    TextLabel("", "Star4000", "#d7d7d7", 33, 1, 0.8, 72, 230, 0),
+                    TextLabel("", "Star4000", "#d7d7d7", 33, 1, 0.8, 305, 230, 0),
+                    TextLabel("", "Star4000", "#d7d7d7", 33, 1, 0.8, 365, 230, 0),
+                    TextLabel("", "Star4000", "#d7d7d7", 33, 1, 0.8, 505, 230, 0),
+                    TextLabel("", "Star4000", "#d7d7d7", 33, 1, 0.8, 72, 270, 0),
+                    TextLabel("", "Star4000", "#d7d7d7", 33, 1, 0.8, 305, 270, 0),
+                    TextLabel("", "Star4000", "#d7d7d7", 33, 1, 0.8, 365, 270, 0),
+                    TextLabel("", "Star4000", "#d7d7d7", 33, 1, 0.8, 505, 270, 0),
+                    TextLabel("", "Star4000", "#d7d7d7", 33, 1, 0.8, 72, 310, 0),
+                    TextLabel("", "Star4000", "#d7d7d7", 33, 1, 0.8, 305, 310, 0),
+                    TextLabel("", "Star4000", "#d7d7d7", 33, 1, 0.8, 365, 310, 0),
+                    TextLabel("", "Star4000", "#d7d7d7", 33, 1, 0.8, 505, 310, 0),
+                    TextLabel("", "Star4000", "#d7d7d7", 33, 1, 0.8, 72, 350, 0),
+                    TextLabel("", "Star4000", "#d7d7d7", 33, 1, 0.8, 305, 350, 0),
+                    TextLabel("", "Star4000", "#d7d7d7", 33, 1, 0.8, 365, 350, 0),
+                    TextLabel("", "Star4000", "#d7d7d7", 33, 1, 0.8, 505, 350, 0),
                 }
             }
         );
     }
 
 
-    void loadRegionalObservations(vector<GfxScreen> &vec, map<string, sf::Font> &fontMap, map<string, sf::Color> &colorMap)
+    void loadRegionalObservations(vector<GfxScreen> &vec)
     {
         vec.push_back
         (
@@ -399,15 +399,15 @@ namespace ws4
                     buildQuad(0, 85, 461, 85, 457, 90, 0, 90, colorMap["#472240"]),
                 },
                 vector {
-                    TextLabel("Regional", fontMap["Star4000"], "#cdb900", 34, 3, 0.6, 157, 21, colorMap, 0),
-                    TextLabel("Observations", fontMap["Star4000"], "#cdb900", 34, 3, 0.6, 157, 50, colorMap, 0),
+                    TextLabel("Regional", "Star4000", "#cdb900", 34, 3, 0.6, 157, 21, 0),
+                    TextLabel("Observations", "Star4000", "#cdb900", 34, 3, 0.6, 157, 50, 0),
                 }
             }
         );
     }
 
 
-    void loadLocalForecast(vector<GfxScreen> &vec, map<string, sf::Font> &fontMap, map<string, sf::Color> &colorMap)
+    void loadLocalForecast(vector<GfxScreen> &vec)
     {
         // Screen 1/3
         vec.push_back
@@ -417,15 +417,15 @@ namespace ws4
                     // Background gradient
                     buildQuad(0, 90, 640, 308, colorMap["#2e1251"], colorMap["#c05d02"]),
                     // Center blue panel
-                    buildQuad(52, 90, 531, 308, colorMap["#2652b2"]),
-                    buildQuad(55, 94, 527, 302, colorMap["#254ba3"]),
-                    buildQuad(57, 96, 523, 298, colorMap["#254698"]),
-                    buildQuad(59, 98, 519, 294, colorMap["#24408c"]),
-                    buildQuad(61, 100, 515, 290, colorMap["#233a80"]),
-                    buildQuad(63, 102, 511, 286, colorMap["#223474"]),
-                    buildQuad(65, 104, 507, 282, colorMap["#222f69"]),
-                    buildQuad(66, 105, 506, 281, colorMap["#212b60"]),
-                    buildQuad(67, 106, 505, 280, colorMap["#21285a"]),
+                    buildQuad(52, 90, 531, 308, "#2652b2"),
+                    buildQuad(55, 94, 527, 302, "#254ba3"),
+                    buildQuad(57, 96, 523, 298, "#254698"),
+                    buildQuad(59, 98, 519, 294, "#24408c"),
+                    buildQuad(61, 100, 515, 290, "#233a80"),
+                    buildQuad(63, 102, 511, 286, "#223474"),
+                    buildQuad(65, 104, 507, 282, "#222f69"),
+                    buildQuad(66, 105, 506, 281, "#212b60"),
+                    buildQuad(67, 106, 505, 280, "#21285a"),
                     // Top bar
                     buildQuad(0, 29, 499, 29, 494, 37, 0, 37, colorMap["#c35b00"]),
                     buildQuad(0, 37, 494, 37, 489, 45, 0, 45, colorMap["#b25200"]),
@@ -437,16 +437,16 @@ namespace ws4
                     buildQuad(0, 85, 461, 85, 457, 90, 0, 90, colorMap["#472240"]),
                 },
                 vector {
-                    TextLabel("Local Forecast", fontMap["Star4000"], "#cdb900", 34, 3, 0.6, 157, 35, colorMap, 0),
+                    TextLabel("Local Forecast", "Star4000", "#cdb900", 34, 3, 0.6, 157, 35, 0),
                 },
                 vector {
-                    TextLabel("", fontMap["Star4000"], "#d7d7d7", 33, 1, 1.0, 70, 105, colorMap, 0),
-                    TextLabel("", fontMap["Star4000"], "#d7d7d7", 33, 1, 1.0, 70, 145, colorMap, 0),
-                    TextLabel("", fontMap["Star4000"], "#d7d7d7", 33, 1, 1.0, 70, 185, colorMap, 0),
-                    TextLabel("", fontMap["Star4000"], "#d7d7d7", 33, 1, 1.0, 70, 225, colorMap, 0),
-                    TextLabel("", fontMap["Star4000"], "#d7d7d7", 33, 1, 1.0, 70, 265, colorMap, 0),
-                    TextLabel("", fontMap["Star4000"], "#d7d7d7", 33, 1, 1.0, 70, 305, colorMap, 0),
-                    TextLabel("", fontMap["Star4000"], "#d7d7d7", 33, 1, 1.0, 70, 345, colorMap, 0),
+                    TextLabel("", "Star4000", "#d7d7d7", 33, 1, 1.0, 70, 105, 0),
+                    TextLabel("", "Star4000", "#d7d7d7", 33, 1, 1.0, 70, 145, 0),
+                    TextLabel("", "Star4000", "#d7d7d7", 33, 1, 1.0, 70, 185, 0),
+                    TextLabel("", "Star4000", "#d7d7d7", 33, 1, 1.0, 70, 225, 0),
+                    TextLabel("", "Star4000", "#d7d7d7", 33, 1, 1.0, 70, 265, 0),
+                    TextLabel("", "Star4000", "#d7d7d7", 33, 1, 1.0, 70, 305, 0),
+                    TextLabel("", "Star4000", "#d7d7d7", 33, 1, 1.0, 70, 345, 0),
                 }
             }
         );
@@ -458,15 +458,15 @@ namespace ws4
                     // Background gradient
                     buildQuad(0, 90, 640, 308, colorMap["#2e1251"], colorMap["#c05d02"]),
                     // Center blue panel
-                    buildQuad(52, 90, 531, 308, colorMap["#2652b2"]),
-                    buildQuad(55, 94, 527, 302, colorMap["#254ba3"]),
-                    buildQuad(57, 96, 523, 298, colorMap["#254698"]),
-                    buildQuad(59, 98, 519, 294, colorMap["#24408c"]),
-                    buildQuad(61, 100, 515, 290, colorMap["#233a80"]),
-                    buildQuad(63, 102, 511, 286, colorMap["#223474"]),
-                    buildQuad(65, 104, 507, 282, colorMap["#222f69"]),
-                    buildQuad(66, 105, 506, 281, colorMap["#212b60"]),
-                    buildQuad(67, 106, 505, 280, colorMap["#21285a"]),
+                    buildQuad(52, 90, 531, 308, "#2652b2"),
+                    buildQuad(55, 94, 527, 302, "#254ba3"),
+                    buildQuad(57, 96, 523, 298, "#254698"),
+                    buildQuad(59, 98, 519, 294, "#24408c"),
+                    buildQuad(61, 100, 515, 290, "#233a80"),
+                    buildQuad(63, 102, 511, 286, "#223474"),
+                    buildQuad(65, 104, 507, 282, "#222f69"),
+                    buildQuad(66, 105, 506, 281, "#212b60"),
+                    buildQuad(67, 106, 505, 280, "#21285a"),
                     // Top bar
                     buildQuad(0, 29, 499, 29, 494, 37, 0, 37, colorMap["#c35b00"]),
                     buildQuad(0, 37, 494, 37, 489, 45, 0, 45, colorMap["#b25200"]),
@@ -478,16 +478,16 @@ namespace ws4
                     buildQuad(0, 85, 461, 85, 457, 90, 0, 90, colorMap["#472240"]),
                 },
                 vector {
-                    TextLabel("Local Forecast", fontMap["Star4000"], "#cdb900", 34, 3, 0.6, 157, 35, colorMap, 0),
+                    TextLabel("Local Forecast", "Star4000", "#cdb900", 34, 3, 0.6, 157, 35, 0),
                 },
                 vector {
-                    TextLabel("", fontMap["Star4000"], "#d7d7d7", 33, 1, 1.0, 70, 105, colorMap, 0),
-                    TextLabel("", fontMap["Star4000"], "#d7d7d7", 33, 1, 1.0, 70, 145, colorMap, 0),
-                    TextLabel("", fontMap["Star4000"], "#d7d7d7", 33, 1, 1.0, 70, 185, colorMap, 0),
-                    TextLabel("", fontMap["Star4000"], "#d7d7d7", 33, 1, 1.0, 70, 225, colorMap, 0),
-                    TextLabel("", fontMap["Star4000"], "#d7d7d7", 33, 1, 1.0, 70, 265, colorMap, 0),
-                    TextLabel("", fontMap["Star4000"], "#d7d7d7", 33, 1, 1.0, 70, 305, colorMap, 0),
-                    TextLabel("", fontMap["Star4000"], "#d7d7d7", 33, 1, 1.0, 70, 345, colorMap, 0),
+                    TextLabel("", "Star4000", "#d7d7d7", 33, 1, 1.0, 70, 105, 0),
+                    TextLabel("", "Star4000", "#d7d7d7", 33, 1, 1.0, 70, 145, 0),
+                    TextLabel("", "Star4000", "#d7d7d7", 33, 1, 1.0, 70, 185, 0),
+                    TextLabel("", "Star4000", "#d7d7d7", 33, 1, 1.0, 70, 225, 0),
+                    TextLabel("", "Star4000", "#d7d7d7", 33, 1, 1.0, 70, 265, 0),
+                    TextLabel("", "Star4000", "#d7d7d7", 33, 1, 1.0, 70, 305, 0),
+                    TextLabel("", "Star4000", "#d7d7d7", 33, 1, 1.0, 70, 345, 0),
                 }
             }
         );
@@ -499,15 +499,15 @@ namespace ws4
                     // Background gradient
                     buildQuad(0, 90, 640, 308, colorMap["#2e1251"], colorMap["#c05d02"]),
                     // Center blue panel
-                    buildQuad(52, 90, 531, 308, colorMap["#2652b2"]),
-                    buildQuad(55, 94, 527, 302, colorMap["#254ba3"]),
-                    buildQuad(57, 96, 523, 298, colorMap["#254698"]),
-                    buildQuad(59, 98, 519, 294, colorMap["#24408c"]),
-                    buildQuad(61, 100, 515, 290, colorMap["#233a80"]),
-                    buildQuad(63, 102, 511, 286, colorMap["#223474"]),
-                    buildQuad(65, 104, 507, 282, colorMap["#222f69"]),
-                    buildQuad(66, 105, 506, 281, colorMap["#212b60"]),
-                    buildQuad(67, 106, 505, 280, colorMap["#21285a"]),
+                    buildQuad(52, 90, 531, 308, "#2652b2"),
+                    buildQuad(55, 94, 527, 302, "#254ba3"),
+                    buildQuad(57, 96, 523, 298, "#254698"),
+                    buildQuad(59, 98, 519, 294, "#24408c"),
+                    buildQuad(61, 100, 515, 290, "#233a80"),
+                    buildQuad(63, 102, 511, 286, "#223474"),
+                    buildQuad(65, 104, 507, 282, "#222f69"),
+                    buildQuad(66, 105, 506, 281, "#212b60"),
+                    buildQuad(67, 106, 505, 280, "#21285a"),
                     // Top bar
                     buildQuad(0, 29, 499, 29, 494, 37, 0, 37, colorMap["#c35b00"]),
                     buildQuad(0, 37, 494, 37, 489, 45, 0, 45, colorMap["#b25200"]),
@@ -519,23 +519,23 @@ namespace ws4
                     buildQuad(0, 85, 461, 85, 457, 90, 0, 90, colorMap["#472240"]),
                 },
                 vector {
-                    TextLabel("Local Forecast", fontMap["Star4000"], "#cdb900", 34, 3, 0.6, 157, 35, colorMap, 0),
+                    TextLabel("Local Forecast", "Star4000", "#cdb900", 34, 3, 0.6, 157, 35, 0),
                 },
                 vector {
-                    TextLabel("", fontMap["Star4000"], "#d7d7d7", 33, 1, 1.0, 70, 105, colorMap, 0),
-                    TextLabel("", fontMap["Star4000"], "#d7d7d7", 33, 1, 1.0, 70, 145, colorMap, 0),
-                    TextLabel("", fontMap["Star4000"], "#d7d7d7", 33, 1, 1.0, 70, 185, colorMap, 0),
-                    TextLabel("", fontMap["Star4000"], "#d7d7d7", 33, 1, 1.0, 70, 225, colorMap, 0),
-                    TextLabel("", fontMap["Star4000"], "#d7d7d7", 33, 1, 1.0, 70, 265, colorMap, 0),
-                    TextLabel("", fontMap["Star4000"], "#d7d7d7", 33, 1, 1.0, 70, 305, colorMap, 0),
-                    TextLabel("", fontMap["Star4000"], "#d7d7d7", 33, 1, 1.0, 70, 345, colorMap, 0),
+                    TextLabel("", "Star4000", "#d7d7d7", 33, 1, 1.0, 70, 105, 0),
+                    TextLabel("", "Star4000", "#d7d7d7", 33, 1, 1.0, 70, 145, 0),
+                    TextLabel("", "Star4000", "#d7d7d7", 33, 1, 1.0, 70, 185, 0),
+                    TextLabel("", "Star4000", "#d7d7d7", 33, 1, 1.0, 70, 225, 0),
+                    TextLabel("", "Star4000", "#d7d7d7", 33, 1, 1.0, 70, 265, 0),
+                    TextLabel("", "Star4000", "#d7d7d7", 33, 1, 1.0, 70, 305, 0),
+                    TextLabel("", "Star4000", "#d7d7d7", 33, 1, 1.0, 70, 345, 0),
                 }
             }
         );
     }
 
 
-    void loadRegionalForecast(vector<GfxScreen> &vec, map<string, sf::Font> &fontMap, map<string, sf::Color> &colorMap)
+    void loadRegionalForecast(vector<GfxScreen> &vec)
     {
         vec.push_back
         (
@@ -552,17 +552,17 @@ namespace ws4
                     buildQuad(0, 85, 461, 85, 457, 90, 0, 90, colorMap["#472240"]),
                 },
                 vector {
-                    TextLabel("Forecast For", fontMap["Star4000"], "#cdb900", 34, 3, 0.6, 157, 21, colorMap, 0),
+                    TextLabel("Forecast For", "Star4000", "#cdb900", 34, 3, 0.6, 157, 21, 0),
                 },
                 vector {
-                    TextLabel("", fontMap["Star4000"], "#cdb900", 34, 3, 0.6, 157, 50, colorMap, 0),
+                    TextLabel("", "Star4000", "#cdb900", 34, 3, 0.6, 157, 50, 0),
                 }
             }
         );
     }
 
 
-    void loadExtendedForecast(vector<GfxScreen> &vec, map<string, sf::Font> &fontMap, map<string, sf::Color> &colorMap)
+    void loadExtendedForecast(vector<GfxScreen> &vec)
     {
         vec.push_back
         (
@@ -571,41 +571,41 @@ namespace ws4
                     // Background gradient
                     buildQuad(0, 90, 640, 308, colorMap["#2e1251"], colorMap["#c05d02"]),
                     // Left panel
-                    buildQuad(37, 100, 175, 296, colorMap["#0e0e0e"]),
-                    buildQuad(40, 103, 169, 290, colorMap["#828af5"]),
-                    buildQuad(44, 106, 161, 284, colorMap["#0e0e0e"]),
-                    buildQuad(46, 108, 157, 32, colorMap["#565bca"]),
-                    buildQuad(46, 140, 157, 35, colorMap["#424eca"]),
-                    buildQuad(46, 175, 157, 36, colorMap["#2c42ca"]),
-                    buildQuad(46, 211, 157, 34, colorMap["#2539ca"]),
-                    buildQuad(46, 245, 157, 34, colorMap["#0931ca"]),
-                    buildQuad(46, 279, 157, 37, colorMap["#0028cb"]),
-                    buildQuad(46, 316, 157, 36, colorMap["#0024cb"]),
-                    buildQuad(46, 352, 157, 36, colorMap["#0022cb"]),
+                    buildQuad(37, 100, 175, 296,"#0e0e0e"),
+                    buildQuad(40, 103, 169, 290,"#828af5"),
+                    buildQuad(44, 106, 161, 284,"#0e0e0e"),
+                    buildQuad(46, 108, 157, 32, "#565bca"),
+                    buildQuad(46, 140, 157, 35, "#424eca"),
+                    buildQuad(46, 175, 157, 36, "#2c42ca"),
+                    buildQuad(46, 211, 157, 34, "#2539ca"),
+                    buildQuad(46, 245, 157, 34, "#0931ca"),
+                    buildQuad(46, 279, 157, 37, "#0028cb"),
+                    buildQuad(46, 316, 157, 36, "#0024cb"),
+                    buildQuad(46, 352, 157, 36, "#0022cb"),
                     // Center panel
-                    buildQuad(231, 100, 175, 296, colorMap["#0e0e0e"]),
-                    buildQuad(234, 103, 169, 290, colorMap["#828af5"]),
-                    buildQuad(238, 106, 161, 284, colorMap["#0e0e0e"]),
-                    buildQuad(240, 108, 157, 32, colorMap["#565bca"]),
-                    buildQuad(240, 140, 157, 35, colorMap["#424eca"]),
-                    buildQuad(240, 175, 157, 36, colorMap["#2c42ca"]),
-                    buildQuad(240, 211, 157, 34, colorMap["#2539ca"]),
-                    buildQuad(240, 245, 157, 34, colorMap["#0931ca"]),
-                    buildQuad(240, 279, 157, 37, colorMap["#0028cb"]),
-                    buildQuad(240, 316, 157, 36, colorMap["#0024cb"]),
-                    buildQuad(240, 352, 157, 36, colorMap["#0022cb"]),
+                    buildQuad(231, 100, 175, 296,"#0e0e0e"),
+                    buildQuad(234, 103, 169, 290,"#828af5"),
+                    buildQuad(238, 106, 161, 284,"#0e0e0e"),
+                    buildQuad(240, 108, 157, 32, "#565bca"),
+                    buildQuad(240, 140, 157, 35, "#424eca"),
+                    buildQuad(240, 175, 157, 36, "#2c42ca"),
+                    buildQuad(240, 211, 157, 34, "#2539ca"),
+                    buildQuad(240, 245, 157, 34, "#0931ca"),
+                    buildQuad(240, 279, 157, 37, "#0028cb"),
+                    buildQuad(240, 316, 157, 36, "#0024cb"),
+                    buildQuad(240, 352, 157, 36, "#0022cb"),
                     // Right panel
-                    buildQuad(426, 100, 175, 296, colorMap["#0e0e0e"]),
-                    buildQuad(429, 103, 169, 290, colorMap["#828af5"]),
-                    buildQuad(433, 106, 161, 284, colorMap["#0e0e0e"]),
-                    buildQuad(435, 108, 157, 32, colorMap["#565bca"]),
-                    buildQuad(435, 140, 157, 35, colorMap["#424eca"]),
-                    buildQuad(435, 175, 157, 36, colorMap["#2c42ca"]),
-                    buildQuad(435, 211, 157, 34, colorMap["#2539ca"]),
-                    buildQuad(435, 245, 157, 34, colorMap["#0931ca"]),
-                    buildQuad(435, 279, 157, 37, colorMap["#0028cb"]),
-                    buildQuad(435, 316, 157, 36, colorMap["#0024cb"]),
-                    buildQuad(435, 352, 157, 36, colorMap["#0022cb"]),
+                    buildQuad(426, 100, 175, 296,"#0e0e0e"),
+                    buildQuad(429, 103, 169, 290,"#828af5"),
+                    buildQuad(433, 106, 161, 284,"#0e0e0e"),
+                    buildQuad(435, 108, 157, 32, "#565bca"),
+                    buildQuad(435, 140, 157, 35, "#424eca"),
+                    buildQuad(435, 175, 157, 36, "#2c42ca"),
+                    buildQuad(435, 211, 157, 34, "#2539ca"),
+                    buildQuad(435, 245, 157, 34, "#0931ca"),
+                    buildQuad(435, 279, 157, 37, "#0028cb"),
+                    buildQuad(435, 316, 157, 36, "#0024cb"),
+                    buildQuad(435, 352, 157, 36, "#0022cb"),
                     // Top bar
                     buildQuad(0, 29, 499, 29, 494, 37, 0, 37, colorMap["#c35b00"]),
                     buildQuad(0, 37, 494, 37, 489, 45, 0, 45, colorMap["#b25200"]),
@@ -617,38 +617,38 @@ namespace ws4
                     buildQuad(0, 85, 461, 85, 457, 90, 0, 90, colorMap["#472240"]),
                 },
                 vector {
-                    TextLabel("Extended Forecast", fontMap["Star4000"], "#cdb900", 34, 2, 0.5, 157, 50, colorMap, 0),
-                    TextLabel("Lo", fontMap["Star4000"], "#8385cb", 33, 1, 0.7, 86, 311, colorMap, 1),
-                    TextLabel("Hi", fontMap["Star4000"], "#cdb900", 33, 1, 0.7, 158, 311, colorMap, 1),
-                    TextLabel("Lo", fontMap["Star4000"], "#8385cb", 33, 1, 0.7, 284, 311, colorMap, 1),
-                    TextLabel("Hi", fontMap["Star4000"], "#cdb900", 33, 1, 0.7, 358, 311, colorMap, 1),
-                    TextLabel("Lo", fontMap["Star4000"], "#8385cb", 33, 1, 0.7, 476, 311, colorMap, 1),
-                    TextLabel("Hi", fontMap["Star4000"], "#cdb900", 33, 1, 0.7, 554, 311, colorMap, 1),
+                    TextLabel("Extended Forecast", "Star4000", "#cdb900", 34, 2, 0.5, 157, 50, 0),
+                    TextLabel("Lo", "Star4000", "#8385cb", 33, 1, 0.7, 86, 311, 1),
+                    TextLabel("Hi", "Star4000", "#cdb900", 33, 1, 0.7, 158, 311, 1),
+                    TextLabel("Lo", "Star4000", "#8385cb", 33, 1, 0.7, 284, 311, 1),
+                    TextLabel("Hi", "Star4000", "#cdb900", 33, 1, 0.7, 358, 311, 1),
+                    TextLabel("Lo", "Star4000", "#8385cb", 33, 1, 0.7, 476, 311, 1),
+                    TextLabel("Hi", "Star4000", "#cdb900", 33, 1, 0.7, 554, 311, 1),
                 },
                 vector {
-                    TextLabel("", fontMap["Star4000"], "#d7d7d7", 34, 2, 0.5, 156, 21, colorMap, 0),
-                    TextLabel("", fontMap["Star4000"], "#cdb900", 34, 2, 1.0, 122, 100, colorMap, 1),
-                    TextLabel("", fontMap["Star4000"], "#cdb900", 34, 2, 1.0, 320, 100, colorMap, 1),
-                    TextLabel("", fontMap["Star4000"], "#cdb900", 34, 2, 1.0, 514, 100, colorMap, 1),
-                    TextLabel("", fontMap["Star4000"], "#d7d7d7", 34, 1, 1.0, 122, 238, colorMap, 1),
-                    TextLabel("", fontMap["Star4000"], "#d7d7d7", 34, 1, 1.0, 122, 274, colorMap, 1),
-                    TextLabel("", fontMap["Star4000"], "#d7d7d7", 34, 1, 1.0, 320, 238, colorMap, 1),
-                    TextLabel("", fontMap["Star4000"], "#d7d7d7", 34, 1, 1.0, 320, 274, colorMap, 1),
-                    TextLabel("", fontMap["Star4000"], "#d7d7d7", 34, 1, 1.0, 514, 238, colorMap, 1),
-                    TextLabel("", fontMap["Star4000"], "#d7d7d7", 34, 1, 1.0, 514, 274, colorMap, 1),
-                    TextLabel("", fontMap["Star4000-Large"], "#d7d7d7", 36, 1, 1.0, 86, 350, colorMap, 1),
-                    TextLabel("", fontMap["Star4000-Large"], "#d7d7d7", 36, 1, 1.0, 158, 350, colorMap, 1),
-                    TextLabel("", fontMap["Star4000-Large"], "#d7d7d7", 36, 1, 1.0, 284, 350, colorMap, 1),
-                    TextLabel("", fontMap["Star4000-Large"], "#d7d7d7", 36, 1, 1.0, 358, 350, colorMap, 1),
-                    TextLabel("", fontMap["Star4000-Large"], "#d7d7d7", 36, 1, 1.0, 476, 350, colorMap, 1),
-                    TextLabel("", fontMap["Star4000-Large"], "#d7d7d7", 36, 1, 1.0, 554, 350, colorMap, 1),
+                    TextLabel("", "Star4000", "#d7d7d7", 34, 2, 0.5, 156, 21, 0),
+                    TextLabel("", "Star4000", "#cdb900", 34, 2, 1.0, 122, 100, 1),
+                    TextLabel("", "Star4000", "#cdb900", 34, 2, 1.0, 320, 100, 1),
+                    TextLabel("", "Star4000", "#cdb900", 34, 2, 1.0, 514, 100, 1),
+                    TextLabel("", "Star4000", "#d7d7d7", 34, 1, 1.0, 122, 238, 1),
+                    TextLabel("", "Star4000", "#d7d7d7", 34, 1, 1.0, 122, 274, 1),
+                    TextLabel("", "Star4000", "#d7d7d7", 34, 1, 1.0, 320, 238, 1),
+                    TextLabel("", "Star4000", "#d7d7d7", 34, 1, 1.0, 320, 274, 1),
+                    TextLabel("", "Star4000", "#d7d7d7", 34, 1, 1.0, 514, 238, 1),
+                    TextLabel("", "Star4000", "#d7d7d7", 34, 1, 1.0, 514, 274, 1),
+                    TextLabel("", "Star4000-Large", "#d7d7d7", 36, 1, 1.0, 86, 350, 1),
+                    TextLabel("", "Star4000-Large", "#d7d7d7", 36, 1, 1.0, 158, 350, 1),
+                    TextLabel("", "Star4000-Large", "#d7d7d7", 36, 1, 1.0, 284, 350, 1),
+                    TextLabel("", "Star4000-Large", "#d7d7d7", 36, 1, 1.0, 358, 350, 1),
+                    TextLabel("", "Star4000-Large", "#d7d7d7", 36, 1, 1.0, 476, 350, 1),
+                    TextLabel("", "Star4000-Large", "#d7d7d7", 36, 1, 1.0, 554, 350, 1),
                 }
             }
         );
     }
 
 
-    void loadAlmanac(vector<GfxScreen> &vec, map<string, sf::Font> &fontMap, map<string, sf::Color> &colorMap)
+    void loadAlmanac(vector<GfxScreen> &vec)
     {
         vec.push_back
         (
@@ -658,7 +658,7 @@ namespace ws4
                     buildQuad(0, 90, 640, 40, colorMap["#2e1251"], colorMap["#7d3c28"]),
                     buildQuad(0, 130, 640, 62, colorMap["#7d3c28"], colorMap["#c35b00"]),
                     // Gray background
-                    buildQuad(0, 192, 640, 206, colorMap["#3d3d3d"]),
+                    buildQuad(0, 192, 640, 206, "#3d3d3d"),
                     // Top bar
                     buildQuad(0, 29, 499, 29, 494, 37, 0, 37, colorMap["#c35b00"]),
                     buildQuad(0, 37, 494, 37, 489, 45, 0, 45, colorMap["#b25200"]),
@@ -670,26 +670,26 @@ namespace ws4
                     buildQuad(0, 85, 461, 85, 457, 90, 0, 90, colorMap["#472240"]),
                 },
                 vector {
-                    TextLabel("Almanac", fontMap["Star4000"], "#cdb900", 34, 3, 0.9, 156, 35, colorMap, 0),
-                    TextLabel("Sunrise:", fontMap["Star4000"], "#d7d7d7", 34, 2, 1.0, 194, 116, colorMap, 2),
-                    TextLabel("Sunset:", fontMap["Star4000"], "#d7d7d7", 34, 2, 1.0, 194, 149, colorMap, 2),
-                    TextLabel("Moon Data:", fontMap["Star4000"], "#cdb900", 34, 2, 0.9, 78, 190, colorMap, 0),
+                    TextLabel("Almanac", "Star4000", "#cdb900", 34, 3, 0.9, 156, 35, 0),
+                    TextLabel("Sunrise:", "Star4000", "#d7d7d7", 34, 2, 1.0, 194, 116, 2),
+                    TextLabel("Sunset:", "Star4000", "#d7d7d7", 34, 2, 1.0, 194, 149, 2),
+                    TextLabel("Moon Data:", "Star4000", "#cdb900", 34, 2, 0.9, 78, 190, 0),
                 },
                 vector {
-                    TextLabel("", fontMap["Star4000"], "#cdb900", 34, 2, 1.0, 320, 84, colorMap, 1),
-                    TextLabel("", fontMap["Star4000"], "#cdb900", 34, 2, 1.0, 500, 84, colorMap, 1),
-                    TextLabel("", fontMap["Star4000"], "#d7d7d7", 34, 2, 1.0, 320, 116, colorMap, 1),
-                    TextLabel("", fontMap["Star4000"], "#d7d7d7", 34, 2, 1.0, 500, 116, colorMap, 1),
-                    TextLabel("", fontMap["Star4000"], "#d7d7d7", 34, 2, 1.0, 320, 149, colorMap, 1),
-                    TextLabel("", fontMap["Star4000"], "#d7d7d7", 34, 2, 1.0, 500, 149, colorMap, 1),
-                    TextLabel("", fontMap["Star4000"], "#d7d7d7", 34, 2, 1.0, 134, 226, colorMap, 1),
-                    TextLabel("", fontMap["Star4000"], "#d7d7d7", 34, 2, 1.0, 256, 226, colorMap, 1),
-                    TextLabel("", fontMap["Star4000"], "#d7d7d7", 34, 2, 1.0, 378, 226, colorMap, 1),
-                    TextLabel("", fontMap["Star4000"], "#d7d7d7", 34, 2, 1.0, 504, 226, colorMap, 1),
-                    TextLabel("", fontMap["Star4000"], "#d7d7d7", 34, 2, 1.0, 134, 356, colorMap, 1),
-                    TextLabel("", fontMap["Star4000"], "#d7d7d7", 34, 2, 1.0, 256, 356, colorMap, 1),
-                    TextLabel("", fontMap["Star4000"], "#d7d7d7", 34, 2, 1.0, 378, 356, colorMap, 1),
-                    TextLabel("", fontMap["Star4000"], "#d7d7d7", 34, 2, 1.0, 504, 356, colorMap, 1),
+                    TextLabel("", "Star4000", "#cdb900", 34, 2, 1.0, 320, 84, 1),
+                    TextLabel("", "Star4000", "#cdb900", 34, 2, 1.0, 500, 84, 1),
+                    TextLabel("", "Star4000", "#d7d7d7", 34, 2, 1.0, 320, 116, 1),
+                    TextLabel("", "Star4000", "#d7d7d7", 34, 2, 1.0, 500, 116, 1),
+                    TextLabel("", "Star4000", "#d7d7d7", 34, 2, 1.0, 320, 149, 1),
+                    TextLabel("", "Star4000", "#d7d7d7", 34, 2, 1.0, 500, 149, 1),
+                    TextLabel("", "Star4000", "#d7d7d7", 34, 2, 1.0, 134, 226, 1),
+                    TextLabel("", "Star4000", "#d7d7d7", 34, 2, 1.0, 256, 226, 1),
+                    TextLabel("", "Star4000", "#d7d7d7", 34, 2, 1.0, 378, 226, 1),
+                    TextLabel("", "Star4000", "#d7d7d7", 34, 2, 1.0, 504, 226, 1),
+                    TextLabel("", "Star4000", "#d7d7d7", 34, 2, 1.0, 134, 356, 1),
+                    TextLabel("", "Star4000", "#d7d7d7", 34, 2, 1.0, 256, 356, 1),
+                    TextLabel("", "Star4000", "#d7d7d7", 34, 2, 1.0, 378, 356, 1),
+                    TextLabel("", "Star4000", "#d7d7d7", 34, 2, 1.0, 504, 356, 1),
                 }
             }
         );

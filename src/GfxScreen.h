@@ -31,9 +31,20 @@ namespace ws4
 
 
     public:
-        GfxScreen(vector<array< sf::Vertex, 4>> sbv, vector<TextLabel> st, vector<TextLabel> dt);
-        GfxScreen(vector<array< sf::Vertex, 4>> sbv, vector<TextLabel> st);
-        GfxScreen() = default;
+        GfxScreen(vector<array< sf::Vertex, 4>> sbv, vector<TextLabel> st, vector<TextLabel> dt)
+        {
+            staticBgVertices = std::move(sbv);
+            staticText = std::move(st);
+            dynamicText = std::move(dt);
+        }
+
+        GfxScreen(vector<array< sf::Vertex, 4>> sbv, vector<TextLabel> st)
+        {
+            staticBgVertices = std::move(sbv);
+            staticText = std::move(st);
+        }
+
+        GfxScreen() {}
 
         void updateText(const vector<string>& newText);
         void updateIcons();

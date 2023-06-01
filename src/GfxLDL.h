@@ -35,7 +35,7 @@ namespace ws4
 
 
     public:
-        GfxLDL(string text, map<string, sf::Color> &colorMap, map<string, sf::Font> &fontMap);
+        explicit GfxLDL(string text);
         GfxLDL() = default;
 
         void setText(const string& text);

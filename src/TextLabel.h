@@ -27,8 +27,8 @@ namespace ws4
         
         
     public:
-        TextLabel(string text, sf::Font &font, string colorName, int charSize, int shLevel,
-                        float spacing, int x, int y, map<string, sf::Color> colorMap, short dir);
+        TextLabel(string text, string fontName, string colorName, int charSize, int shLevel,
+                        float spacing, int x, int y, short dir);
         TextLabel() = default;
 
         void renderTo(sf::RenderWindow &window);
