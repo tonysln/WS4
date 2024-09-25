@@ -1,7 +1,3 @@
-#include "DataProc.h"
-#include <stdio.h>
-#include <cmath>
-
 
 /*
  * Calculation Sources:
@@ -12,109 +8,110 @@
  * - https://www.weather.gov/media/epz/wxcalc/pressureConversion.pdf
  */
 
+class DataProc {
 
-namespace ws4p {
-    double tempCtoF(double tempC)
+
+	private function tempCtoF(tempC: Float): Float
     {
         return (9.0/5.0) * tempC + 32.0;
     }
 
-    double tempFtoC(double tempF)
+    private function tempFtoC(tempF: Float): Float
     {
         return (5.0/9.0) * (tempF - 32.0);
     }
 
-    double windMstoMph(double windMs)
+    private function windMstoMph(windMs: Float): Float
     {
         return 2.23694 * windMs;
     }
 
-    double windMphtoMs(double windMph)
+    private function windMphtoMs(windMph: Float): Float
     {
         return 0.44704 * windMph;
     }
 
-    double presMbtoInHg(double presMb)
+    private function presMbtoInHg(presMb: Float): Float
     {
         return 0.0295300 * presMb;
     }
 
-    double presInHgtoMb(double presInHg)
+    private function presInHgtoMb(presInHg: Float): Float
     {
         return 33.8639 * presInHg;
     }
 
-    double calcDewPoint(double tempC, double relHum)
+    private function calcDewPoint(tempC: Float, relHum: Float): Float
     {
-        return pow(relHum/100.0, 1.0/8.0) * (112.0+0.9*tempC) + 0.1*tempC - 112.0;
+        return Math.pow(relHum/100.0, 1.0/8.0) * (112.0+0.9*tempC) + 0.1*tempC - 112.0;
     }
 
-    double calcWindChill(double tempC, double windMs)
+    private function calcWindChill(tempC: Float, windMs: Float): Float
     {
-        double tempF = tempFtoC(tempC);
-        double windMph = windMstoMph(windMs);
+        var tempF = tempFtoC(tempC);
+        var windMph = windMstoMph(windMs);
 
-        double windChillF = 35.74 + (0.6215 * tempF) - (35.75 * pow(windMph, 0.16)) +
-                                                (0.4275 * tempF * pow(windMph, 0.16));
+        var windChillF = 35.74 + (0.6215 * tempF) - (35.75 * Math.pow(windMph, 0.16)) +
+                                                (0.4275 * tempF * Math.pow(windMph, 0.16));
 
         return tempCtoF(windChillF);
     }
 
-    double calcHeatIndex(double tempC, double relHum)
+    private function calcHeatIndex(tempC: Float, relHum: Float): Float
     {
-        double tempF = tempCtoF(tempC);
-        double HI_simple = 0.5 * (tempF + 61.0 + ((tempF-68.0)*1.2) + (relHum*0.094));
+        var tempF = tempCtoF(tempC);
+        var HI_simple = 0.5 * (tempF + 61.0 + ((tempF-68.0)*1.2) + (relHum*0.094));
         if (HI_simple < 80)
             return HI_simple;
 
-        double heatIdx = -42.379 + 2.04901523*tempF + 10.14333127*relHum -
+        var heatIdx = -42.379 + 2.04901523*tempF + 10.14333127*relHum -
                 0.22475541*tempF*relHum - 0.00683783*tempF*tempF - 0.05481717*relHum*relHum + 
                 0.00122874*tempF*tempF*relHum + 
                 0.00085282*tempF*relHum*relHum - 0.00000199*tempF*tempF*relHum*relHum;
 
 
-        if ((relHum < 13.0) & (tempF > 80.0) & (tempF < 112.0))
-            heatIdx -= ((13.0-relHum)/4.0) * sqrt((17-abs(tempF-95.0))/17.0);
-        else if ((relHum > 85.0) & (tempF > 80.0) & (tempF < 87.0))
+        if ((relHum < 13.0) && (tempF > 80.0) && (tempF < 112.0))
+            heatIdx -= ((13.0-relHum)/4.0) * Math.sqrt((17-Math.abs(tempF-95.0))/17.0);
+        else if ((relHum > 85.0) && (tempF > 80.0) && (tempF < 87.0))
             heatIdx += ((relHum-85.0)/10.0) * ((87-tempF)/5.0);
 
 
         return tempFtoC(heatIdx);
     }
 
-    bool todayHasMoonEvent()
+    private function todayHasMoonEvent(): Bool
     {
         return false;
     }
 
-    void nextMoonPhases()
+    private function nextMoonPhases(): Void
     {
 
     }
 
 
-    int runValidator()
+    public static function runValidator(): Int
     {
-        int valid = std::system("python3 ../scripts/validate.py");
-        return valid;
+        // var valid = std.system("python3 ../scripts/validate.py");
+        // return valid;
+        return 1;
     }
 
-    void createMapRegion(int x, int y)
+    public static function createMapRegion(x: Int, y: Int): Void
     {
-        char *cmd = new char[100];
-        snprintf(cmd, 100, "python3 ../scripts/map_region.py %d %d", x, y);
-        cmd[99] = '\0';
+        // var cmd: String;
+        // snprintf(cmd, 100, "python3 ../scripts/map_region.py %d %d", x, y);
+        // cmd[99] = '\0';
 
-        std::system(cmd);
-        delete[] cmd;
+        // std.system(cmd);
     }
 
-    void fetchNewData()
+    public static function fetchNewData(): Void
     {
 
     }
 
-    vector<vector<string>> readyFormatLatestData()
+    public static function readyFormatLatestData(): Array<Array<String>>
     {
         /*
          * data:
@@ -143,68 +140,69 @@ namespace ws4p {
          *    19 - LDLScrollStr         ["Scrolling text..."]
          */
 
-        vector<vector<string>> data =
-        {
-            {"Wilmington", "31°", "Cloudy", "43%", "11°", "10mi.", "6500 ft.", "30.41", "Wind:  ENE  5", " ", "Wind Chill:", "29°"},
-            {"down"},
-            {"CC_Cloudy"},
-            {"Atlantic City", "35", "M Cloudy", "E  8",
+        var data =
+        [
+            ["Wilmington", "31°", "Cloudy", "43%", "11°", "10mi.", "6500 ft.", "30.41", "Wind:  ENE  5", " ", "Wind Chill:", "29°"],
+            ["down"],
+            ["CC_Cloudy"],
+            ["Atlantic City", "35", "M Cloudy", "E  8",
              "Baltimore", "31", "Cloudy", "ENE7",
              "Dover", "33", "Cloudy", "NNE1",
              "Philadelphia", "32", "Cloudy", "NE 6",
              "Salisbury", "40", "M Cloudy", "N  6",
              "Wash/National", "36", "Cloudy", "NNE3",
-             "Wilmington", "31", "Cloudy", "ENE5"},
-            {"Pittsburgh", "New York", "Harrisburg", "Atl City", "Washington DC", "Charleston", "Richmond"},
-            {"25", "32", "27", "35", "36", "39", "43"},
-            {"RF_Light-Snow", "RF_Mostly-Cloudy", "RF_Cloudy", "RF_Mostly-Cloudy", "RF_Cloudy", "RF_Partly-Cloudy", "RF_Partly-Cloudy"},
-            {"THIS AFTERNOON...MOSTLY CLOUDY.",
+             "Wilmington", "31", "Cloudy", "ENE5"],
+            ["Pittsburgh", "New York", "Harrisburg", "Atl City", "Washington DC", "Charleston", "Richmond"],
+            ["25", "32", "27", "35", "36", "39", "43"],
+            ["RF_Light-Snow", "RF_Mostly-Cloudy", "RF_Cloudy", "RF_Mostly-Cloudy", "RF_Cloudy", "RF_Partly-Cloudy", "RF_Partly-Cloudy"],
+            ["THIS AFTERNOON...MOSTLY CLOUDY.",
               "HIGHS IN THE MID 30S. NORTHEAST",
               "WINDS 10 MPH.",
               " ",
               " ",
               " ",
-              " "},
-            {"TONIGHT...CLOUDY WITH CHANCE OF",
+              " "],
+            ["TONIGHT...CLOUDY WITH CHANCE OF",
               "FLURRIES. LOWS 20 TO 25. LIGHT",
               "NORTHEAST WINDS.",
               " ",
               " ",
               " ",
-              " "},
-            {"WEDNESDAY...CLOUDY WITH A 30",
+              " "],
+            ["WEDNESDAY...CLOUDY WITH A 30",
               "PERCENT CHANCE OF LIGHT RAIN OR",
               "FREEZING RAIN. HIGHS IN THE",
               "UPPER 30S. LIGHT EAST WINDS.",
               " ",
               " ",
-              " "},
-            {"Wednesday"},
-            {"Pittsburgh", "New York", "Harrisburg", "Atl City", "Washington DC", "Charleston", "Richmond"},
-            {"42", "34", "36", "41", "45", "54", "50"},
-            {"RF_Rain", "RF_Light-Snow", "RF_Rain-Snow", "RF_Mostly-Cloudy", "RF_Mostly-Cloudy", "RF_Rain", "RF_Mostly-Cloudy"},
-            {"New Castle County", "THU", "FRI", "SAT",
+              " "],
+            ["Wednesday"],
+            ["Pittsburgh", "New York", "Harrisburg", "Atl City", "Washington DC", "Charleston", "Richmond"],
+            ["42", "34", "36", "41", "45", "54", "50"],
+            ["RF_Rain", "RF_Light-Snow", "RF_Rain-Snow", "RF_Mostly-Cloudy", "RF_Mostly-Cloudy", "RF_Rain", "RF_Mostly-Cloudy"],
+            ["New Castle County", "THU", "FRI", "SAT",
              "Showers", " ",
              "Scattered", "Showers",
              "Scattered", "Showers",
              "35", "45",
              "44", "55",
-             "44", "54"},
-            {"EF_Showers", "EF_Scattered-Showers", "EF_Scattered-Showers"},
-            {"Tuesday", "Wednesday",
+             "44", "54"],
+            ["EF_Showers", "EF_Scattered-Showers", "EF_Scattered-Showers"],
+            ["Tuesday", "Wednesday",
             "7:19 am", "7:19 am",
             "4:59 pm", "5:00 pm",
             "Full", "Last", "New", "First",
-            "Jan 16", "Jan 23", "Jan 30", "Feb 7"},
-            {"M_Full", "M_Last", "M_New", "M_First"},
-            {"Conditions at Wilmington", "Cloudy",
+            "Jan 16", "Jan 23", "Jan 30", "Feb 7"],
+            ["M_Full", "M_Last", "M_New", "M_First"],
+            ["Conditions at Wilmington", "Cloudy",
               "Temp: 31°F     Wind Chill: 29°F",
               "Humidity:  43%    Dewpoint: 11°F",
               "Barometric Pressure: 30.41 F",
               "Wind: ENE  5 MPH",
-              "Visib:  10 mi.   Ceiling: 6500 ft."},
-            {"TURN TO CHANNEL 22-THE CLASSIFIED CHANNEL FOR THE BEST DEALS IN REAL ESTATE, AUTOMOBILES AND RETAIL SERVICES.  FOR ADVERTISING INFO CALL 575-0100.  CHANNEL 22-THE CLASSIFIED CHANNEL...MADE FOR YOU!"}
-        };
+              "Visib:  10 mi.   Ceiling: 6500 ft."],
+            ["TURN TO CHANNEL 22-THE CLASSIFIED CHANNEL FOR THE BEST DEALS IN REAL ESTATE, AUTOMOBILES AND RETAIL SERVICES.  FOR ADVERTISING INFO CALL 575-0100.  CHANNEL 22-THE CLASSIFIED CHANNEL...MADE FOR YOU!"]
+        ];
         return data;
     }
+
 }
