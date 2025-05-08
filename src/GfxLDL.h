@@ -18,13 +18,8 @@ namespace ws4
 {
     class GfxLDL
     {
-        vector<array<sf::Vertex, 4>> vertexObjs;
-        ws4::TextLabel textLabel;
         bool scrollMode = false;
-        vector<string> wordBuf;
-        string bufStrFull;
-        sf::Clock bufTimer;
-        int bufIdx = -1;
+        int bufIdx = 0;
         int scrSpeed = 3;
         int x = 64;
         int y = 399;
@@ -32,11 +27,15 @@ namespace ws4
         int offsetPxLeft = 90.f;
         float lagTime = 17.f;
 
-
+        vector<array<sf::Vertex, 4>> vertexObjs;
+        TextLabel textLabel;
+        vector<string> wordBuf;
+        string bufStrFull;
+        sf::Clock bufTimer;
 
     public:
-        explicit GfxLDL(string text);
-        GfxLDL() = default;
+        explicit GfxLDL(const string& text);
+        GfxLDL() = delete;
 
         void setText(const string& text);
         void useScroll(bool scroll);

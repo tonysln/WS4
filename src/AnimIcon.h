@@ -30,11 +30,11 @@ namespace ws4
             h = posVec[2];
             yPos = posVec[1];
             icon.setTextureRect(frame);
-            icon.setOrigin(sf::Vector2f(icon.getGlobalBounds().width/2, icon.getGlobalBounds().height/2));
+            icon.setOrigin(sf::Vector2f(icon.getGlobalBounds().size.x/2, icon.getGlobalBounds().size.y/2));
             icon.setPosition(sf::Vector2f(x, y));
         }
 
-        AnimIcon() = default;
+        AnimIcon() = delete;
 
         void update();
         void switchFrame(int iconFrame);

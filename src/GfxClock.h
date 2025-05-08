@@ -21,12 +21,12 @@ namespace ws4
 
 
     public:
-        GfxClock()
+        GfxClock():
+            time(timeStr, "Star4000-Small", "#d7d7d7", 32, 1, 0.9f, 412, 33, 0),
+            ampm(timeAPStr, "Star4000-Small", "#d7d7d7", 32, 1, 0.9f, 575, 33, 2),
+            date(dateStr, "Star4000-Small", "#d7d7d7", 32, 1, 0.9f, 575, 53, 2)
         {
             update();
-            time = TextLabel(timeStr, "Star4000-Small", "#d7d7d7", 32, 1,  0.9f, 412, 33, 0);
-            ampm = TextLabel(timeAPStr, "Star4000-Small", "#d7d7d7", 32, 1,  0.9f, 575, 33, 2);
-            date = TextLabel(dateStr, "Star4000-Small", "#d7d7d7", 32, 1, 0.9f, 575, 53, 2);
         }
 
         void update();

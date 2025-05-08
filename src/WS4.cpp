@@ -16,23 +16,25 @@ using std::strftime;
 namespace ws4
 {
 
-    WS4::WS4()
+    WS4::WS4():
+        logo(textureMap["Logo"]),
+        LDL(" ")
     {
         // Setup vars
         char TITLE[] = "WS4 Build " __DATE__;
 
         // RenderWindow
-        window.create(sf::VideoMode(WIN_WIDTH*SCALE, WIN_HEIGHT*SCALE),
-                            TITLE, sf::Style::None); // sf::Style::Titlebar | sf::Style::Close
+        window.create(sf::VideoMode(sf::Vector2u(WIN_WIDTH * SCALE, WIN_HEIGHT * SCALE)),
+                      TITLE, sf::Style::None, sf::State::Windowed);
 
         window.setFramerateLimit(FPS);
         sf::VideoMode desktop = sf::VideoMode::getDesktopMode();
-        window.setPosition(sf::Vector2i(desktop.width/4 - WIN_WIDTH*SCALE/2,
-                                        desktop.height/4 - WIN_HEIGHT*SCALE/2));
+        window.setPosition(sf::Vector2i(desktop.size.x / 4 - WIN_WIDTH * SCALE / 2,
+                                        desktop.size.y / 4 - WIN_HEIGHT * SCALE / 2));
 
         // View settings for scaling 
-        view.setSize(sf::Vector2f(window.getSize().x/SCALE, window.getSize().y/SCALE));
-        view.setCenter(sf::Vector2f(view.getSize().x/2, view.getSize().y/2));
+        view.setSize(sf::Vector2f(window.getSize().x / SCALE, window.getSize().y / SCALE));
+        view.setCenter(sf::Vector2f(view.getSize().x / 2, view.getSize().y / 2));
         window.setView(view);
     }
 
@@ -74,8 +76,8 @@ namespace ws4
 
         if (showLogo)
         {
-            logo = sf::Sprite(textureMap["Logo"]);
-            logo.setPosition(sf::Vector2f(45.f, 24.f));
+            logo = sf::Sprite(textureMap["Logo"]); // re-load
+            logo.setPosition(sf::Vector2f(44.f, 23.f));
         }
     }
 
@@ -203,28 +205,27 @@ namespace ws4
         while (window.isOpen())
         {
             // EVENTS
-            sf::Event event{};
-            while (window.pollEvent(event))
+            while (const std::optional event = window.pollEvent())
             {
-                if (event.type == sf::Event::Closed)
+                if (event->is<sf::Event::Closed>())
                     window.close();
 
-                if (event.type == sf::Event::KeyPressed)
+                if (const auto* keyPressed = event->getIf<sf::Event::KeyPressed>())
                 {
-                    switch(event.key.code)
+                    switch(keyPressed->scancode)
                     {
-                        case sf::Keyboard::Escape:
-                        case sf::Keyboard::Q:
-                        case sf::Keyboard::Space:
+                        case sf::Keyboard::Scancode::Escape:
+                        case sf::Keyboard::Scancode::Q:
+                        case sf::Keyboard::Scancode::Space:
                             window.close(); 
                             break;
-                        case sf::Keyboard::P:
+                        case sf::Keyboard::Scancode::P:
                             nextScreen();
                             break;
-                        case sf::Keyboard::O:
+                        case sf::Keyboard::Scancode::O:
                             prevScreen();
                             break;
-                        case sf::Keyboard::S:
+                        case sf::Keyboard::Scancode::S:
                             changeSong();
                             break;
                         default:

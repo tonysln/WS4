@@ -5,9 +5,9 @@
 
 namespace ws4
 {
-    TextLabel::TextLabel(string text, string fontName, string colorName, int charSize, int shLevel, float spacing, int x, int y, short dir)
+        TextLabel::TextLabel(string text, string fontName, string colorName, int charSize, int shLevel, float spacing, int x, int y, short dir):
+        label(fontMap[fontName], toUtf8String(text), charSize * scaleFactor)
     {
-        label = sf::Text(toUtf8String(text), fontMap[fontName], charSize * scaleFactor);
         label.setFillColor(colorMap[std::move(colorName)]);
         label.setPosition(sf::Vector2f(x, y));
         label.setOutlineColor(colorMap["#0e0e0e"]);
@@ -25,9 +25,9 @@ namespace ws4
 
 
         shadowLevel = shLevel;
-        for (int i = 0; i <= shadowLevel; i++)
+        for (int i = 0; i < shadowLevel; i++)
         {
-            sf::Text shadow(toUtf8String(text), fontMap[fontName], charSize * scaleFactor);
+            sf::Text shadow(fontMap[fontName], toUtf8String(text), charSize * scaleFactor);
             shadow.setFillColor(colorMap["#0e0e0e"]);
             shadow.setPosition(sf::Vector2f(x + shadowLevel, y + shadowLevel));
             shadow.setOutlineColor(colorMap["#0e0e0e"]);
@@ -38,9 +38,9 @@ namespace ws4
 
             alignLeft(shadow, i-shadowLevel+2);
             if (dir > 1)
-                alignRight(shadow, shadowLevel);
+                alignRight(shadow, i-shadowLevel);
             else if (dir > 0)
-                alignCenter(shadow, shadowLevel);
+                alignCenter(shadow, i-shadowLevel);
 
             shadowVec.push_back(shadow);
         }
@@ -48,7 +48,7 @@ namespace ws4
 
     void TextLabel::alignRight(sf::Text &lbl, int offset)
     {
-        sf::Vector2f orig(lbl.getLocalBounds().width + offset, 0);
+        sf::Vector2f orig(lbl.getLocalBounds().size.x + offset, 0);
         lbl.setOrigin(orig);
     }
 
@@ -60,7 +60,7 @@ namespace ws4
 
     void TextLabel::alignCenter(sf::Text &lbl, int offset)
     {
-        sf::Vector2f orig(lbl.getLocalBounds().width / 2 + offset, 0);
+        sf::Vector2f orig(lbl.getLocalBounds().size.x / 2 + offset, 0);
         lbl.setOrigin(orig);
     }
 
@@ -68,7 +68,7 @@ namespace ws4
     void TextLabel::setPos(float x, float y)
     {
         label.setPosition(sf::Vector2f(x, y));
-        for (int i = 0; i <= shadowLevel; ++i)
+        for (int i = 0; i < shadowLevel; ++i)
         {
             shadowVec.at(i).setPosition(sf::Vector2f(x + shadowLevel, y + shadowLevel));
         }
@@ -118,12 +118,12 @@ namespace ws4
 
     float TextLabel::getWidth()
     {
-        return label.getGlobalBounds().width;
+        return label.getGlobalBounds().size.x;
     }
 
     float TextLabel::getHeight()
     {
-        return label.getGlobalBounds().height;
+        return label.getGlobalBounds().size.y;
     }
 
 

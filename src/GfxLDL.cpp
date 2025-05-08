@@ -7,16 +7,16 @@
 
 namespace ws4
 {
-    GfxLDL::GfxLDL(string text)
-    {
-        vertexObjs = 
+    GfxLDL::GfxLDL(const string& text):
+    textLabel("", "Star4000", "#d7d7d7", 30, 1, 1.0f, x, y, 0) {
+        vertexObjs =
         {
             buildQuad(0, 399, 640, 81, "#141414"),
             buildQuad(0, 400, 640, 80, "#afafaf"),
             buildQuad(0, 402, 640, 78, "#233270")
         };
 
-        textLabel = TextLabel("", "Star4000", "#d7d7d7", 30, 1, 1.0f, x, y, 0);
+        // textLabel = TextLabel();
         setText(text);
     }
 

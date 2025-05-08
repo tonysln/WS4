@@ -33,8 +33,8 @@ Supported platforms: Linux, macOS, ... Windows(?)
 
 | Library Name  | Version    |
 | ------------- |------------|
-| G++           | \>= 11     |
-| SFML          | \>= 2.6.0  |
+| G++           | \>= 14     |
+| SFML          | \>= 3.0.0  |
 | libcurl       | \>= 7.58.0 |
 
 

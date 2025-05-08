@@ -26,7 +26,8 @@ namespace ws4
         vector<TextLabel> staticText;
         vector<AnimIcon> icons;
         vector<MapCity> cities;
-        sf::Sprite map;
+        sf::Texture texture = sf::Texture(sf::Vector2u(640, 308));
+        sf::Sprite map = sf::Sprite(texture);
         bool mapScr = false;
 
 
@@ -44,7 +45,8 @@ namespace ws4
             staticText = std::move(st);
         }
 
-        GfxScreen() {}
+        GfxScreen()
+        {}
 
         void updateText(const vector<string>& newText);
         void updateIcons();

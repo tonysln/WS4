@@ -16,20 +16,19 @@ namespace ws4
 {
     class TextLabel
     {
-        sf::Text label;
-        vector<sf::Text> shadowVec;
-
         // 0 - None, 1 - A bit larger than outline, 2.. 3..
         int shadowLevel = 1;
-        double scaleFactor = 0.67;
+        double scaleFactor = 1.0;
         int dir = 0;
-        sf::Vector2f scale = sf::Vector2f(1.5f, 1.5f);
-        
+        sf::Vector2f scale = sf::Vector2f(1.0f, 1.0f);
+
+        sf::Text label;
+        vector<sf::Text> shadowVec;
         
     public:
         TextLabel(string text, string fontName, string colorName, int charSize, int shLevel,
                         float spacing, int x, int y, short dir);
-        TextLabel() = default;
+        TextLabel() = delete;
 
         void renderTo(sf::RenderWindow &window);
         void updateText(const string& text);

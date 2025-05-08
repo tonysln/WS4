@@ -12,10 +12,12 @@ namespace ws4
     {
         array<sf::Vertex, 4> quad = 
         {
-            sf::Vertex(sf::Vector2f(x+w, y), col1),
-            sf::Vertex(sf::Vector2f(x, y), col1),
-            sf::Vertex(sf::Vector2f(x+w, y+h), col2),
-            sf::Vertex(sf::Vector2f(x, y+h), col2)
+            {
+                {sf::Vector2f(x+w, y), col1},
+                {sf::Vector2f(x, y), col1},
+                {sf::Vector2f(x+w, y+h), col2},
+                {sf::Vector2f(x, y+h), col2}
+            }
         };
         return quad;
     }
@@ -32,11 +34,12 @@ namespace ws4
     {
         array<sf::Vertex, 4> quad = 
         {
-            sf::Vertex(sf::Vector2f(x4, y4), col),
-            sf::Vertex(sf::Vector2f(x1, y1), col),
-            sf::Vertex(sf::Vector2f(x3, y3), col),
-            sf::Vertex(sf::Vector2f(x2, y2), col)
-        };
+            {
+                {sf::Vector2f(x4, y4), col},
+                {sf::Vector2f(x1, y1), col},
+                {sf::Vector2f(x3, y3), col},
+                {sf::Vector2f(x2, y2), col}
+            }};
         return quad;
     }
 
@@ -75,15 +78,15 @@ namespace ws4
     {
         map<string, sf::Font> fM;
 
-        if(!fM["Star4000"].loadFromFile("../fonts/Star4000.ttf"))
+        if(!fM["Star4000"].openFromFile("../fonts/Star4000.ttf"))
             return fM;
-        if(!fM["Star4000-Extended"].loadFromFile("../fonts/Star4000-Extended.ttf"))
+        if(!fM["Star4000-Extended"].openFromFile("../fonts/Star4000-Extended.ttf"))
             return fM;
-        if(!fM["Star4000-Large"].loadFromFile("../fonts/Star4000-Large.ttf"))
+        if(!fM["Star4000-Large"].openFromFile("../fonts/Star4000-Large.ttf"))
             return fM;
-        if(!fM["Star4000-Large-Compressed"].loadFromFile("../fonts/Star4000-Large-Compressed.ttf"))
+        if(!fM["Star4000-Large-Compressed"].openFromFile("../fonts/Star4000-Large-Compressed.ttf"))
             return fM;
-        if(!fM["Star4000-Small"].loadFromFile("../fonts/Star4000-Small.ttf"))
+        if(!fM["Star4000-Small"].openFromFile("../fonts/Star4000-Small.ttf"))
             return fM;
 
         return fM;

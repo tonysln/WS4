@@ -12,9 +12,9 @@ namespace ws4
         strftime(timeAPStr, sizeof(timeAPStr), "%p", localtime(&epoch));
         strftime(dateStr, sizeof(dateStr), "%a %b %e", localtime(&epoch)); // %e is space-padded
 
-        time.updateTextInPlace(timeStr);
-        ampm.updateTextInPlace(timeAPStr);
-        date.updateTextInPlace(dateStr);
+        time.updateText(timeStr);
+        ampm.updateText(timeAPStr);
+        date.updateText(dateStr);
     }
 
 

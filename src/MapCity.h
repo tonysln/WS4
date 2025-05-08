@@ -16,17 +16,17 @@ namespace ws4
 
     class MapCity
     {
-        AnimIcon icon;
-        TextLabel name;
-        TextLabel temp;
         int x = 0;
         int y = 0;
+        TextLabel name;
+        TextLabel temp;
+        AnimIcon icon;
 
     public:
         MapCity(string nameText, string tempText, string xs, string ys, sf::Texture &icoTxt, vector<int> icoPos);
-        MapCity() = default;
+        MapCity() = delete;
 
-        void updateTemp(string newTemp);
+        void updateTemp(const string& newTemp);
         void updateIcon();
         void switchFrames(int iconFrame);
         void renderTo(sf::RenderWindow &window);

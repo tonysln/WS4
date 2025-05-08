@@ -67,7 +67,7 @@ namespace ws4
         vector<GfxScreen> screens;
         vector<MapCity> regMapCities;
         vector<MapCity> forcMapCities;
-        bool showLogo = false;
+        bool showLogo = true;
         sf::Sprite logo;
         GfxClock clock;
         GfxLDL LDL;
